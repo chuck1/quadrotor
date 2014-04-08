@@ -1,0 +1,18 @@
+#IncludeRegexLine: ^[ 	]*#[ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+/home/charles/Programming/C++/c-samples/quad/Quad/src/quadrotor/array.cpp
+cstdio
+-
+math/vec3.h
+-
+math/vec4.h
+-
+math/quat.h
+-
+

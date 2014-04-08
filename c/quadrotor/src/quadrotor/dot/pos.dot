@@ -1,0 +1,32 @@
+
+digraph G {
+	
+	junc1 [label="", shape="circle"]
+	junc2 [label="", shape="circle"]
+	
+	
+	position -> brain_2 [label="a_ref"]
+	
+	brain_2 -> junc2 [label="q_ref"]
+	telem -> junc2 [label="q"]
+	junc2 -> attitude [label="e"]
+	
+	brain_2 -> step_motor_speed [label="thrust"]
+	
+	attitude -> step_motor_speed [label="torque"]
+	
+	step_motor_speed -> plant [label="gamma"]
+
+	plant -> telem [label="x,q"]
+	
+	
+	user -> junc1 [label="x_ref"]
+	telem -> junc1 [label="x"]
+	
+	
+	
+	junc1 -> position [label="e"]
+
+
+}
+

@@ -1,0 +1,103 @@
+\subsection{Rotation}
+
+\[
+\mathbf{I} \dot{\boldsymbol\omega}
+= \tau - \boldsymbol\omega \times \left( \mathbf{I} \boldsymbol\omega \right)
+\]
+
+\[
+\dot{\boldsymbol\omega}
+= \mathbf{I}^{-1} \left( \boldsymbol\tau - \boldsymbol\omega \times \left( \mathbf{I} \boldsymbol\omega \right) \right)
+\]
+
+\[
+I =
+\begin{bmatrix}
+I_{xx} & 0 & 0 \\
+0 & I_{yy} & 0 \\
+0 & 0 & I_{zz}
+\end{bmatrix}
+\]
+
+\[
+\boldsymbol\tau_B =
+\begin{bmatrix}
+Lk \left( \gamma_1 - \gamma_3 \right) \\
+Lk \left( \gamma_2 - \gamma_4 \right) \\
+b \left( \gamma_1 - \gamma_2 + \gamma_3 - \gamma_4 \right)
+\end{bmatrix}
+=
+\begin{bmatrix}
+Lk & 0  & -Lk & 0 \\
+0  & Lk & 0   & -Lk \\
+b  & -b & b   & -b
+\end{bmatrix}
+\begin{bmatrix}
+\gamma_1 \\ \gamma_2 \\ \gamma_3 \\ \gamma_4
+\end{bmatrix}
+\]
+
+\subsubsection{Quaternion}
+
+\[
+\dot{\mathbf{q}} = \mathbf{A}_3 \boldsymbol\omega
+\]
+
+\[
+\ddot{\mathbf{q}} = \dot{\mathbf{A}}_3 \boldsymbol\omega + \mathbf{A}_3 \dot{\boldsymbol\omega}
+\]
+
+\[
+\ddot{\mathbf{q}}
+= \dot{\mathbf{A}}_3 \boldsymbol\omega
++ \mathbf{A}_3 \mathbf{I}^{-1} \left( \boldsymbol\tau - \boldsymbol\omega \times \left( \mathbf{I} \boldsymbol\omega \right) \right)
+\]
+
+\subsubsection{Euler}
+
+\[
+\boldsymbol\omega
+=
+\begin{bmatrix}
+1 & 0		& -s_{\boldsymbol\theta} \\
+0 & c_{\phi}	& c_{\boldsymbol\theta} s_{\phi} \\
+0 & -s_{\phi}	& c_{\boldsymbol\theta} s_{\phi}
+\end{bmatrix}
+\dot{\boldsymbol\theta} 
+= \mathbf{A}_5^{-1} \dot{\boldsymbol\theta}
+\]
+
+\[
+\dot{\boldsymbol\theta} = \mathbf{A}_5 \boldsymbol\omega
+\]
+
+\[
+\ddot{\boldsymbol\theta} = \dot{\mathbf{A}}_5 \boldsymbol\omega + \mathbf{A}_5 \dot{\boldsymbol\omega}
+\]
+
+\[
+\ddot{\boldsymbol\theta}
+= \dot{\mathbf{A}}_5 \boldsymbol\omega
++ \mathbf{A}_5 \left(
+	\mathbf{I}^{-1} \left( \boldsymbol\tau - \boldsymbol\omega \times \left( \mathbf{I} \boldsymbol\omega \right) \right)
+\right)
+\]
+
+\begin{equation}
+\ddot{\boldsymbol\theta} =
+\mathbf{S}^{-1} \left(
+	\mathbf{I}^{-1} \left( \boldsymbol\tau - \boldsymbol\omega \times \left( I \boldsymbol\omega \right) \right)
+	- \dot{\mathbf{S}} \dot{\boldsymbol\theta}
+\right)
+\label{eq:eom_theta}
+\end{equation}
+
+
+
+
+
+
+
+
+
+

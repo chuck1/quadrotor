@@ -1,0 +1,2 @@
+/usr/bin/ar cr libquadrotor.a  CMakeFiles/quadrotor.dir/src/quadrotor/array.cpp.o CMakeFiles/quadrotor.dir/src/quadrotor/attitude.cpp.o CMakeFiles/quadrotor.dir/src/quadrotor/brain.cpp.o CMakeFiles/quadrotor.dir/src/quadrotor/command.cpp.o CMakeFiles/quadrotor.dir/src/quadrotor/plant.cpp.o CMakeFiles/quadrotor.dir/src/quadrotor/position.cpp.o CMakeFiles/quadrotor.dir/src/quadrotor/quadrotor.cpp.o CMakeFiles/quadrotor.dir/src/quadrotor/telem.cpp.o CMakeFiles/quadrotor.dir/src/quadrotor/fda.cpp.o
+/usr/bin/ranlib libquadrotor.a

@@ -1,0 +1,11 @@
+/home/charles/usr/lib/libquadrotor.a
+/home/charles/usr/include/quadrotor/array.h
+/home/charles/usr/include/quadrotor/attitude.h
+/home/charles/usr/include/quadrotor/except.h
+/home/charles/usr/include/quadrotor/quadrotor.h
+/home/charles/usr/include/quadrotor/brain.h
+/home/charles/usr/include/quadrotor/plant.h
+/home/charles/usr/include/quadrotor/position.h
+/home/charles/usr/include/quadrotor/fda.h
+/home/charles/usr/include/quadrotor/command.h
+/home/charles/usr/include/quadrotor/telem.h

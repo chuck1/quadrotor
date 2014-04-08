@@ -1,0 +1,1 @@
+/home/charles/Programming/C++/c-samples/quad/Quad/CMakeFiles/quadrotor.dir
