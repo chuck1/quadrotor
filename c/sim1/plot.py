@@ -94,9 +94,9 @@ def size(f):
 	f.seek(old_file_position, os.SEEK_SET)
 	return size
 
-with open("pos.txt","rb") as f:
+with open("data/pos.txt","rb") as f:
 	
-	types = 8*3 + 2*1
+	types = (12)*3 + 2*1
 
 	N = size(f)/(8 * types)
 	
@@ -105,31 +105,37 @@ with open("pos.txt","rb") as f:
 	e1		= read(f ,N, 3)
 	e2		= read(f ,N, 3)
 	e3		= read(f ,N, 3)
+	e4		= read(f ,N, 3)
 
 	x_ref		= read(f ,N, 3)
 	x_ref_d		= read(f ,N, 3)
 	x_ref_dd	= read(f ,N, 3)
+	x_ref_ddd	= read(f ,N, 3)
+	x_ref_dddd	= read(f ,N, 3)
 
 	a		= read(f ,N, 3)
-	i		= read(f ,N, 3)
+	jerk		= read(f ,N, 3)
+	jounce		= read(f ,N, 3)
 
 	e1_mag_d	= read(f, N, 1)
 	e1_mag_dd	= read(f, N, 1)
 
 
-with open("att.txt","rb") as f:
-	types = 5*3
+with open("data/att.txt","rb") as f:
+	types = 3*3 + (2)*4
 	N = size(f)/(8 * types)
 
 	print N
 	
-	att_e3		= read(f ,N, 3)
-	q_ref		= read(f ,N, 3)
+	att_e3		= read(f ,N, 4)
+	
+	q_ref		= read(f ,N, 4)
 	q_ref_d		= read(f ,N, 3)
 	q_ref_dd	= read(f ,N, 3)
+	
 	tau_RB		= read(f ,N, 3)
 
-with open("plant.txt","rb") as f:
+with open("data/plant.txt","rb") as f:
 	
 	types = 2*4 + 2*3 + 2*1
 	
@@ -146,7 +152,7 @@ with open("plant.txt","rb") as f:
 	gamma0		= read(f, N, 1)
 	gamma0_act	= read(f, N, 1)
 	
-with open("brain.txt","rb") as f:
+with open("data/brain.txt","rb") as f:
 	types = 1*1
 	N = size(f)/(types * 8)
 	print N
@@ -166,11 +172,17 @@ with open("data/telem.txt","rb") as f:
 
 t = np.arange(N) * 0.01
 
+plotv(t,[e1],'t','e1')
+#plotv(t,[e2],'t','e2')
+#plotv(t,[e3],'t','e3')
+#plotv(t,[e4],'t','e4')
+
+plotv(t,[x,x_ref],'t','x',['','_ref'],['-','--'])
+
+#plotv(t,[jounce], 't', 'jounce')
+
 """
 
-plotv(t,[e1],'t','e1')
-plotv(t,[e2],'t','e2')
-plotv(t,[e3],'t','e3')
 
 plotv(t,[o],'t','o')
 
@@ -183,7 +195,6 @@ plots(t,[thrust],'t','thrust')
 
 #plots(t,[e1_mag_d],'t','e1_mag_d')
 #plots(t,[e1_mag_dd],'t','e1_mag_dd')
-plotv(t,[x,x_ref],'t','x',['','_ref'],['-','--'])
 plotv(t,[x_ref_d],'t','x_ref_d')
 plotv(t,[x_ref_dd],'t','x_ref_dd')
 #plotv(t,[f_R],'t','f_R')
@@ -195,7 +206,7 @@ plotv(t,[q_ref_dd],'t','q_ref_dd')
 #plotv(t,[tau_RB],'t','tau_RB')
 """
 
-plotv(t,[q[:,1:4]],'t','q')
+#plotv(t,[q[:,1:4]],'t','q')
 
 #plotv(t,[gamma1,gamma1_act],'t','gamma',	['','_act'],['-','--'])
 

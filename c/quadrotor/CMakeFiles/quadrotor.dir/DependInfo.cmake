@@ -4,15 +4,15 @@ SET(CMAKE_DEPENDS_LANGUAGES
   )
 # The set of files for implicit dependencies of each language:
 SET(CMAKE_DEPENDS_CHECK_CXX
-  "/home/charles/Programming/C++/c-samples/quad/Quad/src/quadrotor/array.cpp" "/home/charles/Programming/C++/c-samples/quad/Quad/CMakeFiles/quadrotor.dir/src/quadrotor/array.cpp.o"
-  "/home/charles/Programming/C++/c-samples/quad/Quad/src/quadrotor/attitude.cpp" "/home/charles/Programming/C++/c-samples/quad/Quad/CMakeFiles/quadrotor.dir/src/quadrotor/attitude.cpp.o"
-  "/home/charles/Programming/C++/c-samples/quad/Quad/src/quadrotor/brain.cpp" "/home/charles/Programming/C++/c-samples/quad/Quad/CMakeFiles/quadrotor.dir/src/quadrotor/brain.cpp.o"
-  "/home/charles/Programming/C++/c-samples/quad/Quad/src/quadrotor/command.cpp" "/home/charles/Programming/C++/c-samples/quad/Quad/CMakeFiles/quadrotor.dir/src/quadrotor/command.cpp.o"
-  "/home/charles/Programming/C++/c-samples/quad/Quad/src/quadrotor/fda.cpp" "/home/charles/Programming/C++/c-samples/quad/Quad/CMakeFiles/quadrotor.dir/src/quadrotor/fda.cpp.o"
-  "/home/charles/Programming/C++/c-samples/quad/Quad/src/quadrotor/plant.cpp" "/home/charles/Programming/C++/c-samples/quad/Quad/CMakeFiles/quadrotor.dir/src/quadrotor/plant.cpp.o"
-  "/home/charles/Programming/C++/c-samples/quad/Quad/src/quadrotor/position.cpp" "/home/charles/Programming/C++/c-samples/quad/Quad/CMakeFiles/quadrotor.dir/src/quadrotor/position.cpp.o"
-  "/home/charles/Programming/C++/c-samples/quad/Quad/src/quadrotor/quadrotor.cpp" "/home/charles/Programming/C++/c-samples/quad/Quad/CMakeFiles/quadrotor.dir/src/quadrotor/quadrotor.cpp.o"
-  "/home/charles/Programming/C++/c-samples/quad/Quad/src/quadrotor/telem.cpp" "/home/charles/Programming/C++/c-samples/quad/Quad/CMakeFiles/quadrotor.dir/src/quadrotor/telem.cpp.o"
+  "/home/charles/Programming/C++/quadrotor/c/quadrotor/src/quadrotor/array.cpp" "/home/charles/Programming/C++/quadrotor/c/quadrotor/CMakeFiles/quadrotor.dir/src/quadrotor/array.cpp.o"
+  "/home/charles/Programming/C++/quadrotor/c/quadrotor/src/quadrotor/attitude.cpp" "/home/charles/Programming/C++/quadrotor/c/quadrotor/CMakeFiles/quadrotor.dir/src/quadrotor/attitude.cpp.o"
+  "/home/charles/Programming/C++/quadrotor/c/quadrotor/src/quadrotor/brain.cpp" "/home/charles/Programming/C++/quadrotor/c/quadrotor/CMakeFiles/quadrotor.dir/src/quadrotor/brain.cpp.o"
+  "/home/charles/Programming/C++/quadrotor/c/quadrotor/src/quadrotor/command.cpp" "/home/charles/Programming/C++/quadrotor/c/quadrotor/CMakeFiles/quadrotor.dir/src/quadrotor/command.cpp.o"
+  "/home/charles/Programming/C++/quadrotor/c/quadrotor/src/quadrotor/fda.cpp" "/home/charles/Programming/C++/quadrotor/c/quadrotor/CMakeFiles/quadrotor.dir/src/quadrotor/fda.cpp.o"
+  "/home/charles/Programming/C++/quadrotor/c/quadrotor/src/quadrotor/plant.cpp" "/home/charles/Programming/C++/quadrotor/c/quadrotor/CMakeFiles/quadrotor.dir/src/quadrotor/plant.cpp.o"
+  "/home/charles/Programming/C++/quadrotor/c/quadrotor/src/quadrotor/position.cpp" "/home/charles/Programming/C++/quadrotor/c/quadrotor/CMakeFiles/quadrotor.dir/src/quadrotor/position.cpp.o"
+  "/home/charles/Programming/C++/quadrotor/c/quadrotor/src/quadrotor/quadrotor.cpp" "/home/charles/Programming/C++/quadrotor/c/quadrotor/CMakeFiles/quadrotor.dir/src/quadrotor/quadrotor.cpp.o"
+  "/home/charles/Programming/C++/quadrotor/c/quadrotor/src/quadrotor/telem.cpp" "/home/charles/Programming/C++/quadrotor/c/quadrotor/CMakeFiles/quadrotor.dir/src/quadrotor/telem.cpp.o"
   )
 SET(CMAKE_CXX_COMPILER_ID "GNU")
 

@@ -134,10 +134,8 @@ void Attitude::step_torque_rotor_body_att(int ti, int ti_0) {
 		C1_ * e1_[ti].getImaginaryPart() + 
 		C2_ * e2_[ti] + 
 		q_ref_dd_[ti];
-
-	tau_RB_[ti] = 
-		quad_->I_ * od + 
-		quad_->telem_->o_[ti].cross(quad_->I_ * quad_->telem_->o_[ti]);
+	
+	tau_RB_[ti] = quad_->angular_accel_to_torque(ti, od);
 }
 void Attitude::step_torque_rotor_body_vel(int ti, int ti_0) {
 
@@ -145,9 +143,7 @@ void Attitude::step_torque_rotor_body_vel(int ti, int ti_0) {
 		C2_ * e2_[ti] + 
 		o_ref_d_[ti];
 	
-	tau_RB_[ti] = 
-		quad_->I_ * od + 
-		quad_->telem_->o_[ti].cross(quad_->I_ * quad_->telem_->o_[ti]);
+	tau_RB_[ti] = quad_->angular_accel_to_torque(ti, od);
 
 	if(!tau_RB_[ti].isSane()) {
 		printf("e2\n");
@@ -167,12 +163,16 @@ void Attitude::step_torque_rotor_body(int ti, int ti_0) {
 			step_torque_rotor_body_vel(ti, ti_0);
 			break;
 		default:
-			throw InvalidOp(ti);
+			throw InvalidOp();
 			break;
 	}
 }
+void Attitude::step_torque_rotor_body(int ti, math::vec3 od) {
+
+	tau_RB_[ti] = quad_->angular_accel_to_torque(ti, od);
+}
 void Attitude::write(int n) {
-	FILE* file = fopen("att.txt","w");
+	FILE* file = fopen("data/att.txt","w");
 
 	n = (n > 0) ? (n) : (quad_->N_);
 /*
@@ -188,15 +188,17 @@ void Attitude::write(int n) {
 */	
 	
 	e1_.write(file, n);
+
 	q_ref_.write(file, n);
 	q_ref_d_.write(file, n);
 	q_ref_dd_.write(file, n);
+
 	tau_RB_.write(file, n);
 
 	fclose(file);
 }
 void Attitude::write_param() {
-	const char * name = "att_param.txt";
+	const char * name = "param/att_param.txt";
 
 	FILE* file = fopen(name,"w");
 
@@ -204,12 +206,12 @@ void Attitude::write_param() {
 		C1_.write(file);
 		C2_.write(file);
 
-		printf("read file %s\n",name);
+		printf("write file %s\n",name);
 	}
 	fclose(file);
 }
 void Attitude::read_param() {
-	const char * name = "att_param.txt";
+	const char * name = "param/att_param.txt";
 
 	FILE* file = fopen(name,"r");
 
@@ -217,11 +219,13 @@ void Attitude::read_param() {
 		C1_.read(file);
 		C2_.read(file);
 
-		printf("write file %s\n",name);
+		fclose(file);
+
+		printf("read file %s\n",name);
 	} else {
-		printf("no file\n");
+		printf("no file %s\n", name);
 	}
-	fclose(file);
+	
 }
 
 

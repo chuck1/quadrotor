@@ -16,11 +16,15 @@ class Position {
 		void		fill_xref(int ti1, math::vec3 x);
 		void		fill_xref_parametric(int ti1, math::vec3 (*f)(double));
 
+		void		set_poles(double*, double);
+
 		void		step(double dt, int ti, int ti_0);
 
 		void		step_accel(double dt, int ti, int ti_0);
-		void		step_impulse(double dt, int ti, int ti_0);
+		void		step_jerk(double dt, int ti, int ti_0);
+		void		step_jounce(double dt, int ti, int ti_0);
 
+		void		check_command(int);
 
 		void		set_obj(int ti, Command::Position* pos);
 
@@ -39,10 +43,12 @@ class Position {
 		math::mat33		C2_;
 		math::mat33		C3_;
 		math::mat33		C4_;
+		math::mat33		C5_;
 
 		Array<math::vec3>	e1_;
 		Array<math::vec3>	e2_;
 		Array<math::vec3>	e3_;
+		Array<math::vec3>	e4_;
 
 		Array<math::vec3>	chi_;
 
@@ -54,10 +60,12 @@ class Position {
 		Array<math::vec3>	x_ref_d_;
 		Array<math::vec3>	x_ref_dd_;
 		Array<math::vec3>	x_ref_ddd_;
-		
+		Array<math::vec3>	x_ref_dddd_;
+
 		Array<math::vec3>	a_;
-		Array<math::vec3>	i_;
-		
+		Array<math::vec3>	jerk_;
+		Array<math::vec3>	jounce_;
+
 		
 		
 		unsigned int	flag_;

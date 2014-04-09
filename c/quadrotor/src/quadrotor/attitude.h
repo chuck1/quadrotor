@@ -31,6 +31,8 @@ class Attitude {
 		void		set_o_reference(int ti, math::vec3 o);
 		void		set_o_reference(int ti, double, double, double);
 
+		
+
 		void		set_obj(int ti1, Command::Orient* att);
 
 		void		step(double dt, int ti, int ti_0);
@@ -38,7 +40,9 @@ class Attitude {
 		void		step_torque_rotor_body(int ti, int ti_0);
 		void		step_torque_rotor_body_att(int ti, int ti_0);
 		void		step_torque_rotor_body_vel(int ti, int ti_0);
-		
+		void		step_torque_rotor_body(int, math::vec3);
+
+
 		void		write(int n = 0);
 		void		write_param();
 		void		read_param();

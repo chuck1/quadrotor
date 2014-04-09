@@ -77,25 +77,27 @@ void Quadrotor::reset() {
 }
 void Quadrotor::run() {
 
-	for(int ti = 1; ti < ti_stop_; ti++) {
+	//printf("dt %f\n", dt_);
 
+	for(int ti = 1; ti < ti_stop_; ti++) {
+		
 		if ((ti % (N_ / 100)) == 0) {
 			//printf("%i %f\n",ti,t[ti]);
 		}
-
+		
 		try {
-			brain_->step(dt_, ti-1);
+			brain_->step(ti-1, dt_);
 			plant_->step(ti);
-			telem_->step(ti);
+			telem_->step(ti, dt_);
 		}
 		catch(EmptyQueue &e) {
-			printf("empty queue ti=%i\n",e.ti_);
-			ti_f_ = e.ti_;
+			printf("empty queue ti\n");
+			ti_f_ = ti;
 			break;
 		}
 		catch(StopCond &e) {
-			printf("%s\n", e.what());
-			ti_f_ = e.ti_;
+			//printf("%s\n", e.what());
+			ti_f_ = ti;
 			break;
 		}
 		catch(...) {
@@ -105,7 +107,13 @@ void Quadrotor::run() {
 		}
 	}
 }
+math::vec3 Quadrotor::angular_accel_to_torque(int ti, math::vec3 od) {
+	math::vec3 torque = 
+		I_ * od + 
+		telem_->o_[ti].cross(I_ * telem_->o_[ti]);
 
+	return torque;
+}
 void Quadrotor::write() {
 	brain_->write(ti_f_);
 	brain_->pos_->write(ti_f_);

@@ -13,7 +13,10 @@
 
 
 math::vec3 sinewave(double t) {
-	return math::vec3(sin(t * 4.0 / M_PI),t,0.0);
+	
+	double per = 15.0;
+	
+	return math::vec3(sin(t * 2.0 * M_PI / per), t, 0.0);
 }
 
 void set_coeff(double* center, double* length, int choices, int repeat, double* coeff) {
@@ -28,13 +31,17 @@ void set_coeff(double* center, double* length, int choices, int repeat, double* 
 void reset_quadrotor(Quadrotor* r, double* C) {
 	r->reset();
 	
-
-	r->brain_->pos_->C1_.SetDiagonal(C[0], C[0], C[0]);
-	r->brain_->pos_->C2_.SetDiagonal(C[1], C[1], C[1]);
+/*
+	r->brain_->pos_->C1_.SetDiagonal(C[4], C[4], C[4]);
+	r->brain_->pos_->C2_.SetDiagonal(C[0], C[0], C[0]);
+	r->brain_->pos_->C3_.SetDiagonal(C[1], C[1], C[1]);
 	r->brain_->pos_->C4_.SetDiagonal(C[2], C[2], C[2]);
+	r->brain_->pos_->C5_.SetDiagonal(C[3], C[3], C[3]);
+*/
+	r->brain_->pos_->set_poles(C,1.0);
 
-	r->brain_->att_->C1_.SetDiagonal(C[3], C[3], C[3]);
-	r->brain_->att_->C2_.SetDiagonal(C[4], C[4], C[4]);
+	//r->brain_->att_->C1_.SetDiagonal(C[3], C[3], C[3]);
+	//r->brain_->att_->C2_.SetDiagonal(C[4], C[4], C[4]);
 
 	r->brain_->objs_.push_back(
 			new Command::Move(math::vec3(1,0,0), math::vec3(0.01,0.01,0.01))
@@ -116,11 +123,11 @@ void map() {
 	
 
 	double dt = 0.01;
-	int N = 10000;
+	int N = 100000;
 	Quadrotor* r = new Quadrotor(dt, N);
 	
-	int choices = 5;
-	int repeat = 5;
+	int choices = 11;
+	int repeat = 4;
 	//int len = pow(choices, repeat);
 	
 	product(choices, repeat, arr);
@@ -128,8 +135,8 @@ void map() {
 	//double center[] = {10.0,  3.0,  7.0,  3.0};
 	//double length[] = { 9.9,  2.9,  6.9,  2.9};
 	
-	double center[] = {10.0,  10.0,  10.0,  10.0, 10.0};
-	double length[] = {9.9,  9.9,  9.9,  9.9, 9.9};
+	double center[] = {-0.5,  -0.5,  -0.5,  -0.5};
+	double length[] = { 0.5,   0.5,   0.5,   0.5};
 	
 	double* coeff = new double[choices * repeat];
 	
@@ -171,13 +178,22 @@ void normal(int N) {
 
 	Quadrotor* r = new Quadrotor(dt, N);
 
-	r->brain_->pos_->read_param();
-	r->brain_->att_->read_param();
+	//r->brain_->pos_->read_param();
+	//r->brain_->att_->read_param();
 	
+	double poles[] = {
+		-4.0,
+		-2.0,
+		-2.0,
+		-0.5};
+
+	r->brain_->pos_->set_poles(poles, 10.0);
+
 	//r->brain_->objs_.push_back(new Command::Move(math::vec3(1,0,0)));
-	r->brain_->objs_.push_back(new Command::Move(math::vec3(5,0,0), math::vec3(0.01,0.01,0.01)));
+	//r->brain_->objs_.push_back(new Command::Move(math::vec3(0.01,0,0)));
+	//r->brain_->objs_.push_back(new Command::Move(math::vec3(1,0,0), math::vec3(0.01,0.01,0.01)));
 	//r->brain_->objs_.push_back(new Command::Move(math::vec3(1,1,0), math::vec3(0.01,0.01,0.01)));
-	//r->brain_->objs_.push_back(new Command::Path(sinewave));
+	r->brain_->objs_.push_back(new Command::Path(sinewave));
 	
 	r->run();
 
@@ -196,7 +212,7 @@ int main(int argc, const char ** argv) {
 	}
 
 	if(strcmp(argv[1],"n")==0) {
-		normal(2000);
+		normal(10000);
 	} else if(strcmp(argv[1],"m")==0) {
 		map();
 	} else {

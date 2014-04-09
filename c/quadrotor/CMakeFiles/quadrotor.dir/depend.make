@@ -25,8 +25,11 @@ CMakeFiles/quadrotor.dir/src/quadrotor/brain.cpp.o: src/quadrotor/quadrotor.h
 CMakeFiles/quadrotor.dir/src/quadrotor/brain.cpp.o: src/quadrotor/telem.h
 
 CMakeFiles/quadrotor.dir/src/quadrotor/command.cpp.o: src/quadrotor/command.cpp
+CMakeFiles/quadrotor.dir/src/quadrotor/command.cpp.o: src/quadrotor/command.h
 
 CMakeFiles/quadrotor.dir/src/quadrotor/fda.cpp.o: src/quadrotor/fda.cpp
+CMakeFiles/quadrotor.dir/src/quadrotor/fda.cpp.o: src/quadrotor/array.h
+CMakeFiles/quadrotor.dir/src/quadrotor/fda.cpp.o: src/quadrotor/fda.h
 
 CMakeFiles/quadrotor.dir/src/quadrotor/plant.cpp.o: src/quadrotor/plant.cpp
 CMakeFiles/quadrotor.dir/src/quadrotor/plant.cpp.o: src/quadrotor/array.h

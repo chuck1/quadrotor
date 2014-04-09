@@ -22,9 +22,10 @@ class Brain {
 	public:
 		struct Mode {
 			enum e {
+				NONE = 0,
 				ACCEL,
-				IMPULSE,
-				NONE
+				JERK,
+				JOUNCE
 			};
 		};
 
@@ -38,10 +39,11 @@ class Brain {
 		void		control_law_position(double dt, int ti, int ti_0);
 		void		control_law_3(double dt, int ti, int ti_0);
 		
-		void		step(double dt, int ti);
+		void		step(int ti, double dt);
 	
 		void		step_accel(int ti);
-		void		step_impulse(double dt, int ti);
+		void		step_jerk(int ti, double dt);
+		void		step_jounce(int ti, double dt);
 
 		void		step_motor_speed(int ti);
 
@@ -64,6 +66,7 @@ class Brain {
 		Array<math::vec3>	a_RB_;
 
 		Array<double>		thrust_;
+		Array<double>		thrust_d_;
 
 		double		heading_;
 

@@ -15,10 +15,13 @@ void product(int choices, int repeat, int*& arr, int level = 0);
 class Quadrotor {
 	public:
 		Quadrotor(double dt, int N);
-		void	reset();
-		void	run();
-		void	write();
-		void	write_param();
+		void		reset();
+		void		run();
+		
+		math::vec3	angular_accel_to_torque(int, math::vec3);
+
+		void		write();
+		void		write_param();
 	public:
 		// physical constants
 		double		m_, L_, R_, Asw_, rho_, CD_, A_;

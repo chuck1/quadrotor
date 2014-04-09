@@ -113,6 +113,12 @@ void Plant::step_rotor_body(int ti) {
 		gamma1.print();
 		throw;
 	}
+	if(!f_RB_[ti].isSane()) {
+		printf("gamma0 %f\n", gamma0);
+		printf("f_RB\n");
+		f_RB_[ti].print();
+		throw;
+	}
 }
 math::vec3 Plant::get_force_drag_body(int ti) {
 	return math::vec3();
@@ -127,7 +133,9 @@ math::vec3 Plant::get_force(int ti) {
 	//if (f_B.isNan()) raise ValueError("f_B nan");
 
 	math::vec3 f = quad_->telem_->q_[ti].getConjugate().rotate(f_B);
-
+	
+	
+	
 		/*
 		   ver = False
 		   if ver:	
@@ -154,14 +162,16 @@ void Plant::step(int ti) {
 	a_[ti] = quad_->gravity_ + f / quad_->m_;
 }
 void Plant::write(int n) {
-	FILE* file = fopen("plant.txt","w");
+	FILE* file = fopen("data/plant.txt","w");
 	
 	n = (n > 0) ? (n) : (quad_->N_);
 	
 	gamma1_.write(file, n);
 	gamma1_act_.write(file, n);
+
 	tau_RB_.write(file, n);
 	f_RB_.write(file, n);
+
 	gamma0_.write(file, n);
 	gamma0_act_.write(file, n);
 

@@ -1,11 +1,12 @@
 #include <deque>
 
+#include <quadrotor/array.h>
 #include <quadrotor/attitude.h>
 #include <quadrotor/command.h>
 #include <quadrotor/position.h>
 
 Brain::Brain(Quadrotor* quad):
-	mode_(Brain::Mode::e::IMPULSE),
+	mode_(Brain::Mode::e::JOUNCE),
 	quad_(quad)
 {
 	pos_ = new Position(quad);
@@ -18,8 +19,11 @@ Brain::Brain(Quadrotor* quad):
 	f_R_.alloc(n);
 
 	thrust_.alloc(n);
+	thrust_d_.alloc(n);
 
 	obj_ = NULL;
+
+	thrust_.fill(quad_->m_ * quad_->gravity_.magnitude());
 }
 void Brain::reset() {
 	objs_.clear();
@@ -100,9 +104,9 @@ void Brain::step_accel(int ti) {
 	
 
 }
-void Brain::step_impulse(double dt, int ti) {
+void Brain::step_jerk(int ti, double dt) {
 	
-	math::vec3 tmp = quad_->telem_->q_[ti].rotate(pos_->i_[ti]);
+	math::vec3 tmp = quad_->telem_->q_[ti].rotate(pos_->jerk_[ti]);
 	
 	double i_RB = tmp.z;
 	
@@ -123,9 +127,57 @@ void Brain::step_impulse(double dt, int ti) {
 	}
 
 	att_->set_o_reference(ti, o);
-
-
 }
+void Brain::step_jounce(int ti, double dt) {
+	
+	math::vec3 tmp = quad_->telem_->q_[ti].rotate(pos_->jounce_[ti]);
+	
+	// thrust
+	
+	math::vec3& o = quad_->telem_->o_[ti-1];
+
+	thrust_[ti] = (tmp.z - (thrust_[ti-2] - 2.0 * thrust_[ti-1]) / dt / dt) / (1.0 / dt / dt - o.x * o.x - o.y * o.y);
+	
+	thrust_d_[ti] = (thrust_[ti] - thrust_[ti-1]) / dt;
+	
+	
+	if(isnan(thrust_[ti]) || isinf(thrust_[ti])) {
+		//printf("tmp\n");
+		//tmp.print();
+		//printf("dt %f\n", dt);
+		//printf("thrust %f\n", thrust_[ti]);
+		throw Inf();
+	}
+
+	// torque
+	
+	math::vec3 od;
+
+	if(thrust_[ti] > 0) {
+
+		od.y = (thrust_[ti] * o.x * o.z - 2.0 * thrust_d_[ti] * o.y - tmp.x) / thrust_[ti];
+
+		od.x = -(thrust_[ti] * o.y * o.z + 2.0 * thrust_d_[ti] * o.x - tmp.y) / thrust_[ti];
+	}
+
+	/*
+	if(thrust_[ti] > 0) {
+		o.x = tmp.y / thrust_[ti];
+		o.y = -tmp.x / thrust_[ti];
+	}
+*/
+
+	if(!o.isSane()) {
+		printf("tmp\n");
+		tmp.print();
+		throw;
+	}
+	
+	att_->step_torque_rotor_body(ti, od);
+	
+}
+
+
 void Brain::control_law_position(double dt, int ti, int ti_0) {
 	// position control
 
@@ -142,20 +194,28 @@ void Brain::control_law_position(double dt, int ti, int ti_0) {
 			att_->step_torque_rotor_body(ti, ti_0);
 
 			break;
-		case Brain::Mode::e::IMPULSE:
+		case Brain::Mode::e::JERK:
 			pos_->step(dt, ti, ti_0);
 
-			pos_->step_impulse(dt, ti, ti_0);
+			pos_->step_jerk(dt, ti, ti_0);
 
-			step_impulse(dt, ti);
+			step_jerk(dt, ti);
 
 			att_->step(dt, ti, ti_0);
 
 			att_->step_torque_rotor_body(ti, ti_0);
 
 			break;
+		case Brain::Mode::e::JOUNCE:
+			pos_->step(dt, ti, ti_0);
+		
+			pos_->step_jounce(dt, ti, ti_0);
+
+			step_jounce(ti, dt);
+
+			break;
 		default:
-			throw InvalidOp(ti);
+			throw InvalidOp();
 			break;
 	}
 
@@ -205,12 +265,18 @@ void Brain::control_law_3(double dt, int ti, int ti_0) {
 	step_motor_speed(ti);
 
 }	
-void Brain::step(double dt, int ti) {
+void Brain::step(int ti, double dt) {
+
+	const double unitTol = 1e-5;
+	if(dt < unitTol) {
+		printf("dt %f\n", dt);
+		throw;
+	}
 
 	if ((obj_ == NULL) || (obj_->flag_ & Command::Base::Flag::COMPLETE)) {
 
 		if(objs_.empty()) {
-			throw EmptyQueue(ti);
+			throw EmptyQueue();
 		}
 
 		//print 'new move'
@@ -252,7 +318,7 @@ void Brain::step(double dt, int ti) {
 	ti_0_++;
 }
 void Brain::write(int ti) {
-	const char * name = "brain.txt";
+	const char * name = "data/brain.txt";
 
 	FILE* file = fopen(name,"w");
 

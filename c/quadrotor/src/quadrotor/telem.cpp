@@ -21,14 +21,16 @@ Telem::Telem(Quadrotor* quad):
 	q_.alloc(n);
 	o_.alloc(n);
 	//a_.alloc(n);
+	jerk_.alloc(n);
+	
 
 	x_.alloc(n);
 	v_.alloc(n);
 	//al_.alloc(n);
 }
 
-void Telem::step(int ti) {
-	double dt = quad_->t_[ti] - quad_->t_[ti-1];
+void Telem::step(int ti, double dt) {
+	//double dt = quad_->t_[ti] - quad_->t_[ti-1];
 
 	// rotation
 	o_[ti] = o_[ti-1] + quad_->plant_->od_[ti] * dt;
@@ -66,6 +68,7 @@ void Telem::step(int ti) {
 	v_[ti] = v_[ti-1] + quad_->plant_->a_[ti] * dt;
 	x_[ti] = x_[ti-1] + v_[ti] * dt;
 	
+	jerk_[ti] = (quad_->plant_->a_[ti] - quad_->plant_->a_[ti-1]) / dt;
 }
 void Telem::write(int n) {
 	FILE* file = fopen("data/telem.txt","w");
