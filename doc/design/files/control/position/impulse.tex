@@ -1,0 +1,110 @@
+The position control law outputs net jerk in the inertial frame.
+
+\begin{align}\nonumber
+\V{j} = + &~ \mathbf{C}_{9} \boldsymbol\chi_5 \\\nonumber
++ &~ \mathbf{C}_{10} (\mathbf{x}_{ref} - \mathbf{x}) \\\nonumber
++ &~ \mathbf{C}_{11} (\dot{\mathbf{x}}_{ref} - \mathbf{v}) \\\nonumber
++ &~ \V{C}_{12} ( \Vdd{x}_{ref} - \V{a} ) \\\nonumber
++ &~ \Vddd{x}_{ref}
+\end{align}
+
+From this jerk, x- and y-components of angular velcity and rate of change of net thrust are calculated.
+
+Ignoring drag, the net force in the global frame is
+
+\[
+\V{f} = \V{f}_{g} + \V{f}_{R}
+\]
+
+Differentiate in time
+
+\[
+\Vd{f} = \Vd{f}_{R} = m \V{j}
+\]
+
+Rotor force in the inertial and body frame is related by
+
+\[
+\V{f}_R = \V{q}^* \V{f}_{RB} \V{q}
+\]
+
+Differentiate in time
+
+\[
+\Vd{f}_R = \V{q}^* \left( \Vd{f}_{RB} + \V{f}_{RB} \times \G{\omega} \right) \V{q}
+\]
+
+In our case
+
+\[
+\V{f}_{RB} = \begin{bmatrix} 0 \\ 0 \\ f_{RB} \end{bmatrix}
+\]
+
+and the above becomes
+
+\[
+\V{q} \Vd{f}_R \V{q}^* =
+\begin{bmatrix}
+-\omega_y f_{zRB} \\
+\omega_x f_{zRB} \\
+\dot{f}_{zRB}
+\end{bmatrix}
+\]
+
+The left side is known. First, the derivative of rotor force from the z-component is integrated to get rotor force for the current time step.
+
+\[
+f_{zRB}(t_i) = f_{zRB}(t_{i-1}) + \dot{f}_{zRB}
+\]
+
+The angular velocity components can then be calculated. These are the reference values for the second controller with outputs torque.
+
+\subsubsection{Time Derivative of quaternion rotation}
+
+In general, if q rotates from y to x frame
+
+\[
+\V{y} = \V{q}^* \V{x} \V{q}
+\]
+
+
+
+\[
+\Vd{y} = \Vd{q}^* \V{x} \V{q} + \V{q}^* \Vd{x} \V{q} + \V{q}^* \V{x} \Vd{q}
+\]
+
+\[
+\Vd{y} = \V{q}^* \G{\omega}^* \V{x} \V{q} + \V{q}^* \Vd{x} \V{q} + \V{q}^* \V{x} \G{\omega} \V{q}
+\]
+
+\[
+\Vd{y} = \V{q}^* \left( \G{\omega}^* \V{x} + \Vd{x} + \V{x} \G{\omega} \right) \V{q}
+\]
+
+\[
+\V{q} \Vd{y} \V{q}^* = \G{\omega}^* \V{x} + \Vd{x} + \V{x} \G{\omega}
+\]
+
+
+
+which leads to the simple result
+
+\[
+\G{\omega}^* \V{x} + \Vd{x} + \V{x} \G{\omega} = 
+\begin{bmatrix}
+0 \\
+- \omega_y a_{RB} \\
+\omega_x a_{RB} \\
+\dot{a}_{RB}
+\end{bmatrix}
+\]
+
+Notice that $\omega_z$ does not appear because it has no effect on the translation of the vehicle.
+In order to solve for $\omega_x$, $\omega_y$, and $a_{RB}$, we need a relationship between $a_{RB}$ and its derivative.
+For example, we could use forward differencing.
+
+
+
+
+
+

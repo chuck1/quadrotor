@@ -8,5 +8,4 @@
 \contentsline {subsection}{\numberline {2.1}Attitude}{3}{subsection.2.1}
 \contentsline {subsubsection}{\numberline {2.1.1}Quaternion}{3}{subsubsection.2.1.1}
 \contentsline {subsection}{\numberline {2.2}Position}{3}{subsection.2.2}
-\contentsline {subsection}{\numberline {2.3}Dynamics of Acceleration}{4}{subsection.2.3}
-\contentsline {subsubsection}{\numberline {2.3.1}Transfer Function}{5}{subsubsection.2.3.1}
+\contentsline {subsubsection}{\numberline {2.2.1}Time Derivative of quaternion rotation}{4}{subsubsection.2.2.1}

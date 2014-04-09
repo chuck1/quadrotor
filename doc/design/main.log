@@ -1,4 +1,4 @@
-This is pdfTeXk, Version 3.141592-1.40.3 (Web2C 7.5.6) (format=pdflatex 2013.10.28)  5 APR 2014 17:08
+This is pdfTeXk, Version 3.141592-1.40.3 (Web2C 7.5.6) (format=pdflatex 2013.10.28)  8 APR 2014 16:09
 entering extended mode
  %&-line parsing enabled.
 **files/main.tex
@@ -190,42 +190,32 @@ LaTeX Info: Redefining \pageref on input line 22.
 \tf@toc=\write5
 \openout5 = `main.toc'.
 
- (./main.nls) (./files/eom/eom.tex (./files/eom/translation.tex
-[1
+ (./main.nls) (./files/eom/eom.tex (./files/eom/translation.tex)
+(./files/eom/rotation.tex [1
 
-{/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map}])
-(./files/eom/rotation.tex)) (./files/control/control.tex
-(./files/control/attitude/attitude.tex (./files/control/attitude/quat.tex
-[2])) (./files/control/position/position.tex
-Overfull \hbox (9.5545pt too wide) detected at line 82
-\OT1/cmr/bx/n/10 F[] \OT1/cmr/m/n/10 = \OML/cmm/m/it/10 m []
- []
-
-[3]
-Overfull \hbox (3.90866pt too wide) detected at line 94
-\OT1/cmr/bx/n/10 F[] \OT1/cmr/m/n/10 = \OML/cmm/m/it/10 m []
- []
-
-[4] [5])) [6] (./main.aux) ) 
+{/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map}])) (./files/control/control
+.tex (./files/control/attitude/attitude.tex
+(./files/control/attitude/quat.tex [2])) (./files/control/position/position.tex
+(./files/control/position/impulse.tex [3]))) [4] (./main.aux) ) 
 Here is how much of TeX's memory you used:
- 2927 strings out of 256216
- 39097 string characters out of 1917071
+ 2926 strings out of 256216
+ 39132 string characters out of 1917071
  97124 words of memory out of 1500000
- 6172 multiletter control sequences out of 10000+200000
+ 6171 multiletter control sequences out of 10000+200000
  8061 words of font info for 29 fonts, out of 1200000 for 2000
  645 hyphenation exceptions out of 8191
- 27i,13n,36p,273b,342s stack positions out of 5000i,500n,6000p,200000b,15000s
-</usr/share/texmf/fonts/type1/bluesky/cm/cmbx10.pfb
-></usr/share/texmf/fonts/type1/bluesky/cm/cmbx12.pfb></usr/share/texmf/fonts/ty
-pe1/bluesky/cm/cmex10.pfb></usr/share/texmf/fonts/type1/bluesky/cm/cmmi10.pfb><
-/usr/share/texmf/fonts/type1/bluesky/cm/cmmi7.pfb></usr/share/texmf/fonts/type1
-/bluesky/cm/cmmib10.pfb></usr/share/texmf/fonts/type1/bluesky/ams/cmmib7.pfb></
-usr/share/texmf/fonts/type1/bluesky/cm/cmr10.pfb></usr/share/texmf/fonts/type1/
-bluesky/cm/cmr7.pfb></usr/share/texmf/fonts/type1/bluesky/cm/cmsy10.pfb></usr/s
-hare/texmf/fonts/type1/bluesky/cm/cmsy7.pfb>
-Output written on main.pdf (6 pages, 76117 bytes).
+ 27i,12n,36p,279b,336s stack positions out of 5000i,500n,6000p,200000b,15000s
+</usr/share/texm
+f/fonts/type1/bluesky/cm/cmbx10.pfb></usr/share/texmf/fonts/type1/bluesky/cm/cm
+bx12.pfb></usr/share/texmf/fonts/type1/bluesky/cm/cmex10.pfb></usr/share/texmf/
+fonts/type1/bluesky/cm/cmmi10.pfb></usr/share/texmf/fonts/type1/bluesky/cm/cmmi
+7.pfb></usr/share/texmf/fonts/type1/bluesky/cm/cmmib10.pfb></usr/share/texmf/fo
+nts/type1/bluesky/ams/cmmib7.pfb></usr/share/texmf/fonts/type1/bluesky/cm/cmr10
+.pfb></usr/share/texmf/fonts/type1/bluesky/cm/cmr7.pfb></usr/share/texmf/fonts/
+type1/bluesky/cm/cmsy10.pfb></usr/share/texmf/fonts/type1/bluesky/cm/cmsy7.pfb>
+Output written on main.pdf (4 pages, 69500 bytes).
 PDF statistics:
- 146 PDF objects out of 1000 (max. 8388607)
- 21 named destinations out of 1000 (max. 131072)
- 113 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 132 PDF objects out of 1000 (max. 8388607)
+ 18 named destinations out of 1000 (max. 131072)
+ 105 words of extra memory for PDF output out of 10000 (max. 10000000)
 
