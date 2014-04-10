@@ -11,7 +11,12 @@
 #include <quadrotor/position.h>
 #include <quadrotor/quadrotor.h>
 
-
+void print_arr(double* arr, int len) {
+	for(int a = 0; a < len; a++) {
+		printf("%f ", arr[a]);
+	}
+	printf("\n");
+}
 math::vec3 sinewave(double t) {
 	
 	double per = 15.0;
@@ -28,17 +33,97 @@ void set_coeff(double* center, double* length, int choices, int repeat, double* 
 	}
 }
 
+class search {
+	public:
+		search();
+		void		step();
+		void		exec(int);
+		bool		test();
+
+		Quadrotor*	r_;
+		double		C_[5];
+		double		ts_;
+		int		current_;
+		int		n_;
+};
+search::search():
+	ts_(1e10),
+	current_(0),
+	n_(10000)
+{
+	r_ = new Quadrotor(0.01, n_);
+	
+	C_ = {-0.9, -0.9, -0.8, -0.7, -0.7};
+}
+void search::step() {
+	
+	double low  = C_[current_] / 1.1;
+	double val  = C_[current_];
+	double high = C_[current_] * 1.1;
+	
+	C_[current_] = low;
+	if(test()) {
+		printf("%i %lf %lf\n", current_, C_[current_], ts_);
+		return;
+	}
+
+	C_[current_] = high;
+	if(test()) {
+		printf("%i %lf %lf\n", current_, C_[current_], ts_);
+		return;
+	}
+	
+	printf("no change\n");
+	
+	C_[current_] = val;
+	
+	current_ = (current_ + 1) % 5;
+}
+void search::exec(int m) {
+
+	if(test()) {
+		for(int i = 0; i < m; i++) {
+			step();
+		}
+		print_arr(C_,5);
+	} else {
+		printf("failed\n");
+	}
+}
+
+bool search::test() {
+	r_->reset();
+	r_->brain_->pos_->set_poles(C_);
+	r_->brain_->objs_.push_back(
+			new Command::Move(math::vec3(1,0,0), math::vec3(0.01,0.01,0.01))
+			);
+	r_->ti_stop_ = n_;
+	r_->run();
+
+	Command::Move* move = (Command::Move*)(r_->brain_->pos_->pos_);
+
+	if(move->flag_ & Command::Base::Flag::COMPLETE) {
+		if(move->ts_ < ts_) {
+			ts_ = move->ts_;
+			n_ = move->ti_s_;
+			return true;
+		}
+	}
+	return false;
+}
+
+
 void reset_quadrotor(Quadrotor* r, double* C) {
 	r->reset();
-	
-/*
-	r->brain_->pos_->C1_.SetDiagonal(C[4], C[4], C[4]);
-	r->brain_->pos_->C2_.SetDiagonal(C[0], C[0], C[0]);
-	r->brain_->pos_->C3_.SetDiagonal(C[1], C[1], C[1]);
-	r->brain_->pos_->C4_.SetDiagonal(C[2], C[2], C[2]);
-	r->brain_->pos_->C5_.SetDiagonal(C[3], C[3], C[3]);
-*/
-	r->brain_->pos_->set_poles(C,1.0);
+
+	/*
+	   r->brain_->pos_->C1_.SetDiagonal(C[4], C[4], C[4]);
+	   r->brain_->pos_->C2_.SetDiagonal(C[0], C[0], C[0]);
+	   r->brain_->pos_->C3_.SetDiagonal(C[1], C[1], C[1]);
+	   r->brain_->pos_->C4_.SetDiagonal(C[2], C[2], C[2]);
+	   r->brain_->pos_->C5_.SetDiagonal(C[3], C[3], C[3]);
+	   */
+	r->brain_->pos_->set_poles(C);
 
 	//r->brain_->att_->C1_.SetDiagonal(C[3], C[3], C[3]);
 	//r->brain_->att_->C2_.SetDiagonal(C[4], C[4], C[4]);
@@ -46,21 +131,21 @@ void reset_quadrotor(Quadrotor* r, double* C) {
 	r->brain_->objs_.push_back(
 			new Command::Move(math::vec3(1,0,0), math::vec3(0.01,0.01,0.01))
 			);
-	
-	
+
+
 }
 
 void sub2(Quadrotor* r, double* C, double& ts, int& N, int a, int& b) {
 	//
-	
+
 	//Quadrotor* r = new Quadrotor(0.01, N);
-	
+
 	reset_quadrotor(r, C);
 
 	r->ti_stop_ = N;
 
 	r->run();
-	
+
 	Command::Move* move = (Command::Move*)(r->brain_->pos_->pos_);
 
 	if(move->flag_ & Command::Base::Flag::COMPLETE) {
@@ -68,9 +153,9 @@ void sub2(Quadrotor* r, double* C, double& ts, int& N, int a, int& b) {
 			ts = move->ts_;
 			N = move->ti_s_;
 			b = a;
-			
+
 			printf("b %i ts %f\n", b, move->ts_);
-			
+
 			r->write();
 			r->write_param();
 		}
@@ -84,13 +169,13 @@ void set_C(double* coeff, int* arr, int choices, int repeat, int a, double* C) {
 }
 
 int sub1(Quadrotor* r, int* arr, double* coeff, int choices, int repeat) {
-	
+
 	int len = pow(choices, repeat);
-	
+
 	double C[repeat];
-	
+
 	int N = 10000;
-	
+
 	//Quadrotor* r = new Quadrotor(0.01, N);
 
 	int b = -1;
@@ -111,35 +196,30 @@ int sub1(Quadrotor* r, int* arr, double* coeff, int choices, int repeat) {
 	return b;
 }
 
-void print_arr(double* arr, int len) {
-	for(int a = 0; a < len; a++) {
-		printf("%f ", arr[a]);
-	}
-	printf("\n");
-}
+
 
 void map() {
 	int* arr;
-	
+
 
 	double dt = 0.01;
 	int N = 100000;
 	Quadrotor* r = new Quadrotor(dt, N);
-	
+
 	int choices = 11;
 	int repeat = 4;
 	//int len = pow(choices, repeat);
-	
+
 	product(choices, repeat, arr);
-	
+
 	//double center[] = {10.0,  3.0,  7.0,  3.0};
 	//double length[] = { 9.9,  2.9,  6.9,  2.9};
-	
+
 	double center[] = {-0.5,  -0.5,  -0.5,  -0.5};
 	double length[] = { 0.5,   0.5,   0.5,   0.5};
-	
+
 	double* coeff = new double[choices * repeat];
-	
+
 	printf("map start\n");
 
 	for(int b = 0; b < 20; b++) {
@@ -147,7 +227,7 @@ void map() {
 
 		set_coeff(center, length, choices, repeat, coeff);
 		a = sub1(r, arr, coeff, choices, repeat);
-	
+
 		if(a == -1) {
 			printf("failed\n");
 			return;
@@ -157,18 +237,18 @@ void map() {
 			center[c] = coeff[c*choices + arr[a*repeat + c]];
 			length[c] = length[c] * 0.8;
 		}
-		
-	
-		
+
+
+
 		printf("center length\n");
 		print_arr(center, repeat);
 		print_arr(length, repeat);
-		
+
 		//printf("a %i\n",a);
 	}
-	
-	
-	
+
+
+
 }
 
 
@@ -180,26 +260,32 @@ void normal(int N) {
 
 	//r->brain_->pos_->read_param();
 	//r->brain_->att_->read_param();
-	
+
 	double poles[] = {
-		-4.0,
-		-2.0,
-		-2.0,
-		-0.5};
+		-0.9,
+		-0.9,
+		-0.8,
+		-0.7,
+		-0.7};
 
-	r->brain_->pos_->set_poles(poles, 10.0);
+	r->brain_->pos_->set_poles(poles);
 
-	//r->brain_->objs_.push_back(new Command::Move(math::vec3(1,0,0)));
+	r->brain_->objs_.push_back(new Command::Move(math::vec3(1,0,0)));
 	//r->brain_->objs_.push_back(new Command::Move(math::vec3(0.01,0,0)));
 	//r->brain_->objs_.push_back(new Command::Move(math::vec3(1,0,0), math::vec3(0.01,0.01,0.01)));
 	//r->brain_->objs_.push_back(new Command::Move(math::vec3(1,1,0), math::vec3(0.01,0.01,0.01)));
-	r->brain_->objs_.push_back(new Command::Path(sinewave));
-	
+	//r->brain_->objs_.push_back(new Command::Path(sinewave));
+
 	r->run();
 
 	r->write();
 }
+void srch() {
 
+	search s;
+	s.exec(200);
+
+}
 int main(int argc, const char ** argv) {
 
 	//int N = atoi(argv[1]);
@@ -212,9 +298,11 @@ int main(int argc, const char ** argv) {
 	}
 
 	if(strcmp(argv[1],"n")==0) {
-		normal(10000);
+		normal(5000);
 	} else if(strcmp(argv[1],"m")==0) {
 		map();
+	} else if(strcmp(argv[1],"s")==0) {
+		srch();
 	} else {
 		printf("invalid mode\n");
 	}

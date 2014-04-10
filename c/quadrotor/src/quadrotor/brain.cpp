@@ -106,11 +106,9 @@ void Brain::step_accel(int ti) {
 }
 void Brain::step_jerk(int ti, double dt) {
 	
-	math::vec3 tmp = quad_->telem_->q_[ti].rotate(pos_->jerk_[ti]);
+	math::vec3 tmp = quad_->telem_->q_[ti].rotate(pos_->jerk_[ti] * quad_->m_);
 	
-	double i_RB = tmp.z;
-	
-	thrust_[ti] = thrust_[ti-1] + i_RB * dt * quad_->m_;
+	thrust_[ti] = thrust_[ti-1] + tmp.z * dt;
 	//a_RB_[ti] = a_RB_[ti-1] + i_RB * dt;
 
 	math::vec3 o;
@@ -130,7 +128,7 @@ void Brain::step_jerk(int ti, double dt) {
 }
 void Brain::step_jounce(int ti, double dt) {
 	
-	math::vec3 tmp = quad_->telem_->q_[ti].rotate(pos_->jounce_[ti]);
+	math::vec3 tmp = quad_->telem_->q_[ti].rotate(pos_->jounce_[ti] * quad_->m_);
 	
 	// thrust
 	

@@ -31,7 +31,7 @@ template <typename T> class Array {
 				throw;
 			}
 			
-			printf("allocating %i\n", n);
+			//printf("allocating %i\n", n);
 			
 			if(v_ != NULL) {
 				delete[] v_;

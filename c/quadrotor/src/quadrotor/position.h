@@ -16,7 +16,7 @@ class Position {
 		void		fill_xref(int ti1, math::vec3 x);
 		void		fill_xref_parametric(int ti1, math::vec3 (*f)(double));
 
-		void		set_poles(double*, double);
+		void		set_poles(double*);
 
 		void		step(double dt, int ti, int ti_0);
 

@@ -78,20 +78,58 @@ Position::Position(Quadrotor* quad):
 	jounce_.alloc(n);
 
 }
-void Position::set_poles(double* p, double gain) {
+double coeff(double* r, int n, int i, int k) {
+	
+	int i__ = i;
+	
+	double c = 0;
+	
+	printf("%i\n",i);
+
+	for(; i <= k; i++) {
+		if((i+2) < n) {
+			printf("descend\n");
+			c += r[i] * coeff(r, n, i+1, k+1);
+		} else {
+			printf("stop\n");
+			c += r[i];
+			//printf("%e %e %i\n",c,r[i],i);
+		}
+	}
+	
+	if(i__==0) printf("%e\n",-c);
+	
+	return -c;
+}
+
+void Position::set_poles(double* p) {
+
+	
+
+	double C2 = coeff(p, 5, 0, 1);
+
+	throw;
+
+	double C1 = coeff(p, 5, 0, 0);
+
+	
+
+	double C3 = coeff(p, 5, 0, 2);
+	double C4 = coeff(p, 5, 0, 3);
+	double C5 = coeff(p, 5, 0, 4);
+
+	printf("poles % e % e % e % e % e\n",p[0],p[1],p[2],p[3],p[4]);
+	printf("coeff % e % e % e % e % e\n",C1,C2,C3,C4,C5);
+
+	throw;
+
+/*
 	double C1 = p[0]*p[1]*p[2]*p[3];
 	double C2 = -p[0]*p[1]*p[2] - p[0]*p[1]*p[3] - p[0]*p[2]*p[3] - p[1]*p[2]*p[3];
 	double C3 = p[0]*p[1] + p[0]*p[2] + p[0]*p[3] + p[1]*p[2] + p[1]*p[3] + p[2]*p[3];
 	double C4 = -p[0] - p[1] - p[2] - p[3];
 	double C5 = 1.0;
-	
-	//double gain = 1.0;
-
-	C1 *= gain;
-	C2 *= gain;
-	C3 *= gain;
-	C4 *= gain;
-	C5 *= gain;
+*/	
 
 
 	C1_ = math::mat33(
@@ -115,8 +153,6 @@ void Position::set_poles(double* p, double gain) {
 			0,C5,0,
 			0,0,C5);
 
-	//printf("poles %lf %lf %lf %lf\n",p[0],p[1],p[2],p[3]);
-	//printf("%lf %lf %lf %lf %lf\n",C1,C2,C3,C4,C5);
 }
 void Position::reset() {
 	flag_ = 0;

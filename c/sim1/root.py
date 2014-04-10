@@ -12,25 +12,13 @@ def rootlocus(c):
 
 
 #r = [-1,-1,-1,-1]
-r = [-0.5]*4
+r = [-0.5]*5
 
 c = np.poly(r)
 
 print c
 
-d = [
-		3.562152,
-		8.248242,
-		9.297224,
-		4.464712,
-		-0.012777]
-
-d = c * 2.0
-
-print d
-
 rootlocus(c)
-rootlocus(d)
 
 pl.show()
 
