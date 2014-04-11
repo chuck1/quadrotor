@@ -4,6 +4,8 @@
 #include <quadrotor/attitude.h>
 #include <quadrotor/command.h>
 #include <quadrotor/position.h>
+#include <quadrotor/ControlLaw/Jounce.h>
+#include <quadrotor/ControlLaw/Jerk.h>
 
 Brain::Brain(Quadrotor* quad):
 	mode_(Brain::Mode::e::JOUNCE),
@@ -128,57 +130,13 @@ void Brain::step_jerk(int ti, double dt) {
 }
 void Brain::step_jounce(int ti, double dt) {
 	
-	math::vec3 tmp = quad_->telem_->q_[ti].rotate(pos_->jounce_[ti] * quad_->m_);
-	
-	// thrust
-	
-	math::vec3& o = quad_->telem_->o_[ti-1];
-
-	thrust_[ti] = (tmp.z - (thrust_[ti-2] - 2.0 * thrust_[ti-1]) / dt / dt) / (1.0 / dt / dt - o.x * o.x - o.y * o.y);
-	
-	thrust_d_[ti] = (thrust_[ti] - thrust_[ti-1]) / dt;
-	
-	
-	if(isnan(thrust_[ti]) || isinf(thrust_[ti])) {
-		//printf("tmp\n");
-		//tmp.print();
-		//printf("dt %f\n", dt);
-		//printf("thrust %f\n", thrust_[ti]);
-		throw Inf();
-	}
-
-	// torque
-	
-	math::vec3 od;
-
-	if(thrust_[ti] > 0) {
-
-		od.y = (thrust_[ti] * o.x * o.z - 2.0 * thrust_d_[ti] * o.y - tmp.x) / thrust_[ti];
-
-		od.x = -(thrust_[ti] * o.y * o.z + 2.0 * thrust_d_[ti] * o.x - tmp.y) / thrust_[ti];
-	}
-
-	/*
-	if(thrust_[ti] > 0) {
-		o.x = tmp.y / thrust_[ti];
-		o.y = -tmp.x / thrust_[ti];
-	}
-*/
-
-	if(!o.isSane()) {
-		printf("tmp\n");
-		tmp.print();
-		throw;
-	}
-	
-	att_->step_torque_rotor_body(ti, od);
-	
+		
 }
 
 
 void Brain::control_law_position(double dt, int ti, int ti_0) {
 	// position control
-
+	
 	switch(mode_) {
 		case Brain::Mode::e::ACCEL:
 			pos_->step(dt, ti, ti_0);
@@ -262,17 +220,10 @@ void Brain::control_law_3(double dt, int ti, int ti_0) {
 
 	step_motor_speed(ti);
 
-}	
-void Brain::step(int ti, double dt) {
-
-	const double unitTol = 1e-5;
-	if(dt < unitTol) {
-		printf("dt %f\n", dt);
-		throw;
-	}
-
+}
+void	Brain::CheckCommand(int i) {
 	if ((obj_ == NULL) || (obj_->flag_ & Command::Base::Flag::COMPLETE)) {
-
+		
 		if(objs_.empty()) {
 			throw EmptyQueue();
 		}
@@ -280,40 +231,31 @@ void Brain::step(int ti, double dt) {
 		//print 'new move'
 		obj_ = objs_.front();
 		objs_.pop_front();
-		ti_0_ = 0;
 
 		switch(obj_->type_) {
 			case Command::Base::Type::MOVE:
-				pos_->set_obj(ti, (Command::Position*)obj_);
+				cl_ = cl_point_;
+				
+				cl_->SetCommand(i, obj_);
 				break;
 			case Command::Base::Type::PATH:
-				pos_->set_obj(ti, (Command::Position*)obj_);
+				cl_ = cl_path_;
+				
+				cl_->SetCommand(i, obj_);
 				break;
 			case Command::Base::Type::ORIENT:
-				// set reference altitude to current altitude
-				Command::Move* move = new Command::Move(quad_->telem_->x_[ti]);
-				pos_->set_obj(ti, move);
-
-				att_->set_obj(ti, (Command::Orient*)obj_);
-
-
+				cl_ = cl_path_;
+				cl_->SetCommand(i, obj_);
 				break;
 		}
 	}
+}
+void Brain::step(int i, double h) {
 
-	switch(obj_->type_) {
-		case Command::Base::Type::MOVE:
-			control_law_position(dt, ti, ti_0_);
-			break;
-		case Command::Base::Type::PATH:
-			control_law_position(dt, ti, ti_0_);
-			break;
-		case Command::Base::Type::ORIENT:
-			control_law_3(dt, ti, ti_0_);
-			break;
-	}	
+	CheckCommand(i);
 
-	ti_0_++;
+	cl_->Step(i, h);
+	
 }
 void Brain::write(int ti) {
 	const char * name = "data/brain.txt";

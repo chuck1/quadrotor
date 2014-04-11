@@ -184,13 +184,10 @@ void Position::step(double dt, int ti, int ti_0) {
 		chi_[ti] = chi_[ti-1] + e1_[ti] * dt;
 	}
 
-	forward(x_ref_,		x_ref_d_, dt, ti, ti_0, 0);
-	forward(x_ref_d_,	x_ref_dd_, dt, ti, ti_0, 1);
-	forward(x_ref_dd_,	x_ref_ddd_, dt, ti, ti_0, 2);
-	forward(x_ref_ddd_,	x_ref_dddd_, dt, ti, ti_0, 3);
-
-	forward(e1_mag_,   e1_mag_d_,  dt, ti, ti_0, 0);
-	forward(e1_mag_d_, e1_mag_dd_, dt, ti, ti_0, 1);
+	forward(x_ref_,		x_ref_d_, dt, ti);
+	forward(x_ref_d_,	x_ref_dd_, dt, ti);
+	forward(x_ref_dd_,	x_ref_ddd_, dt, ti);
+	forward(x_ref_ddd_,	x_ref_dddd_, dt, ti);
 
 	if(!x_ref_d_[ti].isSane()) {
 		printf("x_ref_d_ is insane\n");

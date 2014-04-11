@@ -9,7 +9,7 @@
 #include <quadrotor/array.h>
 #include <quadrotor/except.h>
 
-
+class ControlLaw;
 class Position;
 class Attitude;
 class Quadrotor;
@@ -35,7 +35,9 @@ class Brain {
 		void		reset();
 
 		//void		process_force_reference(int ti);
-		
+
+		void		CheckCommand(int);
+
 		void		control_law_position(double dt, int ti, int ti_0);
 		void		control_law_3(double dt, int ti, int ti_0);
 		
@@ -52,9 +54,13 @@ class Brain {
 	public:
 		int		mode_;
 
-		int		ti_0_;
-		
 		Quadrotor*	quad_;
+
+		// where the magic happends
+		ControlLaw*	cl_;
+		
+		ControlLaw*	cl_point_;
+		ControlLaw*	cl_path_;
 
 		Position*	pos_;
 		Attitude*	att_;
@@ -71,6 +77,8 @@ class Brain {
 		double		heading_;
 
 		std::deque<Command::Base*>	objs_;
+		
+		
 
 		Command::Base*	obj_;
 };

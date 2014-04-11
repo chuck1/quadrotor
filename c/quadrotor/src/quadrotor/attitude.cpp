@@ -77,7 +77,7 @@ void Attitude::step(double dt, int ti, int ti_0) {
 	// reference derivatives
 	forward_quavec(q_ref_, q_ref_d_,  dt, ti, ti_0, 0);
 	
-	forward(q_ref_d_, q_ref_dd_, dt, ti, ti_0, 1);
+	forward(q_ref_d_, q_ref_dd_, dt, ti);
 	
 	if(!q_ref_dd_[ti].isSane()) {
 		printf("insane\n");
@@ -113,7 +113,7 @@ void Attitude::step(double dt, int ti, int ti_0) {
 	}
 
 	// magnitude derivatives
-	forward(e1_mag_,  e1_mag_d_, dt, ti, ti_0, 0);
+	forward(e1_mag_,  e1_mag_d_, dt, ti);
 
 	// check
 	if (ti_0 > 0) {
