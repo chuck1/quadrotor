@@ -45,15 +45,21 @@ class search {
 		double		ts_;
 		int		current_;
 		int		n_;
+		int		count_;
 };
 search::search():
 	ts_(1e10),
 	current_(0),
-	n_(10000)
+	n_(10000),
+	count_(0)
 {
-	r_ = new Quadrotor(0.01, n_);
-	
-	C_ = {-0.9, -0.9, -0.8, -0.7, -0.7};
+	r_ = new Quadrotor(0.005, n_);
+
+	C_[0] = -0.9;
+	C_[1] = -0.9;
+	C_[2] = -0.8;
+	C_[3] = -0.7;
+	C_[4] = -0.7;
 }
 void search::step() {
 	
@@ -63,20 +69,26 @@ void search::step() {
 	
 	C_[current_] = low;
 	if(test()) {
+		count_ = 0;
 		printf("%i %lf %lf\n", current_, C_[current_], ts_);
+		//print_arr(C_,5);
 		return;
 	}
 
 	C_[current_] = high;
 	if(test()) {
+		count_ = 0;
 		printf("%i %lf %lf\n", current_, C_[current_], ts_);
+		//print_arr(C_,5);
 		return;
 	}
+	
+	count_++;
 	
 	printf("no change\n");
 	
 	C_[current_] = val;
-	
+	//print_arr(C_,5);
 	current_ = (current_ + 1) % 5;
 }
 void search::exec(int m) {
@@ -84,8 +96,16 @@ void search::exec(int m) {
 	if(test()) {
 		for(int i = 0; i < m; i++) {
 			step();
+
+			if(count_ == 5) {
+				break;
+			}
 		}
 		print_arr(C_,5);
+
+		n_ += 100;
+		test();
+		r_->write();
 	} else {
 		printf("failed\n");
 	}
@@ -252,18 +272,17 @@ void map() {
 }
 
 
-void normal(int N) {
-
-	double dt = 0.01;
+void normal(int N, double dt) {
 
 	Quadrotor* r = new Quadrotor(dt, N);
 
-	//r->brain_->pos_->read_param();
-	//r->brain_->att_->read_param();
+	r->brain_->pos_->read_param();
+	r->brain_->att_->read_param();
 
+	
 	double poles[] = {
-		-0.9,
-		-0.9,
+		-6.9,
+		-1.9,
 		-0.8,
 		-0.7,
 		-0.7};
@@ -287,9 +306,11 @@ void srch() {
 
 }
 int main(int argc, const char ** argv) {
-
+	
+	double dt = 0.005;
+	
 	//int N = atoi(argv[1]);
-
+	
 	printf("%i\n",(int)sizeof(math::vec3));
 
 	if(argc != 2) {
@@ -298,7 +319,7 @@ int main(int argc, const char ** argv) {
 	}
 
 	if(strcmp(argv[1],"n")==0) {
-		normal(5000);
+		normal(2000, dt);
 	} else if(strcmp(argv[1],"m")==0) {
 		map();
 	} else if(strcmp(argv[1],"s")==0) {

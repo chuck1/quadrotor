@@ -179,7 +179,7 @@ plotv(t,[e1],'t','e1')
 
 #plotv(t,[x,x_ref],'t','x',['','_ref'],['-','--'])
 
-#plotv(t,[jounce], 't', 'jounce')
+plotv(t,[jounce], 't', 'jounce')
 
 """
 

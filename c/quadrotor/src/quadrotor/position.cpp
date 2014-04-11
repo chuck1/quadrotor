@@ -80,78 +80,44 @@ Position::Position(Quadrotor* quad):
 }
 double coeff(double* r, int n, int i, int k) {
 	
-	int i__ = i;
+	//int i__ = i;
 	
 	double c = 0;
 	
-	printf("%i\n",i);
-
+	//printf("%i\n",i);
+	
 	for(; i <= k; i++) {
-		if((i+2) < n) {
-			printf("descend\n");
+		//printf("%i %i\n",i,k);
+		if((k+1) < n) {
+			//printf("descend\n");
 			c += r[i] * coeff(r, n, i+1, k+1);
 		} else {
-			printf("stop\n");
+			//printf("stop\n");
 			c += r[i];
 			//printf("%e %e %i\n",c,r[i],i);
 		}
 	}
 	
-	if(i__==0) printf("%e\n",-c);
+	//if(i__==0) printf("%e\n",-c);
 	
 	return -c;
 }
-
 void Position::set_poles(double* p) {
-
 	
-
-	double C2 = coeff(p, 5, 0, 1);
-
-	throw;
-
 	double C1 = coeff(p, 5, 0, 0);
-
-	
-
+	double C2 = coeff(p, 5, 0, 1);
 	double C3 = coeff(p, 5, 0, 2);
 	double C4 = coeff(p, 5, 0, 3);
 	double C5 = coeff(p, 5, 0, 4);
 
-	printf("poles % e % e % e % e % e\n",p[0],p[1],p[2],p[3],p[4]);
-	printf("coeff % e % e % e % e % e\n",C1,C2,C3,C4,C5);
+//	printf("poles % e % e % e % e % e\n",p[0],p[1],p[2],p[3],p[4]);
+//	printf("coeff % e % e % e % e % e\n",C1,C2,C3,C4,C5);
 
-	throw;
-
-/*
-	double C1 = p[0]*p[1]*p[2]*p[3];
-	double C2 = -p[0]*p[1]*p[2] - p[0]*p[1]*p[3] - p[0]*p[2]*p[3] - p[1]*p[2]*p[3];
-	double C3 = p[0]*p[1] + p[0]*p[2] + p[0]*p[3] + p[1]*p[2] + p[1]*p[3] + p[2]*p[3];
-	double C4 = -p[0] - p[1] - p[2] - p[3];
-	double C5 = 1.0;
-*/	
-
-
-	C1_ = math::mat33(
-			C1,0,0,
-			0,C1,0,
-			0,0,C1);
-	C2_ = math::mat33(
-			C2,0,0,
-			0,C2,0,
-			0,0,C2);
-	C3_ = math::mat33(
-			C3,0,0,
-			0,C3,0,
-			0,0,C3);
-	C4_ = math::mat33(
-			C4,0,0,
-			0,C4,0,
-			0,0,C4);
-	C5_ = math::mat33(
-			C5,0,0,
-			0,C5,0,
-			0,0,C5);
+	C1_.SetDiagonal(C1,C1,C1);
+	C2_.SetDiagonal(C2,C2,C2);
+	C3_.SetDiagonal(C3,C3,C3);
+	C4_.SetDiagonal(C4,C4,C4);
+	C5_.SetDiagonal(C5,C5,C5);
 
 }
 void Position::reset() {
@@ -171,8 +137,13 @@ void Position::fill_xref_parametric(int ti1, math::vec3 (*f)(double)) {
 void Position::step(double dt, int ti, int ti_0) {
 	//double dt = quad_->t_[ti] - quad_->t_[ti-1];
 
-	e1_[ti] = x_ref_[ti] - quad_->telem_->x_[ti];
-	e1_mag_[ti] = e1_[ti].magnitude();
+	if(pos_->type_ == Command::Base::Type::POINT) {
+		e1_[ti] = x_ref_[ti] - quad_->telem_->x_[ti];
+
+		e1_mag_[ti] = e1_[ti].magnitude();
+		forward(e1_mag_,   e1_mag_d_,  dt, ti, ti_0, 0);
+		forward(e1_mag_d_, e1_mag_dd_, dt, ti, ti_0, 1);
+	}
 
 	e2_[ti] = x_ref_d_[ti] - quad_->telem_->v_[ti];
 
@@ -180,17 +151,13 @@ void Position::step(double dt, int ti, int ti_0) {
 
 	e4_[ti] = x_ref_ddd_[ti] - quad_->telem_->jerk_[ti];
 
-	if (ti_0 > 0) {
-		chi_[ti] = chi_[ti-1] + e1_[ti] * dt;
-	}
+	chi_[ti] = chi_[ti-1] + e1_[ti] * dt;
 
 	forward(x_ref_,		x_ref_d_, dt, ti, ti_0, 0);
 	forward(x_ref_d_,	x_ref_dd_, dt, ti, ti_0, 1);
 	forward(x_ref_dd_,	x_ref_ddd_, dt, ti, ti_0, 2);
 	forward(x_ref_ddd_,	x_ref_dddd_, dt, ti, ti_0, 3);
 
-	forward(e1_mag_,   e1_mag_d_,  dt, ti, ti_0, 0);
-	forward(e1_mag_d_, e1_mag_dd_, dt, ti, ti_0, 1);
 
 	if(!x_ref_d_[ti].isSane()) {
 		printf("x_ref_d_ is insane\n");
@@ -200,61 +167,27 @@ void Position::step(double dt, int ti, int ti_0) {
 		throw;
 	}
 
-	// step position error
-
-
-
 	//x_ref_[ti].print();
 	//printf("e1_mag %f\n",e1_mag);
-
-	check_command(ti);
+	
+	pos_->check(ti);
 }
-void Position::check_command(int ti) {
 
-	math::vec3 tol(0.01,0.01,0.01);
-
-	if (pos_) {
-		//printf("pos\n");
-
-		if (pos_->mode_ == Command::Position::Mode::NORMAL) {
-
-			bool close = e1_[ti].abs_less(pos_->thresh_);
-
-			if (close) {
-
-				if (e2_[ti].abs_less(tol)) {
-
-					if (e3_[ti].abs_less(tol)) {
-
-						if (e4_[ti].abs_less(tol)) {
-
-							if(jounce_[ti-1].abs_less(tol)) {
-								((Command::Move*)pos_)->settle(ti, quad_->t_[ti]);
-							}
-						}
-					}
-				}
-			}
-		} else {
-			//printf("mode %i\n",pos_->mode_);
-		}
-	}
-}
 void Position::set_obj(int ti, Command::Position* pos) {
 	pos_ = pos;
 
 	// reset
 	flag_ &= ~Command::Position::Flag::COMPLETE;
 
-	Command::Move* move;
+	Command::Point* point;
 	Command::Path* path;
 
 	if (pos == NULL) throw;
 
 	switch(pos_->type_) {
-		case Command::Base::Type::MOVE:
-			move = (Command::Move*)pos_;
-			fill_xref(ti, move->x2_);
+		case Command::Base::Type::POINT:
+			point = (Command::Point*)pos_;
+			fill_xref(ti, point->x2_);
 			break;
 		case Command::Base::Type::PATH:
 			path = (Command::Path*)pos_;
@@ -295,6 +228,14 @@ void Position::step_jounce(double, int ti, int ti_0) {
 		C5_ * e4_[ti] +
 		x_ref_dddd_[ti];
 
+}
+void Position::step_jounce_velocity(int ti) {
+
+	jounce_[ti] = 
+		C3_ * e2_[ti] + 
+		C4_ * e3_[ti] +
+		C5_ * e4_[ti] +
+		x_ref_dddd_[ti];
 }
 void Position::write(int ti) {
 	FILE* file = fopen("data/pos.txt","w");

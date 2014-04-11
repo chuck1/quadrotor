@@ -31,14 +31,11 @@ CMAKE_COMMAND = /usr/bin/cmake
 # The command to remove a file.
 RM = /usr/bin/cmake -E remove -f
 
-# The program to use to edit the cache.
-CMAKE_EDIT_COMMAND = /usr/bin/ccmake
-
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /nfs/stak/students/r/rymalc/Documents/Programming/C++/quadrotor/c/quadrotor
+CMAKE_SOURCE_DIR = /home/charles/Programming/C++/quadrotor/c/quadrotor
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /nfs/stak/students/r/rymalc/Documents/Programming/C++/quadrotor/c/quadrotor
+CMAKE_BINARY_DIR = /home/charles/Programming/C++/quadrotor/c/quadrotor
 
 # Include any dependencies generated for this target.
 include CMakeFiles/quadrotor.dir/depend.make
@@ -51,17 +48,17 @@ include CMakeFiles/quadrotor.dir/flags.make
 
 CMakeFiles/quadrotor.dir/src/quadrotor/array.cpp.o: CMakeFiles/quadrotor.dir/flags.make
 CMakeFiles/quadrotor.dir/src/quadrotor/array.cpp.o: src/quadrotor/array.cpp
-	$(CMAKE_COMMAND) -E cmake_progress_report /nfs/stak/students/r/rymalc/Documents/Programming/C++/quadrotor/c/quadrotor/CMakeFiles $(CMAKE_PROGRESS_1)
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/charles/Programming/C++/quadrotor/c/quadrotor/CMakeFiles $(CMAKE_PROGRESS_1)
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building CXX object CMakeFiles/quadrotor.dir/src/quadrotor/array.cpp.o"
-	/usr/bin/c++   $(CXX_DEFINES) $(CXX_FLAGS) -o CMakeFiles/quadrotor.dir/src/quadrotor/array.cpp.o -c /nfs/stak/students/r/rymalc/Documents/Programming/C++/quadrotor/c/quadrotor/src/quadrotor/array.cpp
+	/usr/bin/c++   $(CXX_DEFINES) $(CXX_FLAGS) -o CMakeFiles/quadrotor.dir/src/quadrotor/array.cpp.o -c /home/charles/Programming/C++/quadrotor/c/quadrotor/src/quadrotor/array.cpp
 
 CMakeFiles/quadrotor.dir/src/quadrotor/array.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/quadrotor.dir/src/quadrotor/array.cpp.i"
-	/usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -E /nfs/stak/students/r/rymalc/Documents/Programming/C++/quadrotor/c/quadrotor/src/quadrotor/array.cpp > CMakeFiles/quadrotor.dir/src/quadrotor/array.cpp.i
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -E /home/charles/Programming/C++/quadrotor/c/quadrotor/src/quadrotor/array.cpp > CMakeFiles/quadrotor.dir/src/quadrotor/array.cpp.i
 
 CMakeFiles/quadrotor.dir/src/quadrotor/array.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/quadrotor.dir/src/quadrotor/array.cpp.s"
-	/usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -S /nfs/stak/students/r/rymalc/Documents/Programming/C++/quadrotor/c/quadrotor/src/quadrotor/array.cpp -o CMakeFiles/quadrotor.dir/src/quadrotor/array.cpp.s
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -S /home/charles/Programming/C++/quadrotor/c/quadrotor/src/quadrotor/array.cpp -o CMakeFiles/quadrotor.dir/src/quadrotor/array.cpp.s
 
 CMakeFiles/quadrotor.dir/src/quadrotor/array.cpp.o.requires:
 .PHONY : CMakeFiles/quadrotor.dir/src/quadrotor/array.cpp.o.requires
@@ -74,17 +71,17 @@ CMakeFiles/quadrotor.dir/src/quadrotor/array.cpp.o.provides.build: CMakeFiles/qu
 
 CMakeFiles/quadrotor.dir/src/quadrotor/attitude.cpp.o: CMakeFiles/quadrotor.dir/flags.make
 CMakeFiles/quadrotor.dir/src/quadrotor/attitude.cpp.o: src/quadrotor/attitude.cpp
-	$(CMAKE_COMMAND) -E cmake_progress_report /nfs/stak/students/r/rymalc/Documents/Programming/C++/quadrotor/c/quadrotor/CMakeFiles $(CMAKE_PROGRESS_2)
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/charles/Programming/C++/quadrotor/c/quadrotor/CMakeFiles $(CMAKE_PROGRESS_2)
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building CXX object CMakeFiles/quadrotor.dir/src/quadrotor/attitude.cpp.o"
-	/usr/bin/c++   $(CXX_DEFINES) $(CXX_FLAGS) -o CMakeFiles/quadrotor.dir/src/quadrotor/attitude.cpp.o -c /nfs/stak/students/r/rymalc/Documents/Programming/C++/quadrotor/c/quadrotor/src/quadrotor/attitude.cpp
+	/usr/bin/c++   $(CXX_DEFINES) $(CXX_FLAGS) -o CMakeFiles/quadrotor.dir/src/quadrotor/attitude.cpp.o -c /home/charles/Programming/C++/quadrotor/c/quadrotor/src/quadrotor/attitude.cpp
 
 CMakeFiles/quadrotor.dir/src/quadrotor/attitude.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/quadrotor.dir/src/quadrotor/attitude.cpp.i"
-	/usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -E /nfs/stak/students/r/rymalc/Documents/Programming/C++/quadrotor/c/quadrotor/src/quadrotor/attitude.cpp > CMakeFiles/quadrotor.dir/src/quadrotor/attitude.cpp.i
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -E /home/charles/Programming/C++/quadrotor/c/quadrotor/src/quadrotor/attitude.cpp > CMakeFiles/quadrotor.dir/src/quadrotor/attitude.cpp.i
 
 CMakeFiles/quadrotor.dir/src/quadrotor/attitude.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/quadrotor.dir/src/quadrotor/attitude.cpp.s"
-	/usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -S /nfs/stak/students/r/rymalc/Documents/Programming/C++/quadrotor/c/quadrotor/src/quadrotor/attitude.cpp -o CMakeFiles/quadrotor.dir/src/quadrotor/attitude.cpp.s
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -S /home/charles/Programming/C++/quadrotor/c/quadrotor/src/quadrotor/attitude.cpp -o CMakeFiles/quadrotor.dir/src/quadrotor/attitude.cpp.s
 
 CMakeFiles/quadrotor.dir/src/quadrotor/attitude.cpp.o.requires:
 .PHONY : CMakeFiles/quadrotor.dir/src/quadrotor/attitude.cpp.o.requires
@@ -97,17 +94,17 @@ CMakeFiles/quadrotor.dir/src/quadrotor/attitude.cpp.o.provides.build: CMakeFiles
 
 CMakeFiles/quadrotor.dir/src/quadrotor/brain.cpp.o: CMakeFiles/quadrotor.dir/flags.make
 CMakeFiles/quadrotor.dir/src/quadrotor/brain.cpp.o: src/quadrotor/brain.cpp
-	$(CMAKE_COMMAND) -E cmake_progress_report /nfs/stak/students/r/rymalc/Documents/Programming/C++/quadrotor/c/quadrotor/CMakeFiles $(CMAKE_PROGRESS_3)
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/charles/Programming/C++/quadrotor/c/quadrotor/CMakeFiles $(CMAKE_PROGRESS_3)
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building CXX object CMakeFiles/quadrotor.dir/src/quadrotor/brain.cpp.o"
-	/usr/bin/c++   $(CXX_DEFINES) $(CXX_FLAGS) -o CMakeFiles/quadrotor.dir/src/quadrotor/brain.cpp.o -c /nfs/stak/students/r/rymalc/Documents/Programming/C++/quadrotor/c/quadrotor/src/quadrotor/brain.cpp
+	/usr/bin/c++   $(CXX_DEFINES) $(CXX_FLAGS) -o CMakeFiles/quadrotor.dir/src/quadrotor/brain.cpp.o -c /home/charles/Programming/C++/quadrotor/c/quadrotor/src/quadrotor/brain.cpp
 
 CMakeFiles/quadrotor.dir/src/quadrotor/brain.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/quadrotor.dir/src/quadrotor/brain.cpp.i"
-	/usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -E /nfs/stak/students/r/rymalc/Documents/Programming/C++/quadrotor/c/quadrotor/src/quadrotor/brain.cpp > CMakeFiles/quadrotor.dir/src/quadrotor/brain.cpp.i
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -E /home/charles/Programming/C++/quadrotor/c/quadrotor/src/quadrotor/brain.cpp > CMakeFiles/quadrotor.dir/src/quadrotor/brain.cpp.i
 
 CMakeFiles/quadrotor.dir/src/quadrotor/brain.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/quadrotor.dir/src/quadrotor/brain.cpp.s"
-	/usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -S /nfs/stak/students/r/rymalc/Documents/Programming/C++/quadrotor/c/quadrotor/src/quadrotor/brain.cpp -o CMakeFiles/quadrotor.dir/src/quadrotor/brain.cpp.s
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -S /home/charles/Programming/C++/quadrotor/c/quadrotor/src/quadrotor/brain.cpp -o CMakeFiles/quadrotor.dir/src/quadrotor/brain.cpp.s
 
 CMakeFiles/quadrotor.dir/src/quadrotor/brain.cpp.o.requires:
 .PHONY : CMakeFiles/quadrotor.dir/src/quadrotor/brain.cpp.o.requires
@@ -120,17 +117,17 @@ CMakeFiles/quadrotor.dir/src/quadrotor/brain.cpp.o.provides.build: CMakeFiles/qu
 
 CMakeFiles/quadrotor.dir/src/quadrotor/command.cpp.o: CMakeFiles/quadrotor.dir/flags.make
 CMakeFiles/quadrotor.dir/src/quadrotor/command.cpp.o: src/quadrotor/command.cpp
-	$(CMAKE_COMMAND) -E cmake_progress_report /nfs/stak/students/r/rymalc/Documents/Programming/C++/quadrotor/c/quadrotor/CMakeFiles $(CMAKE_PROGRESS_4)
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/charles/Programming/C++/quadrotor/c/quadrotor/CMakeFiles $(CMAKE_PROGRESS_4)
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building CXX object CMakeFiles/quadrotor.dir/src/quadrotor/command.cpp.o"
-	/usr/bin/c++   $(CXX_DEFINES) $(CXX_FLAGS) -o CMakeFiles/quadrotor.dir/src/quadrotor/command.cpp.o -c /nfs/stak/students/r/rymalc/Documents/Programming/C++/quadrotor/c/quadrotor/src/quadrotor/command.cpp
+	/usr/bin/c++   $(CXX_DEFINES) $(CXX_FLAGS) -o CMakeFiles/quadrotor.dir/src/quadrotor/command.cpp.o -c /home/charles/Programming/C++/quadrotor/c/quadrotor/src/quadrotor/command.cpp
 
 CMakeFiles/quadrotor.dir/src/quadrotor/command.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/quadrotor.dir/src/quadrotor/command.cpp.i"
-	/usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -E /nfs/stak/students/r/rymalc/Documents/Programming/C++/quadrotor/c/quadrotor/src/quadrotor/command.cpp > CMakeFiles/quadrotor.dir/src/quadrotor/command.cpp.i
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -E /home/charles/Programming/C++/quadrotor/c/quadrotor/src/quadrotor/command.cpp > CMakeFiles/quadrotor.dir/src/quadrotor/command.cpp.i
 
 CMakeFiles/quadrotor.dir/src/quadrotor/command.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/quadrotor.dir/src/quadrotor/command.cpp.s"
-	/usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -S /nfs/stak/students/r/rymalc/Documents/Programming/C++/quadrotor/c/quadrotor/src/quadrotor/command.cpp -o CMakeFiles/quadrotor.dir/src/quadrotor/command.cpp.s
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -S /home/charles/Programming/C++/quadrotor/c/quadrotor/src/quadrotor/command.cpp -o CMakeFiles/quadrotor.dir/src/quadrotor/command.cpp.s
 
 CMakeFiles/quadrotor.dir/src/quadrotor/command.cpp.o.requires:
 .PHONY : CMakeFiles/quadrotor.dir/src/quadrotor/command.cpp.o.requires
@@ -143,17 +140,17 @@ CMakeFiles/quadrotor.dir/src/quadrotor/command.cpp.o.provides.build: CMakeFiles/
 
 CMakeFiles/quadrotor.dir/src/quadrotor/plant.cpp.o: CMakeFiles/quadrotor.dir/flags.make
 CMakeFiles/quadrotor.dir/src/quadrotor/plant.cpp.o: src/quadrotor/plant.cpp
-	$(CMAKE_COMMAND) -E cmake_progress_report /nfs/stak/students/r/rymalc/Documents/Programming/C++/quadrotor/c/quadrotor/CMakeFiles $(CMAKE_PROGRESS_5)
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/charles/Programming/C++/quadrotor/c/quadrotor/CMakeFiles $(CMAKE_PROGRESS_5)
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building CXX object CMakeFiles/quadrotor.dir/src/quadrotor/plant.cpp.o"
-	/usr/bin/c++   $(CXX_DEFINES) $(CXX_FLAGS) -o CMakeFiles/quadrotor.dir/src/quadrotor/plant.cpp.o -c /nfs/stak/students/r/rymalc/Documents/Programming/C++/quadrotor/c/quadrotor/src/quadrotor/plant.cpp
+	/usr/bin/c++   $(CXX_DEFINES) $(CXX_FLAGS) -o CMakeFiles/quadrotor.dir/src/quadrotor/plant.cpp.o -c /home/charles/Programming/C++/quadrotor/c/quadrotor/src/quadrotor/plant.cpp
 
 CMakeFiles/quadrotor.dir/src/quadrotor/plant.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/quadrotor.dir/src/quadrotor/plant.cpp.i"
-	/usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -E /nfs/stak/students/r/rymalc/Documents/Programming/C++/quadrotor/c/quadrotor/src/quadrotor/plant.cpp > CMakeFiles/quadrotor.dir/src/quadrotor/plant.cpp.i
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -E /home/charles/Programming/C++/quadrotor/c/quadrotor/src/quadrotor/plant.cpp > CMakeFiles/quadrotor.dir/src/quadrotor/plant.cpp.i
 
 CMakeFiles/quadrotor.dir/src/quadrotor/plant.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/quadrotor.dir/src/quadrotor/plant.cpp.s"
-	/usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -S /nfs/stak/students/r/rymalc/Documents/Programming/C++/quadrotor/c/quadrotor/src/quadrotor/plant.cpp -o CMakeFiles/quadrotor.dir/src/quadrotor/plant.cpp.s
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -S /home/charles/Programming/C++/quadrotor/c/quadrotor/src/quadrotor/plant.cpp -o CMakeFiles/quadrotor.dir/src/quadrotor/plant.cpp.s
 
 CMakeFiles/quadrotor.dir/src/quadrotor/plant.cpp.o.requires:
 .PHONY : CMakeFiles/quadrotor.dir/src/quadrotor/plant.cpp.o.requires
@@ -166,17 +163,17 @@ CMakeFiles/quadrotor.dir/src/quadrotor/plant.cpp.o.provides.build: CMakeFiles/qu
 
 CMakeFiles/quadrotor.dir/src/quadrotor/position.cpp.o: CMakeFiles/quadrotor.dir/flags.make
 CMakeFiles/quadrotor.dir/src/quadrotor/position.cpp.o: src/quadrotor/position.cpp
-	$(CMAKE_COMMAND) -E cmake_progress_report /nfs/stak/students/r/rymalc/Documents/Programming/C++/quadrotor/c/quadrotor/CMakeFiles $(CMAKE_PROGRESS_6)
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/charles/Programming/C++/quadrotor/c/quadrotor/CMakeFiles $(CMAKE_PROGRESS_6)
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building CXX object CMakeFiles/quadrotor.dir/src/quadrotor/position.cpp.o"
-	/usr/bin/c++   $(CXX_DEFINES) $(CXX_FLAGS) -o CMakeFiles/quadrotor.dir/src/quadrotor/position.cpp.o -c /nfs/stak/students/r/rymalc/Documents/Programming/C++/quadrotor/c/quadrotor/src/quadrotor/position.cpp
+	/usr/bin/c++   $(CXX_DEFINES) $(CXX_FLAGS) -o CMakeFiles/quadrotor.dir/src/quadrotor/position.cpp.o -c /home/charles/Programming/C++/quadrotor/c/quadrotor/src/quadrotor/position.cpp
 
 CMakeFiles/quadrotor.dir/src/quadrotor/position.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/quadrotor.dir/src/quadrotor/position.cpp.i"
-	/usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -E /nfs/stak/students/r/rymalc/Documents/Programming/C++/quadrotor/c/quadrotor/src/quadrotor/position.cpp > CMakeFiles/quadrotor.dir/src/quadrotor/position.cpp.i
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -E /home/charles/Programming/C++/quadrotor/c/quadrotor/src/quadrotor/position.cpp > CMakeFiles/quadrotor.dir/src/quadrotor/position.cpp.i
 
 CMakeFiles/quadrotor.dir/src/quadrotor/position.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/quadrotor.dir/src/quadrotor/position.cpp.s"
-	/usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -S /nfs/stak/students/r/rymalc/Documents/Programming/C++/quadrotor/c/quadrotor/src/quadrotor/position.cpp -o CMakeFiles/quadrotor.dir/src/quadrotor/position.cpp.s
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -S /home/charles/Programming/C++/quadrotor/c/quadrotor/src/quadrotor/position.cpp -o CMakeFiles/quadrotor.dir/src/quadrotor/position.cpp.s
 
 CMakeFiles/quadrotor.dir/src/quadrotor/position.cpp.o.requires:
 .PHONY : CMakeFiles/quadrotor.dir/src/quadrotor/position.cpp.o.requires
@@ -189,17 +186,17 @@ CMakeFiles/quadrotor.dir/src/quadrotor/position.cpp.o.provides.build: CMakeFiles
 
 CMakeFiles/quadrotor.dir/src/quadrotor/quadrotor.cpp.o: CMakeFiles/quadrotor.dir/flags.make
 CMakeFiles/quadrotor.dir/src/quadrotor/quadrotor.cpp.o: src/quadrotor/quadrotor.cpp
-	$(CMAKE_COMMAND) -E cmake_progress_report /nfs/stak/students/r/rymalc/Documents/Programming/C++/quadrotor/c/quadrotor/CMakeFiles $(CMAKE_PROGRESS_7)
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/charles/Programming/C++/quadrotor/c/quadrotor/CMakeFiles $(CMAKE_PROGRESS_7)
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building CXX object CMakeFiles/quadrotor.dir/src/quadrotor/quadrotor.cpp.o"
-	/usr/bin/c++   $(CXX_DEFINES) $(CXX_FLAGS) -o CMakeFiles/quadrotor.dir/src/quadrotor/quadrotor.cpp.o -c /nfs/stak/students/r/rymalc/Documents/Programming/C++/quadrotor/c/quadrotor/src/quadrotor/quadrotor.cpp
+	/usr/bin/c++   $(CXX_DEFINES) $(CXX_FLAGS) -o CMakeFiles/quadrotor.dir/src/quadrotor/quadrotor.cpp.o -c /home/charles/Programming/C++/quadrotor/c/quadrotor/src/quadrotor/quadrotor.cpp
 
 CMakeFiles/quadrotor.dir/src/quadrotor/quadrotor.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/quadrotor.dir/src/quadrotor/quadrotor.cpp.i"
-	/usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -E /nfs/stak/students/r/rymalc/Documents/Programming/C++/quadrotor/c/quadrotor/src/quadrotor/quadrotor.cpp > CMakeFiles/quadrotor.dir/src/quadrotor/quadrotor.cpp.i
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -E /home/charles/Programming/C++/quadrotor/c/quadrotor/src/quadrotor/quadrotor.cpp > CMakeFiles/quadrotor.dir/src/quadrotor/quadrotor.cpp.i
 
 CMakeFiles/quadrotor.dir/src/quadrotor/quadrotor.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/quadrotor.dir/src/quadrotor/quadrotor.cpp.s"
-	/usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -S /nfs/stak/students/r/rymalc/Documents/Programming/C++/quadrotor/c/quadrotor/src/quadrotor/quadrotor.cpp -o CMakeFiles/quadrotor.dir/src/quadrotor/quadrotor.cpp.s
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -S /home/charles/Programming/C++/quadrotor/c/quadrotor/src/quadrotor/quadrotor.cpp -o CMakeFiles/quadrotor.dir/src/quadrotor/quadrotor.cpp.s
 
 CMakeFiles/quadrotor.dir/src/quadrotor/quadrotor.cpp.o.requires:
 .PHONY : CMakeFiles/quadrotor.dir/src/quadrotor/quadrotor.cpp.o.requires
@@ -212,17 +209,17 @@ CMakeFiles/quadrotor.dir/src/quadrotor/quadrotor.cpp.o.provides.build: CMakeFile
 
 CMakeFiles/quadrotor.dir/src/quadrotor/telem.cpp.o: CMakeFiles/quadrotor.dir/flags.make
 CMakeFiles/quadrotor.dir/src/quadrotor/telem.cpp.o: src/quadrotor/telem.cpp
-	$(CMAKE_COMMAND) -E cmake_progress_report /nfs/stak/students/r/rymalc/Documents/Programming/C++/quadrotor/c/quadrotor/CMakeFiles $(CMAKE_PROGRESS_8)
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/charles/Programming/C++/quadrotor/c/quadrotor/CMakeFiles $(CMAKE_PROGRESS_8)
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building CXX object CMakeFiles/quadrotor.dir/src/quadrotor/telem.cpp.o"
-	/usr/bin/c++   $(CXX_DEFINES) $(CXX_FLAGS) -o CMakeFiles/quadrotor.dir/src/quadrotor/telem.cpp.o -c /nfs/stak/students/r/rymalc/Documents/Programming/C++/quadrotor/c/quadrotor/src/quadrotor/telem.cpp
+	/usr/bin/c++   $(CXX_DEFINES) $(CXX_FLAGS) -o CMakeFiles/quadrotor.dir/src/quadrotor/telem.cpp.o -c /home/charles/Programming/C++/quadrotor/c/quadrotor/src/quadrotor/telem.cpp
 
 CMakeFiles/quadrotor.dir/src/quadrotor/telem.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/quadrotor.dir/src/quadrotor/telem.cpp.i"
-	/usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -E /nfs/stak/students/r/rymalc/Documents/Programming/C++/quadrotor/c/quadrotor/src/quadrotor/telem.cpp > CMakeFiles/quadrotor.dir/src/quadrotor/telem.cpp.i
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -E /home/charles/Programming/C++/quadrotor/c/quadrotor/src/quadrotor/telem.cpp > CMakeFiles/quadrotor.dir/src/quadrotor/telem.cpp.i
 
 CMakeFiles/quadrotor.dir/src/quadrotor/telem.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/quadrotor.dir/src/quadrotor/telem.cpp.s"
-	/usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -S /nfs/stak/students/r/rymalc/Documents/Programming/C++/quadrotor/c/quadrotor/src/quadrotor/telem.cpp -o CMakeFiles/quadrotor.dir/src/quadrotor/telem.cpp.s
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -S /home/charles/Programming/C++/quadrotor/c/quadrotor/src/quadrotor/telem.cpp -o CMakeFiles/quadrotor.dir/src/quadrotor/telem.cpp.s
 
 CMakeFiles/quadrotor.dir/src/quadrotor/telem.cpp.o.requires:
 .PHONY : CMakeFiles/quadrotor.dir/src/quadrotor/telem.cpp.o.requires
@@ -235,17 +232,17 @@ CMakeFiles/quadrotor.dir/src/quadrotor/telem.cpp.o.provides.build: CMakeFiles/qu
 
 CMakeFiles/quadrotor.dir/src/quadrotor/fda.cpp.o: CMakeFiles/quadrotor.dir/flags.make
 CMakeFiles/quadrotor.dir/src/quadrotor/fda.cpp.o: src/quadrotor/fda.cpp
-	$(CMAKE_COMMAND) -E cmake_progress_report /nfs/stak/students/r/rymalc/Documents/Programming/C++/quadrotor/c/quadrotor/CMakeFiles $(CMAKE_PROGRESS_9)
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/charles/Programming/C++/quadrotor/c/quadrotor/CMakeFiles $(CMAKE_PROGRESS_9)
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building CXX object CMakeFiles/quadrotor.dir/src/quadrotor/fda.cpp.o"
-	/usr/bin/c++   $(CXX_DEFINES) $(CXX_FLAGS) -o CMakeFiles/quadrotor.dir/src/quadrotor/fda.cpp.o -c /nfs/stak/students/r/rymalc/Documents/Programming/C++/quadrotor/c/quadrotor/src/quadrotor/fda.cpp
+	/usr/bin/c++   $(CXX_DEFINES) $(CXX_FLAGS) -o CMakeFiles/quadrotor.dir/src/quadrotor/fda.cpp.o -c /home/charles/Programming/C++/quadrotor/c/quadrotor/src/quadrotor/fda.cpp
 
 CMakeFiles/quadrotor.dir/src/quadrotor/fda.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/quadrotor.dir/src/quadrotor/fda.cpp.i"
-	/usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -E /nfs/stak/students/r/rymalc/Documents/Programming/C++/quadrotor/c/quadrotor/src/quadrotor/fda.cpp > CMakeFiles/quadrotor.dir/src/quadrotor/fda.cpp.i
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -E /home/charles/Programming/C++/quadrotor/c/quadrotor/src/quadrotor/fda.cpp > CMakeFiles/quadrotor.dir/src/quadrotor/fda.cpp.i
 
 CMakeFiles/quadrotor.dir/src/quadrotor/fda.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/quadrotor.dir/src/quadrotor/fda.cpp.s"
-	/usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -S /nfs/stak/students/r/rymalc/Documents/Programming/C++/quadrotor/c/quadrotor/src/quadrotor/fda.cpp -o CMakeFiles/quadrotor.dir/src/quadrotor/fda.cpp.s
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -S /home/charles/Programming/C++/quadrotor/c/quadrotor/src/quadrotor/fda.cpp -o CMakeFiles/quadrotor.dir/src/quadrotor/fda.cpp.s
 
 CMakeFiles/quadrotor.dir/src/quadrotor/fda.cpp.o.requires:
 .PHONY : CMakeFiles/quadrotor.dir/src/quadrotor/fda.cpp.o.requires
@@ -306,6 +303,6 @@ CMakeFiles/quadrotor.dir/clean:
 .PHONY : CMakeFiles/quadrotor.dir/clean
 
 CMakeFiles/quadrotor.dir/depend:
-	cd /nfs/stak/students/r/rymalc/Documents/Programming/C++/quadrotor/c/quadrotor && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /nfs/stak/students/r/rymalc/Documents/Programming/C++/quadrotor/c/quadrotor /nfs/stak/students/r/rymalc/Documents/Programming/C++/quadrotor/c/quadrotor /nfs/stak/students/r/rymalc/Documents/Programming/C++/quadrotor/c/quadrotor /nfs/stak/students/r/rymalc/Documents/Programming/C++/quadrotor/c/quadrotor /nfs/stak/students/r/rymalc/Documents/Programming/C++/quadrotor/c/quadrotor/CMakeFiles/quadrotor.dir/DependInfo.cmake --color=$(COLOR)
+	cd /home/charles/Programming/C++/quadrotor/c/quadrotor && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /home/charles/Programming/C++/quadrotor/c/quadrotor /home/charles/Programming/C++/quadrotor/c/quadrotor /home/charles/Programming/C++/quadrotor/c/quadrotor /home/charles/Programming/C++/quadrotor/c/quadrotor /home/charles/Programming/C++/quadrotor/c/quadrotor/CMakeFiles/quadrotor.dir/DependInfo.cmake --color=$(COLOR)
 .PHONY : CMakeFiles/quadrotor.dir/depend
 

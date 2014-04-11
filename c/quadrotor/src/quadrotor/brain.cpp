@@ -206,8 +206,16 @@ void Brain::control_law_position(double dt, int ti, int ti_0) {
 			break;
 		case Brain::Mode::e::JOUNCE:
 			pos_->step(dt, ti, ti_0);
-		
-			pos_->step_jounce(dt, ti, ti_0);
+
+			switch(pos_->type_) {
+				case Command::Base::Type::e::POINT:
+				case Command::Base::Type::e::PATH:
+					pos_->step_jounce(dt, ti, ti_0);
+					break;
+				case Command::Base::Type::e::VELOCITY:
+					pos_->step_jounce_velocity(dt, ti, ti_0);
+					break;
+			}
 
 			step_jounce(ti, dt);
 
@@ -283,7 +291,7 @@ void Brain::step(int ti, double dt) {
 		ti_0_ = 0;
 
 		switch(obj_->type_) {
-			case Command::Base::Type::MOVE:
+			case Command::Base::Type::POINT:
 				pos_->set_obj(ti, (Command::Position*)obj_);
 				break;
 			case Command::Base::Type::PATH:
@@ -291,9 +299,6 @@ void Brain::step(int ti, double dt) {
 				break;
 			case Command::Base::Type::ORIENT:
 				// set reference altitude to current altitude
-				Command::Move* move = new Command::Move(quad_->telem_->x_[ti]);
-				pos_->set_obj(ti, move);
-
 				att_->set_obj(ti, (Command::Orient*)obj_);
 
 
@@ -302,7 +307,7 @@ void Brain::step(int ti, double dt) {
 	}
 
 	switch(obj_->type_) {
-		case Command::Base::Type::MOVE:
+		case Command::Base::Type::POINT:
 			control_law_position(dt, ti, ti_0_);
 			break;
 		case Command::Base::Type::PATH:
