@@ -10,6 +10,7 @@
 #include <quadrotor/brain.h>
 #include <quadrotor/position.h>
 #include <quadrotor/quadrotor.h>
+#include <quadrotor/ControlLaw/ControlLaw.h>
 
 void print_arr(double* arr, int len) {
 	for(int a = 0; a < len; a++) {
@@ -111,16 +112,20 @@ void search::exec(int m) {
 	}
 }
 
+math::vec3 constant(double) {
+	return math::vec3(1,0,0);
+}
+
 bool search::test() {
 	r_->reset();
-	r_->brain_->pos_->set_poles(C_);
+	r_->brain_->cl_x_->set_poles(C_, 5);
 	r_->brain_->objs_.push_back(
-			new Command::Move(math::vec3(1,0,0), math::vec3(0.01,0.01,0.01))
+			new Command::X(r_, constant, math::vec3(0.01,0.01,0.01))
 			);
 	r_->ti_stop_ = n_;
 	r_->run();
 
-	Command::Move* move = (Command::Move*)(r_->brain_->pos_->pos_);
+	Command::X* move = (Command::X*)(r_->brain_->obj_);
 
 	if(move->flag_ & Command::Base::Flag::COMPLETE) {
 		if(move->ts_ < ts_) {
@@ -143,13 +148,13 @@ void reset_quadrotor(Quadrotor* r, double* C) {
 	   r->brain_->pos_->C4_.SetDiagonal(C[2], C[2], C[2]);
 	   r->brain_->pos_->C5_.SetDiagonal(C[3], C[3], C[3]);
 	   */
-	r->brain_->pos_->set_poles(C);
+	r->brain_->cl_x_->set_poles(C, 5);
 
 	//r->brain_->att_->C1_.SetDiagonal(C[3], C[3], C[3]);
 	//r->brain_->att_->C2_.SetDiagonal(C[4], C[4], C[4]);
 
 	r->brain_->objs_.push_back(
-			new Command::Move(math::vec3(1,0,0), math::vec3(0.01,0.01,0.01))
+			new Command::X(r, constant, math::vec3(0.01,0.01,0.01))
 			);
 
 
@@ -166,7 +171,7 @@ void sub2(Quadrotor* r, double* C, double& ts, int& N, int a, int& b) {
 
 	r->run();
 
-	Command::Move* move = (Command::Move*)(r->brain_->pos_->pos_);
+	Command::X* move = (Command::X*)(r->brain_->obj_);
 
 	if(move->flag_ & Command::Base::Flag::COMPLETE) {
 		if(move->ts_ < ts) {
@@ -276,8 +281,7 @@ void normal(int N, double dt) {
 
 	Quadrotor* r = new Quadrotor(dt, N);
 
-	r->brain_->pos_->read_param();
-	r->brain_->att_->read_param();
+	r->brain_->cl_x_->read();
 
 	
 	double poles[] = {
@@ -287,9 +291,10 @@ void normal(int N, double dt) {
 		-0.7,
 		-0.7};
 
-	r->brain_->pos_->set_poles(poles);
+	r->brain_->cl_x_->set_poles(poles, 5);
 
-	r->brain_->objs_.push_back(new Command::Move(math::vec3(1,0,0)));
+	r->brain_->objs_.push_back(new Command::X(r, constant));
+
 	//r->brain_->objs_.push_back(new Command::Move(math::vec3(0.01,0,0)));
 	//r->brain_->objs_.push_back(new Command::Move(math::vec3(1,0,0), math::vec3(0.01,0.01,0.01)));
 	//r->brain_->objs_.push_back(new Command::Move(math::vec3(1,1,0), math::vec3(0.01,0.01,0.01)));

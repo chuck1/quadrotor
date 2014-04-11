@@ -28,10 +28,11 @@ class Quadrotor {
 		math::vec3&	x(int);
 		math::vec3&	v(int);
 		math::vec3&	a(int);
-		math::vec3&	jounce(int);
+		math::vec3&	jerk(int);
+		//math::vec3&	jounce(int);
 		math::quat&	q(int);
-		math::quat&	omega(int);
-		math::quat&	alpha(int);
+		math::vec3&	omega(int);
+		math::vec3&	alpha(int);
 
 	public:
 		// physical constants

@@ -35,19 +35,22 @@ CMAKE_COMMAND = /usr/bin/cmake
 # The command to remove a file.
 RM = /usr/bin/cmake -E remove -f
 
+# The program to use to edit the cache.
+CMAKE_EDIT_COMMAND = /usr/bin/ccmake
+
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /home/charles/Programming/C++/quadrotor/c/quadrotor
+CMAKE_SOURCE_DIR = /nfs/stak/students/r/rymalc/Documents/Programming/C++/quadrotor/c/quadrotor
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /home/charles/Programming/C++/quadrotor/c/quadrotor
+CMAKE_BINARY_DIR = /nfs/stak/students/r/rymalc/Documents/Programming/C++/quadrotor/c/quadrotor
 
 #=============================================================================
 # Targets provided globally by CMake.
 
 # Special rule for the target edit_cache
 edit_cache:
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Running interactive CMake command-line interface..."
-	/usr/bin/cmake -i .
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Running CMake cache editor..."
+	/usr/bin/ccmake -H$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR)
 .PHONY : edit_cache
 
 # Special rule for the target edit_cache
@@ -107,9 +110,9 @@ rebuild_cache/fast: rebuild_cache
 
 # The main all target
 all: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/charles/Programming/C++/quadrotor/c/quadrotor/CMakeFiles /home/charles/Programming/C++/quadrotor/c/quadrotor/CMakeFiles/progress.marks
+	$(CMAKE_COMMAND) -E cmake_progress_start /nfs/stak/students/r/rymalc/Documents/Programming/C++/quadrotor/c/quadrotor/CMakeFiles /nfs/stak/students/r/rymalc/Documents/Programming/C++/quadrotor/c/quadrotor/CMakeFiles/progress.marks
 	$(MAKE) -f CMakeFiles/Makefile2 all
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/charles/Programming/C++/quadrotor/c/quadrotor/CMakeFiles 0
+	$(CMAKE_COMMAND) -E cmake_progress_start /nfs/stak/students/r/rymalc/Documents/Programming/C++/quadrotor/c/quadrotor/CMakeFiles 0
 .PHONY : all
 
 # The main clean target
@@ -148,6 +151,102 @@ quadrotor: cmake_check_build_system
 quadrotor/fast:
 	$(MAKE) -f CMakeFiles/quadrotor.dir/build.make CMakeFiles/quadrotor.dir/build
 .PHONY : quadrotor/fast
+
+src/quadrotor/ControlLaw/Alpha.o: src/quadrotor/ControlLaw/Alpha.cpp.o
+.PHONY : src/quadrotor/ControlLaw/Alpha.o
+
+# target to build an object file
+src/quadrotor/ControlLaw/Alpha.cpp.o:
+	$(MAKE) -f CMakeFiles/quadrotor.dir/build.make CMakeFiles/quadrotor.dir/src/quadrotor/ControlLaw/Alpha.cpp.o
+.PHONY : src/quadrotor/ControlLaw/Alpha.cpp.o
+
+src/quadrotor/ControlLaw/Alpha.i: src/quadrotor/ControlLaw/Alpha.cpp.i
+.PHONY : src/quadrotor/ControlLaw/Alpha.i
+
+# target to preprocess a source file
+src/quadrotor/ControlLaw/Alpha.cpp.i:
+	$(MAKE) -f CMakeFiles/quadrotor.dir/build.make CMakeFiles/quadrotor.dir/src/quadrotor/ControlLaw/Alpha.cpp.i
+.PHONY : src/quadrotor/ControlLaw/Alpha.cpp.i
+
+src/quadrotor/ControlLaw/Alpha.s: src/quadrotor/ControlLaw/Alpha.cpp.s
+.PHONY : src/quadrotor/ControlLaw/Alpha.s
+
+# target to generate assembly for a file
+src/quadrotor/ControlLaw/Alpha.cpp.s:
+	$(MAKE) -f CMakeFiles/quadrotor.dir/build.make CMakeFiles/quadrotor.dir/src/quadrotor/ControlLaw/Alpha.cpp.s
+.PHONY : src/quadrotor/ControlLaw/Alpha.cpp.s
+
+src/quadrotor/ControlLaw/ControlLaw.o: src/quadrotor/ControlLaw/ControlLaw.cpp.o
+.PHONY : src/quadrotor/ControlLaw/ControlLaw.o
+
+# target to build an object file
+src/quadrotor/ControlLaw/ControlLaw.cpp.o:
+	$(MAKE) -f CMakeFiles/quadrotor.dir/build.make CMakeFiles/quadrotor.dir/src/quadrotor/ControlLaw/ControlLaw.cpp.o
+.PHONY : src/quadrotor/ControlLaw/ControlLaw.cpp.o
+
+src/quadrotor/ControlLaw/ControlLaw.i: src/quadrotor/ControlLaw/ControlLaw.cpp.i
+.PHONY : src/quadrotor/ControlLaw/ControlLaw.i
+
+# target to preprocess a source file
+src/quadrotor/ControlLaw/ControlLaw.cpp.i:
+	$(MAKE) -f CMakeFiles/quadrotor.dir/build.make CMakeFiles/quadrotor.dir/src/quadrotor/ControlLaw/ControlLaw.cpp.i
+.PHONY : src/quadrotor/ControlLaw/ControlLaw.cpp.i
+
+src/quadrotor/ControlLaw/ControlLaw.s: src/quadrotor/ControlLaw/ControlLaw.cpp.s
+.PHONY : src/quadrotor/ControlLaw/ControlLaw.s
+
+# target to generate assembly for a file
+src/quadrotor/ControlLaw/ControlLaw.cpp.s:
+	$(MAKE) -f CMakeFiles/quadrotor.dir/build.make CMakeFiles/quadrotor.dir/src/quadrotor/ControlLaw/ControlLaw.cpp.s
+.PHONY : src/quadrotor/ControlLaw/ControlLaw.cpp.s
+
+src/quadrotor/ControlLaw/Jerk.o: src/quadrotor/ControlLaw/Jerk.cpp.o
+.PHONY : src/quadrotor/ControlLaw/Jerk.o
+
+# target to build an object file
+src/quadrotor/ControlLaw/Jerk.cpp.o:
+	$(MAKE) -f CMakeFiles/quadrotor.dir/build.make CMakeFiles/quadrotor.dir/src/quadrotor/ControlLaw/Jerk.cpp.o
+.PHONY : src/quadrotor/ControlLaw/Jerk.cpp.o
+
+src/quadrotor/ControlLaw/Jerk.i: src/quadrotor/ControlLaw/Jerk.cpp.i
+.PHONY : src/quadrotor/ControlLaw/Jerk.i
+
+# target to preprocess a source file
+src/quadrotor/ControlLaw/Jerk.cpp.i:
+	$(MAKE) -f CMakeFiles/quadrotor.dir/build.make CMakeFiles/quadrotor.dir/src/quadrotor/ControlLaw/Jerk.cpp.i
+.PHONY : src/quadrotor/ControlLaw/Jerk.cpp.i
+
+src/quadrotor/ControlLaw/Jerk.s: src/quadrotor/ControlLaw/Jerk.cpp.s
+.PHONY : src/quadrotor/ControlLaw/Jerk.s
+
+# target to generate assembly for a file
+src/quadrotor/ControlLaw/Jerk.cpp.s:
+	$(MAKE) -f CMakeFiles/quadrotor.dir/build.make CMakeFiles/quadrotor.dir/src/quadrotor/ControlLaw/Jerk.cpp.s
+.PHONY : src/quadrotor/ControlLaw/Jerk.cpp.s
+
+src/quadrotor/ControlLaw/Jounce.o: src/quadrotor/ControlLaw/Jounce.cpp.o
+.PHONY : src/quadrotor/ControlLaw/Jounce.o
+
+# target to build an object file
+src/quadrotor/ControlLaw/Jounce.cpp.o:
+	$(MAKE) -f CMakeFiles/quadrotor.dir/build.make CMakeFiles/quadrotor.dir/src/quadrotor/ControlLaw/Jounce.cpp.o
+.PHONY : src/quadrotor/ControlLaw/Jounce.cpp.o
+
+src/quadrotor/ControlLaw/Jounce.i: src/quadrotor/ControlLaw/Jounce.cpp.i
+.PHONY : src/quadrotor/ControlLaw/Jounce.i
+
+# target to preprocess a source file
+src/quadrotor/ControlLaw/Jounce.cpp.i:
+	$(MAKE) -f CMakeFiles/quadrotor.dir/build.make CMakeFiles/quadrotor.dir/src/quadrotor/ControlLaw/Jounce.cpp.i
+.PHONY : src/quadrotor/ControlLaw/Jounce.cpp.i
+
+src/quadrotor/ControlLaw/Jounce.s: src/quadrotor/ControlLaw/Jounce.cpp.s
+.PHONY : src/quadrotor/ControlLaw/Jounce.s
+
+# target to generate assembly for a file
+src/quadrotor/ControlLaw/Jounce.cpp.s:
+	$(MAKE) -f CMakeFiles/quadrotor.dir/build.make CMakeFiles/quadrotor.dir/src/quadrotor/ControlLaw/Jounce.cpp.s
+.PHONY : src/quadrotor/ControlLaw/Jounce.cpp.s
 
 src/quadrotor/array.o: src/quadrotor/array.cpp.o
 .PHONY : src/quadrotor/array.o
@@ -378,6 +477,18 @@ help:
 	@echo "... list_install_components"
 	@echo "... quadrotor"
 	@echo "... rebuild_cache"
+	@echo "... src/quadrotor/ControlLaw/Alpha.o"
+	@echo "... src/quadrotor/ControlLaw/Alpha.i"
+	@echo "... src/quadrotor/ControlLaw/Alpha.s"
+	@echo "... src/quadrotor/ControlLaw/ControlLaw.o"
+	@echo "... src/quadrotor/ControlLaw/ControlLaw.i"
+	@echo "... src/quadrotor/ControlLaw/ControlLaw.s"
+	@echo "... src/quadrotor/ControlLaw/Jerk.o"
+	@echo "... src/quadrotor/ControlLaw/Jerk.i"
+	@echo "... src/quadrotor/ControlLaw/Jerk.s"
+	@echo "... src/quadrotor/ControlLaw/Jounce.o"
+	@echo "... src/quadrotor/ControlLaw/Jounce.i"
+	@echo "... src/quadrotor/ControlLaw/Jounce.s"
 	@echo "... src/quadrotor/array.o"
 	@echo "... src/quadrotor/array.i"
 	@echo "... src/quadrotor/array.s"

@@ -11,7 +11,7 @@ void zero(double& a) {
 	a = 0.0;
 }
 bool sane(math::vec3 const & a) {
-	return a.isSane();
+	return true;//a.IsSane();
 }
 bool sane(double const & a) {
 	if(isnan(a)) return false;

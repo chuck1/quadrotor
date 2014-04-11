@@ -4,15 +4,17 @@
 #include <quadrotor/attitude.h>
 #include <quadrotor/command.h>
 #include <quadrotor/position.h>
+#include <quadrotor/ControlLaw/ControlLaw.h>
 #include <quadrotor/ControlLaw/Jounce.h>
 #include <quadrotor/ControlLaw/Jerk.h>
+#include <quadrotor/ControlLaw/Alpha.h>
 
 Brain::Brain(Quadrotor* quad):
 	mode_(Brain::Mode::e::JOUNCE),
 	quad_(quad)
 {
-	pos_ = new Position(quad);
-	att_ = new Attitude(quad);
+	//pos_ = new Position(quad);
+	//att_ = new Attitude(quad);
 
 	heading_ = 0.0;//M_PI * 0.5;
 
@@ -26,17 +28,22 @@ Brain::Brain(Quadrotor* quad):
 	obj_ = NULL;
 
 	thrust_.fill(quad_->m_ * quad_->gravity_.magnitude());
+
+	cl_x_ = new Jounce::X(quad_);
+	cl_v_ = new Jounce::V(quad_);
+	cl_q_ = new Alpha1::Q(quad_);
+
 }
 void Brain::reset() {
 	objs_.clear();
 	obj_ = NULL;
 
-	pos_->reset();
-	att_->reset();
+	//pos_->reset();
+	//att_->reset();
 }
-void Brain::step_accel(int ti) {
-	
-	f_R_[ti] = (pos_->a_[ti] - quad_->gravity_ /*-f_D*/) * quad_->m_;
+//void Brain::step_accel(int ti) {
+/*	
+	f_R_[ti] = (pos_->a_[ti] - quad_->gravity_ -f_D) * quad_->m_;
 	
 	math::quat qn;
 
@@ -49,7 +56,7 @@ void Brain::step_accel(int ti) {
 
 	if(!q.isSane()) printf("insane\n");
 	//printf("q"); q.print();
-	if(f_R_[ti].isNan()) {
+	if(f_R_[ti].IsNan()) {
 		printf("f_R is nan");
 		throw;
 	}
@@ -106,33 +113,7 @@ void Brain::step_accel(int ti) {
 	
 
 }
-void Brain::step_jerk(int ti, double dt) {
-	
-	math::vec3 tmp = quad_->telem_->q_[ti].rotate(pos_->jerk_[ti] * quad_->m_);
-	
-	thrust_[ti] = thrust_[ti-1] + tmp.z * dt;
-	//a_RB_[ti] = a_RB_[ti-1] + i_RB * dt;
-
-	math::vec3 o;
-	if(thrust_[ti] > 0) {
-		o.x = tmp.y / thrust_[ti];
-		o.y = -tmp.x / thrust_[ti];
-	}
-
-
-	if(!o.isSane()) {
-		printf("tmp\n");
-		tmp.print();
-		throw;
-	}
-
-	att_->set_o_reference(ti, o);
-}
-void Brain::step_jounce(int ti, double dt) {
-	
-		
-}
-
+*/
 /*
 void Brain::control_law_position(double dt, int ti, int ti_0) {
 	// position control
@@ -187,51 +168,21 @@ void Brain::control_law_position(double dt, int ti, int ti_0) {
 	step_motor_speed(ti);
 }
 */
-void Brain::step_motor_speed(int ti) {
 
-	math::vec4 temp(
-			att_->tau_RB_[ti].x,
-			att_->tau_RB_[ti].y,
-			att_->tau_RB_[ti].z,
-			0.0);
-
-	quad_->plant_->gamma1_[ti] = quad_->A4inv_ * temp;
-
-	// thrust
-	quad_->plant_->gamma0_[ti] = thrust_[ti] / (quad_->k_ * 4.0);
-
-	if(!quad_->plant_->gamma1_[ti].isSane()) {
-		printf("gamma1\n");
-		quad_->plant_->gamma1_[ti].print();
-		printf("A4\n");
-		quad_->A4inv_.print();
-		printf("temp\n");
-		temp.print();
-		throw;
-	}
-
-	//printf("gamma\n");
-	//quad_->plant_->gamma_[ti].print();
-
-}
-void Brain::control_law_3(double dt, int ti, int ti_0) {
-	// require position error
-	pos_->step(dt, ti, ti_0);
-
-	/*math::vec3 f_R =*/ //pos_->get_force_rotor(ti, ti_0);
-
-
-	//process_force_reference(ti);
-
-	// get body torque
-	//att_->get_tau_RB(ti, ti_0);
-
-	step_motor_speed(ti);
-
-}
 void	Brain::CheckCommand(int i) {
-	if ((obj_ == NULL) || (obj_->flag_ & Command::Base::Flag::COMPLETE)) {
+	bool pop = false;
+
+	if (obj_ == NULL) {
+		printf("obj is NULL\n");
+		pop = true;
+	} else {
+		if(obj_->flag_ & Command::Base::Flag::COMPLETE) {
+			printf("obj is complete\n");
+			pop = true;
+		}
+	}
 		
+	if(pop) {
 		if(objs_.empty()) {
 			throw EmptyQueue();
 		}
@@ -241,25 +192,23 @@ void	Brain::CheckCommand(int i) {
 		objs_.pop_front();
 
 		switch(obj_->type_) {
-			case Command::Base::Type::POINT:
-				cl_ = cl_point_;
-				cl_->SetCommand(i, obj_);
+			case Command::Base::Type::X:
+				cl_ = cl_x_;
 				break;
-			case Command::Base::Type::PATH:
-				cl_ = cl_path_;
-				cl_->SetCommand(i, obj_);
-				break;
-			case Command::Base::Type::ORIENT:
-				cl_ = cl_orient_;
-				cl_->SetCommand(i, obj_);
+			case Command::Base::Type::Q:
+				cl_ = cl_q_;
 				break;
 		}
+		
+		cl_->command_ = obj_;
 	}
 }
 void Brain::step(int i, double h) {
 
-	CheckCommand(i);
+	printf("%s\n",__PRETTY_FUNCTION__);
 
+	CheckCommand(i);
+	
 	cl_->Step(i, h);
 	
 }

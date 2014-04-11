@@ -73,6 +73,11 @@ Quadrotor::Quadrotor(double dt, int N):
 math::vec3&	Quadrotor::x(int i) { return telem_->x_[i]; }
 math::vec3&	Quadrotor::v(int i) { return telem_->v_[i]; }
 math::vec3&	Quadrotor::a(int i) { return telem_->a_[i]; }
+math::vec3&	Quadrotor::jerk(int i) { return telem_->jerk_[i]; }
+//math::vec3&	Quadrotor::jounce(int i) { return telem_->jounce_[i]; }
+math::quat&	Quadrotor::q(int i) { return telem_->q_[i]; }
+math::vec3&	Quadrotor::omega(int i) { return telem_->omega_[i]; }
+math::vec3&	Quadrotor::alpha(int i) { return telem_->alpha_[i]; }
 void Quadrotor::reset() {
 	ti_f_ = 0;
 
@@ -81,6 +86,8 @@ void Quadrotor::reset() {
 void Quadrotor::run() {
 
 	//printf("dt %f\n", dt_);
+
+	printf("command queue %i\n", (int)brain_->objs_.size());
 
 	for(int ti = 1; ti < ti_stop_; ti++) {
 
@@ -111,9 +118,10 @@ void Quadrotor::run() {
 	}
 }
 math::vec3 Quadrotor::angular_accel_to_torque(int ti, math::vec3 od) {
+
 	math::vec3 torque = 
 		I_ * od + 
-		telem_->o_[ti].cross(I_ * telem_->o_[ti]);
+		omega(ti).cross(I_ * omega(ti));
 
 	return torque;
 }
@@ -140,16 +148,16 @@ math::vec4	Quadrotor::thrust_torque_to_motor_speed(int i, double const & thrust,
 }	
 void Quadrotor::write() {
 	brain_->write(ti_f_);
-	brain_->pos_->write(ti_f_);
-	brain_->att_->write(ti_f_);
+	//brain_->pos_->write(ti_f_);
+	//brain_->att_->write(ti_f_);
 	plant_->write(ti_f_);
 	telem_->write(ti_f_);
 
 	write_param();
 }
 void Quadrotor::write_param() {
-	brain_->att_->write_param();
-	brain_->pos_->write_param();
+	//brain_->att_->write_param();
+	//brain_->pos_->write_param();
 }
 
 void product(int choices, int repeat, int*& arr, int level) {

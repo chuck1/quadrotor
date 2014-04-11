@@ -17,6 +17,10 @@ add_library(quadrotor
 	src/quadrotor/quadrotor.cpp
 	src/quadrotor/telem.cpp
 	src/quadrotor/fda.cpp
+	src/quadrotor/ControlLaw/ControlLaw.cpp
+	src/quadrotor/ControlLaw/Alpha.cpp
+	src/quadrotor/ControlLaw/Jerk.cpp
+	src/quadrotor/ControlLaw/Jounce.cpp
 )
 
 #configure_file("${PROJECT_SOURCE_DIR}/quadrotor/config.h.in" "${PROJECT_SOURCE_DIR}/math/config.h")
@@ -35,8 +39,8 @@ install(FILES ${PROJECT_SOURCE_DIR}/quadrotor/plant.h DESTINATION		include/quadr
 install(FILES ${PROJECT_SOURCE_DIR}/quadrotor/position.h DESTINATION		include/quadrotor/)
 install(FILES ${PROJECT_SOURCE_DIR}/quadrotor/fda.h DESTINATION			include/quadrotor/)
 install(FILES ${PROJECT_SOURCE_DIR}/quadrotor/command.h DESTINATION		include/quadrotor/)
-install(FILES ${PROJECT_SOURCE_DIR}/quadrotor/telem.h DESTINATION		include/quadrotor/)
-
+install(FILES ${PROJECT_SOURCE_DIR}/quadrotor/telem.h DESTINATION					include/quadrotor/)
+install(FILES ${PROJECT_SOURCE_DIR}/quadrotor/ControlLaw/ControlLaw.h		DESTINATION		include/quadrotor/ControlLaw)
 #project(test_array)
 #add_executable(test_array test/array/main.cpp)
 #target_link_libraries(test_array math)

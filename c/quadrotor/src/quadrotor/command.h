@@ -31,10 +31,9 @@ namespace Command {
 
 			struct Type {
 				enum e {
-					POINT,
-					PATH,
-					ORIENT,
-					VELOCITY
+					X,
+					V,
+					Q,
 				};
 			};
 
@@ -45,53 +44,30 @@ namespace Command {
 			unsigned int	flag_;
 			unsigned int	mode_;
 			unsigned int	type_;
+
+			double		ts_;
+			int		ti_s_;
 	};
 
-	class Position: public Base {
+	class X: public Base {
 		public:
-			Position(Base::Type::e type, Base::Mode::e, Quadrotor*);
-			Position(Base::Type::e type, Base::Mode::e, math::vec3 thresh_, Quadrotor*);
-			
-			virtual void	check(int) = 0;
+			X(Quadrotor*, math::vec3 (*)(double));
+			X(Quadrotor*, math::vec3 (*)(double), math::vec3 const &);
 
+			void		Settle(int, double t);
+		public:
+			math::vec3	(*f_)(double);
 			math::vec3	thresh_;
 	};
 
 
-	class Point: public Command::Position {
+	class Q: public Base {
 		public:
-			math::vec3	x2_;
-
-
-			Point(math::vec3 x2, math::vec3 thresh, Quadrotor*);
-			Point(math::vec3 x2, Quadrotor*);
-
-			virtual void	check(int);
-
-			void settle(int, double t);
-		public:
-			int		ti_s_;
-			double		ts_;
-	};
-
-	class Path: public Position {
-		public:
-			Path(math::vec3 (*f)(double), Quadrotor*);
-
-			virtual void	check(int);
-
-		public:
-			math::vec3 (*f_)(double);
-	};
-	
-	
-	class Orient: public Base {
-		public:
-			math::quat	q_;
+			math::quat 	(*f_)(double);
 			double		thresh_;
 
-			Orient(math::quat q, double thresh, Quadrotor*);
-			Orient(math::quat q, Quadrotor*);
+			Q(Quadrotor*, math::quat (*)(double), double thresh);
+			Q(Quadrotor*, math::quat (*)(double));
 	};	
 
 }

@@ -9,6 +9,7 @@
 #include <quadrotor/quadrotor.h>
 #include <quadrotor/brain.h>
 #include <quadrotor/position.h>
+#include <quadrotor/ControlLaw/ControlLaw.h>
 
 Command::Base::Base(Command::Base::Type::e type, Command::Base::Mode::e mode, Quadrotor* r):
 	r_(r),
@@ -18,87 +19,46 @@ Command::Base::Base(Command::Base::Type::e type, Command::Base::Mode::e mode, Qu
 {
 }
 
-Command::Position::Position(Command::Base::Type::e type, Command::Base::Mode::e mode, Quadrotor* r):
-	Command::Base(type, mode, r)
-{
-}
+void Command::X::Settle(int i, double t) {
 
-Command::Position::Position(Command::Base::Type::e type, Command::Base::Mode::e mode, math::vec3 thresh, Quadrotor* r):
-	Command::Base(type, mode, r),
-	thresh_(thresh)
-{
-}
-
-Command::Point::Point(math::vec3 x2, math::vec3 thresh, Quadrotor* r):
-	Command::Position(Command::Base::Type::POINT, Command::Position::Mode::NORMAL, thresh, r),
-	x2_(x2)
-{
-}
-
-Command::Point::Point(math::vec3 x2, Quadrotor* r):
-	Command::Position(Command::Base::Type::POINT, Command::Position::Mode::HOLD, r),
-	x2_(x2)
-{
-}
-void Command::Point::check(int ti) {
-
-	math::vec3 tol(0.01,0.01,0.01);
-	
-	::Position* pos = r_->brain_->pos_;
-
-	if(mode_ == Command::Position::Mode::NORMAL) {
-
-		bool close = pos->e1_[ti].abs_less(thresh_);
-
-		if (close) {
-
-			if (pos->e2_[ti].abs_less(tol)) {
-
-				if (pos->e3_[ti].abs_less(tol)) {
-
-					if (pos->e4_[ti].abs_less(tol)) {
-
-						if(pos->jounce_[ti-1].abs_less(tol)) {
-							settle(ti, r_->t_[ti]);
-						}
-					}
-				}
-			}
-		}
-	}
-}
-void Command::Point::settle(int ti, double t) {
-
-	if(!(flag_ & Command::Position::Flag::COMPLETE)) {
+	if(!(flag_ & Command::Base::Flag::COMPLETE)) {
 		ts_ = t;
-		ti_s_ = ti;
+		ti_s_ = i;
 
-		flag_ |= Command::Position::Flag::COMPLETE;
+		flag_ |= Command::Base::Flag::COMPLETE;
 
 		printf("settled %f\n", t);
 	}
 
 }
 
-Command::Path::Path(math::vec3 (*f)(double), Quadrotor* r):
-	Position(Command::Base::Type::PATH, Command::Base::Mode::HOLD, r),
+Command::X::X(Quadrotor* r, math::vec3 (*f)(double)):
+	Base(Command::Base::Type::X, Command::Base::Mode::HOLD, r),
 	f_(f)
 {
-	printf("path %p\n",this);
+	printf("f %p\n",f_);
+
+	if (f_ == NULL) throw;
+}
+Command::X::X(Quadrotor* r, math::vec3 (*f)(double), math::vec3 const & thresh):
+	Base(Command::Base::Type::X, Command::Base::Mode::HOLD, r),
+	f_(f),
+	thresh_(thresh)
+{
 	printf("f %p\n",f_);
 
 	if (f_ == NULL) throw;
 }
 
-Command::Orient::Orient(math::quat q, double thresh, Quadrotor* r):
-	Base(Base::Type::ORIENT, Base::Mode::NORMAL, r),
-	q_(q),
+Command::Q::Q(Quadrotor* r, math::quat (*f)(double), double thresh):
+	Base(Base::Type::Q, Base::Mode::NORMAL, r),
+	f_(f),
 	thresh_(thresh)
 {
 }
 
-Command::Orient::Orient(math::quat q, Quadrotor* r):
-	Base(Base::Type::ORIENT, Base::Mode::HOLD, r)
+Command::Q::Q(Quadrotor* r, math::quat (*f)(double)):
+	Base(Base::Type::Q, Base::Mode::HOLD, r)
 {
 }
 

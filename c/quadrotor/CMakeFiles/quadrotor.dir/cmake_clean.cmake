@@ -8,6 +8,10 @@ FILE(REMOVE_RECURSE
   "CMakeFiles/quadrotor.dir/src/quadrotor/quadrotor.cpp.o"
   "CMakeFiles/quadrotor.dir/src/quadrotor/telem.cpp.o"
   "CMakeFiles/quadrotor.dir/src/quadrotor/fda.cpp.o"
+  "CMakeFiles/quadrotor.dir/src/quadrotor/ControlLaw/ControlLaw.cpp.o"
+  "CMakeFiles/quadrotor.dir/src/quadrotor/ControlLaw/Alpha.cpp.o"
+  "CMakeFiles/quadrotor.dir/src/quadrotor/ControlLaw/Jerk.cpp.o"
+  "CMakeFiles/quadrotor.dir/src/quadrotor/ControlLaw/Jounce.cpp.o"
   "libquadrotor.pdb"
   "libquadrotor.a"
 )

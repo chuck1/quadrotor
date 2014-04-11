@@ -28,8 +28,8 @@ class Telem {
 
 		// state variables
 		Array<math::quat>	q_;
-		Array<math::vec3>	o_;
-		Array<math::vec3>	al_;
+		Array<math::vec3>	omega_;
+		Array<math::vec3>	alpha_;
 
 		Array<math::vec3>	x_;
 		Array<math::vec3>	v_;

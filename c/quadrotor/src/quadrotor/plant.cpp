@@ -21,9 +21,6 @@ Plant::Plant(Quadrotor* quad):
 {
 	int n = quad_->N_;
 		
-	od_.alloc(n);
-	a_.alloc(n);
-	
 	// constants
 
 	// motor speed
@@ -105,7 +102,7 @@ void Plant::step_rotor_body(int ti) {
 	
 	//printf("f_RB\n");
 	//f_RB_[ti].print();
-
+/*
 	if(tau.isNan()) {
 		printf("A4\n");
 		quad_->A4_.print();
@@ -118,7 +115,7 @@ void Plant::step_rotor_body(int ti) {
 		printf("f_RB\n");
 		f_RB_[ti].print();
 		throw;
-	}
+	}*/
 }
 math::vec3 Plant::get_force_drag_body(int ti) {
 	return math::vec3();
@@ -154,12 +151,12 @@ void Plant::step(int ti) {
 	// rotation
 	math::vec3 tau = tau_RB_[ti-1];
 	
-	od_[ti] = quad_->Iinv_ * (tau - quad_->telem_->o_[ti-1].cross(quad_->I_ * quad_->telem_->o_[ti-1]));
+	quad_->alpha(ti) = quad_->Iinv_ * (tau - quad_->omega(ti-1).cross(quad_->I_ * quad_->omega(ti-1)));
 	
 	// translation
 	math::vec3 f = get_force(ti-1);
 	
-	a_[ti] = quad_->gravity_ + f / quad_->m_;
+	quad_->a(ti) = quad_->gravity_ + f / quad_->m_;
 }
 void Plant::write(int n) {
 	FILE* file = fopen("data/plant.txt","w");

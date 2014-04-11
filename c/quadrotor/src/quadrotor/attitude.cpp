@@ -62,18 +62,19 @@ void Attitude::set_o_reference(int ti, math::vec3 o) {
 	o_ref_[ti] = o;
 }
 void Attitude::set_o_reference(int ti, double x, double y, double z) {
-	o_ref_[ti].x = x;
-	o_ref_[ti].y = y;
-	o_ref_[ti].z = z;
+	o_ref_[ti].x() = x;
+	o_ref_[ti].y() = y;
+	o_ref_[ti].z() = z;
 
 }
-void Attitude::set_obj(int ti1, Command::Orient* att) {
+/*
+void Attitude::set_obj(int ti1, Command::Q* att) {
 	att_ = att;
 	
 	for (int ti = ti1; ti < quad_->N_; ti++) q_ref_[ti] = att_->q_;
-}	
+}*/	
 void Attitude::step(double dt, int ti, int ti_0) {
-
+/*
 	// reference derivatives
 	forward_quavec(q_ref_, q_ref_d_,  dt, ti, ti_0, 0);
 	
@@ -127,6 +128,7 @@ void Attitude::step(double dt, int ti, int ti_0) {
 			}
 		}
 	}
+	*/
 }
 void Attitude::step_torque_rotor_body_att(int ti, int ti_0) {
 
@@ -138,20 +140,16 @@ void Attitude::step_torque_rotor_body_att(int ti, int ti_0) {
 	tau_RB_[ti] = quad_->angular_accel_to_torque(ti, od);
 }
 void Attitude::step_torque_rotor_body_vel(int ti, int ti_0) {
-
-	math::vec3 od = 
-		C2_ * e2_[ti] + 
-		o_ref_d_[ti];
 	
-	tau_RB_[ti] = quad_->angular_accel_to_torque(ti, od);
-
+	//tau_RB_[ti] = quad_->angular_accel_to_torque(ti, od);
+/*
 	if(!tau_RB_[ti].isSane()) {
 		printf("e2\n");
 		e2_[ti].print();
 		printf("od\n");
 		od.print();
 		throw;
-	}
+	}*/
 }
 void Attitude::step_torque_rotor_body(int ti, int ti_0) {
 

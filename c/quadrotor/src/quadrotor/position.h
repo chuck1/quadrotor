@@ -26,7 +26,7 @@ class Position {
 
 		void		check_command(int);
 
-		void		set_obj(int ti, Command::Position* pos);
+		//void		set_obj(int ti, Command::Position* pos);
 
 		//void		get_force_rotor(int ti, int ti_0);
 
@@ -37,7 +37,7 @@ class Position {
 	public:
 		Quadrotor*	quad_;
 
-		Command::Position*	pos_;
+		//Command::Position*	pos_;
 
 		math::mat33		C1_;
 		math::mat33		C2_;

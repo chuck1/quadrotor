@@ -78,80 +78,14 @@ Position::Position(Quadrotor* quad):
 	jounce_.alloc(n);
 
 }
-double coeff(double* r, int n, int i, int k) {
-	
-	//int i__ = i;
-	
-	double c = 0;
-	
-	//printf("%i\n",i);
-	
-	for(; i <= k; i++) {
-		//printf("%i %i\n",i,k);
-		if((k+1) < n) {
-			//printf("descend\n");
-			c += r[i] * coeff(r, n, i+1, k+1);
-		} else {
-			//printf("stop\n");
-			c += r[i];
-			//printf("%e %e %i\n",c,r[i],i);
-		}
-	}
-	
-	//if(i__==0) printf("%e\n",-c);
-	
-	return -c;
-}
-void Position::set_poles(double* p) {
-	
-	double C1 = coeff(p, 5, 0, 0);
-	double C2 = coeff(p, 5, 0, 1);
-	double C3 = coeff(p, 5, 0, 2);
-	double C4 = coeff(p, 5, 0, 3);
-	double C5 = coeff(p, 5, 0, 4);
 
-//	printf("poles % e % e % e % e % e\n",p[0],p[1],p[2],p[3],p[4]);
-//	printf("coeff % e % e % e % e % e\n",C1,C2,C3,C4,C5);
-
-	C1_.SetDiagonal(C1,C1,C1);
-	C2_.SetDiagonal(C2,C2,C2);
-	C3_.SetDiagonal(C3,C3,C3);
-	C4_.SetDiagonal(C4,C4,C4);
-	C5_.SetDiagonal(C5,C5,C5);
-
-}
 void Position::reset() {
 	flag_ = 0;
 }
 
 
 
-void Position::set_obj(int ti, Command::Position* pos) {
-	pos_ = pos;
 
-	// reset
-	flag_ &= ~Command::Position::Flag::COMPLETE;
-
-	Command::Point* point;
-	Command::Path* path;
-
-	if (pos == NULL) throw;
-
-	switch(pos_->type_) {
-		case Command::Base::Type::POINT:
-			point = (Command::Point*)pos_;
-			fill_xref(ti, point->x2_);
-			break;
-		case Command::Base::Type::PATH:
-			path = (Command::Path*)pos_;
-
-			printf("ti %i path %p\n",ti,path);
-
-			fill_xref_parametric(ti, path->f_);
-			break;
-	}
-
-}
 void Position::step_accel(double, int ti, int ti_0) {
 
 	a_[ti] = 
@@ -214,38 +148,7 @@ void Position::write(int ti) {
 	//}
 
 }
-void Position::write_param() {
-	const char * name = "param/pos_param.txt";
-	FILE* file = fopen(name,"w");
-	if(file != NULL) {
-		C1_.write(file);
-		C2_.write(file);
-		C3_.write(file);
-		C4_.write(file);
-		C5_.write(file);
 
-		printf("write file %s\n",name);
-
-		fclose(file);
-	}
-}
-void Position::read_param() {
-	const char * name = "param/pos_param.txt";
-	FILE* file = fopen(name,"r");
-	if(file != NULL) {
-		C1_.read(file);
-		C2_.read(file);
-		C3_.read(file);
-		C4_.read(file);
-		C5_.read(file);
-
-		printf("read file %s\n",name);
-
-		fclose(file);
-	} else {
-		printf("no file %s\n", name);
-	}
-}
 
 
 

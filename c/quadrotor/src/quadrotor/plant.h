@@ -7,6 +7,8 @@
 #include <math/mat33.h>
 #include <math/mat44.h>
 
+#include <quadrotor/array.h>
+
 class Quadrotor;
 
 class Plant {
@@ -31,9 +33,6 @@ class Plant {
 		Quadrotor*	quad_;
 
 		// state variables
-		Array<math::vec3>	od_;
-
-		Array<math::vec3>	a_;
 
 		Array<double>		gamma0_;
 		Array<math::vec4>	gamma1_;
