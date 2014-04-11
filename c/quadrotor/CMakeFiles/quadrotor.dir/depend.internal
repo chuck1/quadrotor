@@ -14,16 +14,6 @@ CMakeFiles/quadrotor.dir/src/quadrotor/attitude.cpp.o
  src/quadrotor/quadrotor.h
  src/quadrotor/telem.h
 CMakeFiles/quadrotor.dir/src/quadrotor/brain.cpp.o
- /home/charles/Programming/C++/quadrotor/c/quadrotor/src/quadrotor/brain.cpp
- src/quadrotor/array.h
- src/quadrotor/attitude.h
- src/quadrotor/brain.h
- src/quadrotor/command.h
- src/quadrotor/except.h
- src/quadrotor/plant.h
- src/quadrotor/position.h
- src/quadrotor/quadrotor.h
- src/quadrotor/telem.h
 CMakeFiles/quadrotor.dir/src/quadrotor/command.cpp.o
  /home/charles/Programming/C++/quadrotor/c/quadrotor/src/quadrotor/command.cpp
  src/quadrotor/command.h

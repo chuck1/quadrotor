@@ -70,6 +70,9 @@ Quadrotor::Quadrotor(double dt, int N):
 	plant_ = new Plant(this);
 	brain_ = new Brain(this);
 }
+math::vec3&	Quadrotor::x(int i) { return telem_->x_[i]; }
+math::vec3&	Quadrotor::v(int i) { return telem_->v_[i]; }
+math::vec3&	Quadrotor::a(int i) { return telem_->a_[i]; }
 void Quadrotor::reset() {
 	ti_f_ = 0;
 
@@ -80,11 +83,11 @@ void Quadrotor::run() {
 	//printf("dt %f\n", dt_);
 
 	for(int ti = 1; ti < ti_stop_; ti++) {
-		
+
 		if ((ti % (N_ / 100)) == 0) {
 			//printf("%i %f\n",ti,t[ti]);
 		}
-		
+
 		try {
 			brain_->step(ti-1, dt_);
 			plant_->step(ti);
@@ -114,6 +117,27 @@ math::vec3 Quadrotor::angular_accel_to_torque(int ti, math::vec3 od) {
 
 	return torque;
 }
+math::vec4	Quadrotor::thrust_torque_to_motor_speed(int i, double const & thrust, math::vec3 const & torque) {
+
+	math::vec4 temp(torque);
+
+	plant_->gamma1_[i] = A4inv_ * temp;
+
+	// thrust
+	plant_->gamma0_[i] = thrust / (k_ * 4.0);
+
+	if(!plant_->gamma1_[i].isSane()) {
+		printf("gamma1\n");
+		plant_->gamma1_[i].print();
+		printf("A4\n");
+		A4inv_.print();
+		printf("temp\n");
+		temp.print();
+		throw;
+	}
+
+	return (plant_->gamma1_[i] + plant_->gamma0_[i]);
+}	
 void Quadrotor::write() {
 	brain_->write(ti_f_);
 	brain_->pos_->write(ti_f_);
@@ -150,15 +174,15 @@ void product(int choices, int repeat, int*& arr, int level) {
 	}
 
 	/*
-	if(level == 0) {
-		for(int a = 0; a < len; a++) {
-			for(int b = 0; b < repeat; b++) {
-				printf("%i ",arr[a*repeat + b]);
-			}
-			printf("\n");
-		}
-	}
-	*/
+	   if(level == 0) {
+	   for(int a = 0; a < len; a++) {
+	   for(int b = 0; b < repeat; b++) {
+	   printf("%i ",arr[a*repeat + b]);
+	   }
+	   printf("\n");
+	   }
+	   }
+	   */
 }
 
 

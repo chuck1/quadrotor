@@ -123,55 +123,8 @@ void Position::set_poles(double* p) {
 void Position::reset() {
 	flag_ = 0;
 }
-void Position::fill_xref(int ti1, math::vec3 x) {
-	for (int ti = ti1; ti < quad_->N_; ti++) x_ref_[ti] = x;
-}
-void Position::fill_xref_parametric(int ti1, math::vec3 (*f)(double)) {
-	for(int ti = ti1; ti < quad_->N_; ti++) {
-		double t = quad_->t_[ti];
-		x_ref_[ti] = f(t);
-	}
-}
 
 
-void Position::step(double dt, int ti, int ti_0) {
-	//double dt = quad_->t_[ti] - quad_->t_[ti-1];
-
-	if(pos_->type_ == Command::Base::Type::POINT) {
-		e1_[ti] = x_ref_[ti] - quad_->telem_->x_[ti];
-
-		e1_mag_[ti] = e1_[ti].magnitude();
-		forward(e1_mag_,   e1_mag_d_,  dt, ti, ti_0, 0);
-		forward(e1_mag_d_, e1_mag_dd_, dt, ti, ti_0, 1);
-	}
-
-	e2_[ti] = x_ref_d_[ti] - quad_->telem_->v_[ti];
-
-	e3_[ti] = x_ref_dd_[ti] - quad_->plant_->a_[ti];
-
-	e4_[ti] = x_ref_ddd_[ti] - quad_->telem_->jerk_[ti];
-
-	chi_[ti] = chi_[ti-1] + e1_[ti] * dt;
-
-	forward(x_ref_,		x_ref_d_, dt, ti, ti_0, 0);
-	forward(x_ref_d_,	x_ref_dd_, dt, ti, ti_0, 1);
-	forward(x_ref_dd_,	x_ref_ddd_, dt, ti, ti_0, 2);
-	forward(x_ref_ddd_,	x_ref_dddd_, dt, ti, ti_0, 3);
-
-
-	if(!x_ref_d_[ti].isSane()) {
-		printf("x_ref_d_ is insane\n");
-		printf("%i %i\n",ti,ti_0);
-		x_ref_[ti-1].print();
-		x_ref_[ti].print();
-		throw;
-	}
-
-	//x_ref_[ti].print();
-	//printf("e1_mag %f\n",e1_mag);
-	
-	pos_->check(ti);
-}
 
 void Position::set_obj(int ti, Command::Position* pos) {
 	pos_ = pos;
@@ -217,19 +170,10 @@ void Position::step_jerk(double, int ti, int ti_0) {
 		C4_ * e3_[ti] +
 		x_ref_ddd_[ti];
 
-}
-void Position::step_jounce(double, int ti, int ti_0) {
-
-	jounce_[ti] = 
-		C1_ * chi_[ti] + 
-		C2_ * e1_[ti] + 
-		C3_ * e2_[ti] + 
-		C4_ * e3_[ti] +
-		C5_ * e4_[ti] +
-		x_ref_dddd_[ti];
 
 }
-void Position::step_jounce_velocity(int ti) {
+/*
+void Position::step_jounce_velocity(int i) {
 
 	jounce_[ti] = 
 		C3_ * e2_[ti] + 
@@ -237,6 +181,7 @@ void Position::step_jounce_velocity(int ti) {
 		C5_ * e4_[ti] +
 		x_ref_dddd_[ti];
 }
+*/
 void Position::write(int ti) {
 	FILE* file = fopen("data/pos.txt","w");
 

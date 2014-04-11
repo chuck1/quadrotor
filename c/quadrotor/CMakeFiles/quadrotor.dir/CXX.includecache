@@ -6,18 +6,6 @@
 
 #IncludeRegexTransform: 
 
-/home/charles/Programming/C++/quadrotor/c/quadrotor/src/quadrotor/brain.cpp
-deque
--
-quadrotor/array.h
--
-quadrotor/attitude.h
--
-quadrotor/command.h
--
-quadrotor/position.h
--
-
 /home/charles/Programming/C++/quadrotor/c/quadrotor/src/quadrotor/position.cpp
 math/mat33.h
 -
@@ -46,16 +34,6 @@ math/vec3.h
 math/vec4.h
 -
 math/quat.h
--
-
-src/quadrotor/attitude.h
-math/vec3.h
--
-math/quat.h
--
-math/mat33.h
--
-quadrotor/array.h
 -
 
 src/quadrotor/brain.h

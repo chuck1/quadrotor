@@ -29,31 +29,24 @@ template<typename T> void low_pass(Array<T> x, Array<T> y, int ti, double dt, do
 }
 
 
-template<typename T> void forward(Array<T> v, Array<T> vd, double h, int ti, int ti_0, int pre) {
-	if(ti_0 > (pre + 1)) {
-		//vd[ti] = (v[ti] - v[ti-1]) * 2.0 / h - vd[ti-1];
-		
-		vd[ti] = ((v[ti] - v[ti-1]) / h + vd[ti-1]) / 2.0;
+template<typename T> void forward(Array<T> v, Array<T> vd, double h, int i) {
+	// instead of checking to see if previous steps are available, time series data will be back-filled on initialization
 
-		//vd[ti] = vd[ti-1] + (v[ti] - v[ti-1] * 2.0 + v[ti-2]) / (2.0 * h);
-		
-		//vd[ti] = (v[ti] - v[ti-1]) / h;
-	} else if(ti_0 > (pre + 0)) {
-		vd[ti] = (v[ti] - v[ti-1]) / h;
-	} else {
-		zero(vd[ti]);
-	}
+	vd[i] = ((v[i] - v[i-1]) / h + vd[i-1]) / 2.0;
 	
-	
-	if(!sane(vd[ti])) {
+	//vd[ti] = vd[ti-1] + (v[ti] - v[ti-1] * 2.0 + v[ti-2]) / (2.0 * h);
+
+	//vd[ti] = (v[ti] - v[ti-1]) / h;
+
+	if(!sane(vd[i])) {
 		printf("forward insane\n");
 		printf("dt %lf\n",h);
-		printf("vd[ti]\n");
-		print(vd[ti]);
-		printf("v[ti-1]\n");
-		print(v[ti-1]);
-		printf("v[ti]\n");
-		print(v[ti]);
+		printf("vd[i]\n");
+		print(vd[i]);
+		printf("v[i-1]\n");
+		print(v[i-1]);
+		printf("v[i]\n");
+		print(v[i]);
 		throw;
 	}
 }

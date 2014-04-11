@@ -19,9 +19,20 @@ class Quadrotor {
 		void		run();
 		
 		math::vec3	angular_accel_to_torque(int, math::vec3);
+		math::vec4	thrust_torque_to_motor_speed(int, double const &, math::vec3 const &);
 
 		void		write();
+
 		void		write_param();
+		// accessors
+		math::vec3&	x(int);
+		math::vec3&	v(int);
+		math::vec3&	a(int);
+		math::vec3&	jounce(int);
+		math::quat&	q(int);
+		math::quat&	omega(int);
+		math::quat&	alpha(int);
+
 	public:
 		// physical constants
 		double		m_, L_, R_, Asw_, rho_, CD_, A_;
