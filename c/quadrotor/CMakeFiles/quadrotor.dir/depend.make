@@ -5,6 +5,7 @@ CMakeFiles/quadrotor.dir/src/quadrotor/ControlLaw/Alpha.cpp.o: src/quadrotor/Con
 CMakeFiles/quadrotor.dir/src/quadrotor/ControlLaw/Alpha.cpp.o: src/quadrotor/ControlLaw/Alpha.h
 CMakeFiles/quadrotor.dir/src/quadrotor/ControlLaw/Alpha.cpp.o: src/quadrotor/ControlLaw/ControlLaw.h
 CMakeFiles/quadrotor.dir/src/quadrotor/ControlLaw/Alpha.cpp.o: src/quadrotor/array.h
+CMakeFiles/quadrotor.dir/src/quadrotor/ControlLaw/Alpha.cpp.o: src/quadrotor/quadrotor.h
 
 CMakeFiles/quadrotor.dir/src/quadrotor/ControlLaw/ControlLaw.cpp.o: src/quadrotor/ControlLaw/ControlLaw.cpp
 CMakeFiles/quadrotor.dir/src/quadrotor/ControlLaw/ControlLaw.cpp.o: src/quadrotor/ControlLaw/ControlLaw.h

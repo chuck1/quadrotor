@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <cstdlib>
-#include <string.h>
+#include <cstring>
+#include <memory>
 
 #define _DEBUG 0
 
@@ -11,6 +12,7 @@
 #include <quadrotor/position.h>
 #include <quadrotor/quadrotor.h>
 #include <quadrotor/ControlLaw/ControlLaw.h>
+#include <quadrotor/ControlLaw/Jounce.h>
 
 void print_arr(double* arr, int len) {
 	for(int a = 0; a < len; a++) {
@@ -54,7 +56,7 @@ search::search():
 	n_(10000),
 	count_(0)
 {
-	r_ = new Quadrotor(0.005, n_);
+	r_ = new Quadrotor(0.01, n_);
 
 	C_[0] = -0.9;
 	C_[1] = -0.9;
@@ -118,7 +120,10 @@ math::vec3 constant(double) {
 
 bool search::test() {
 	r_->reset();
-	r_->brain_->cl_x_->set_poles(C_, 5);
+
+	Jounce::X* x = dynamic_cast<Jounce::X*>(r_->brain_->cl_x_);
+	
+	x->set_poles(C_, 5);
 	r_->brain_->objs_.push_back(
 			new Command::X(r_, constant, math::vec3(0.01,0.01,0.01))
 			);
@@ -148,7 +153,8 @@ void reset_quadrotor(Quadrotor* r, double* C) {
 	   r->brain_->pos_->C4_.SetDiagonal(C[2], C[2], C[2]);
 	   r->brain_->pos_->C5_.SetDiagonal(C[3], C[3], C[3]);
 	   */
-	r->brain_->cl_x_->set_poles(C, 5);
+	Jounce::X* x = dynamic_cast<Jounce::X*>(r->brain_->cl_x_);
+	x->set_poles(C, 5);
 
 	//r->brain_->att_->C1_.SetDiagonal(C[3], C[3], C[3]);
 	//r->brain_->att_->C2_.SetDiagonal(C[4], C[4], C[4]);
@@ -281,17 +287,18 @@ void normal(int N, double dt) {
 
 	Quadrotor* r = new Quadrotor(dt, N);
 
-	r->brain_->cl_x_->read();
+	Jounce::X* x = dynamic_cast<Jounce::X*>(r->brain_->cl_x_);
+	//x->read();
 
 	
 	double poles[] = {
-		-6.9,
-		-1.9,
-		-0.8,
+		-0.9,
+		-0.9,
 		-0.7,
-		-0.7};
+		-0.5,
+		-0.5};
 
-	r->brain_->cl_x_->set_poles(poles, 5);
+	x->set_poles(poles, 5);
 
 	r->brain_->objs_.push_back(new Command::X(r, constant));
 
@@ -312,7 +319,7 @@ void srch() {
 }
 int main(int argc, const char ** argv) {
 	
-	double dt = 0.005;
+	double dt = 0.01;
 	
 	//int N = atoi(argv[1]);
 	
@@ -324,7 +331,7 @@ int main(int argc, const char ** argv) {
 	}
 
 	if(strcmp(argv[1],"n")==0) {
-		normal(2000, dt);
+		normal(10000, dt);
 	} else if(strcmp(argv[1],"m")==0) {
 		map();
 	} else if(strcmp(argv[1],"s")==0) {

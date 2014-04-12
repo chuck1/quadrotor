@@ -13,6 +13,9 @@ def read(f, N, c):
 	
 	for ti in range(N):
 		v[ti] = struct.unpack('d'*c, f.read(8*c))
+		if c==1:
+			#print v[ti]
+			pass
 
 	return v
 
@@ -29,6 +32,7 @@ def plots(x,Y,xl,yl,L = None,S = None):
 	leg = []
 	
 	for y,s,l in zip(Y,S,L):
+		print np.shape(x),np.shape(y)
 		ax.plot(x,y,s)
 		leg += [l]
 	
@@ -94,37 +98,40 @@ def size(f):
 	f.seek(old_file_position, os.SEEK_SET)
 	return size
 
-with open("data/pos.txt","rb") as f:
-	
-	types = (12)*3 + 2*1
-
+with open("data/cl_x.txt","rb") as f:
+	types = (10)*3
 	N = size(f)/(8 * types)
+	print N,"data/cl_x.txt"
 	
-	print N
+	x_ref = []
+	for i in range(5):
+		x_ref.append(read(f ,N, 3))
+	e_x = []
+	for i in range(5):
+		e_x.append(read(f ,N, 3))
+
+
+with open("data/jounce.txt","rb") as f:
+	types = (1)*3
+	N = size(f)/(8 * types)
+	print N,"data/jounce.txt"
 	
-	e1		= read(f ,N, 3)
-	e2		= read(f ,N, 3)
-	e3		= read(f ,N, 3)
-	e4		= read(f ,N, 3)
+	jounce = read(f ,N, 3)
+with open("data/thrust.txt","rb") as f:
+	types = (1)*1
+	N = size(f)/(8 * types)
+	thrust = read(f, N, 1)
+	print N,"data/thrust.txt"
 
-	x_ref		= read(f ,N, 3)
-	x_ref_d		= read(f ,N, 3)
-	x_ref_dd	= read(f ,N, 3)
-	x_ref_ddd	= read(f ,N, 3)
-	x_ref_dddd	= read(f ,N, 3)
-
-	a		= read(f ,N, 3)
-	jerk		= read(f ,N, 3)
-	jounce		= read(f ,N, 3)
-
-	e1_mag_d	= read(f, N, 1)
-	e1_mag_dd	= read(f, N, 1)
-
-
+with open("data/alpha.txt","rb") as f:
+	types = (1)*3
+	N = size(f)/(8 * types)
+	print N,"data/alpha.txt"
+	alpha = read(f ,N, 3)
+"""
 with open("data/att.txt","rb") as f:
 	types = 3*3 + (2)*4
 	N = size(f)/(8 * types)
-
 	print N
 	
 	att_e3		= read(f ,N, 4)
@@ -134,7 +141,7 @@ with open("data/att.txt","rb") as f:
 	q_ref_dd	= read(f ,N, 3)
 	
 	tau_RB		= read(f ,N, 3)
-
+"""
 with open("data/plant.txt","rb") as f:
 	
 	types = 2*4 + 2*3 + 2*1
@@ -151,13 +158,12 @@ with open("data/plant.txt","rb") as f:
 	
 	gamma0		= read(f, N, 1)
 	gamma0_act	= read(f, N, 1)
-	
+"""	
 with open("data/brain.txt","rb") as f:
 	types = 1*1
 	N = size(f)/(types * 8)
 	print N
-
-	thrust		= read(f, N, 1)
+"""
 
 with open("data/telem.txt","rb") as f:
 	types = 3*3 + 1*4
@@ -172,21 +178,35 @@ with open("data/telem.txt","rb") as f:
 
 t = np.arange(N) * 0.01
 
-plotv(t,[e1],'t','e1')
+print np.shape(thrust)
+print np.shape(gamma0)
+
+
+plotv(t,[e_x[1]],'t','e1')
+plotv(t,[e_x[2]],'t','e2')
+plotv(t,[e_x[3]],'t','e3')
+
+
 #plotv(t,[e2],'t','e2')
 #plotv(t,[e3],'t','e3')
 #plotv(t,[e4],'t','e4')
 
-#plotv(t,[x,x_ref],'t','x',['','_ref'],['-','--'])
+#plotv(t,[x,x_ref[0]],'t','x',['',' ref'],['-','--'])
+
+#plotv(t,[x,x_ref[0]],'t','x',)
+
+#plotv(t,[x_ref_d],'t','x_ref_d')
 
 plotv(t,[jounce], 't', 'jounce')
+plotv(t,[alpha], 't', 'alpha')
+plots(t,[thrust],'t','thrust')
 
+plotv(t,[q[:,1:4]],'t','q')
 """
 
 
 plotv(t,[o],'t','o')
 
-plots(t,[thrust],'t','thrust')
 
 #plotvn(t,[e1,e3,a,i],'t',['e1','e3','a','i'],['-','--',':','-.'])
 """
@@ -226,6 +246,7 @@ def plotpath():
 	ax.set_xlim3d([c[0]-R,c[0]+R])
 	ax.set_ylim3d([c[1]-R,c[1]+R])
 	ax.set_zlim3d([c[2]-R,c[2]+R])
+
 
 pl.show()
 

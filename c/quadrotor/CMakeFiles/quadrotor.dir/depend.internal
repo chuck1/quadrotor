@@ -6,6 +6,7 @@ CMakeFiles/quadrotor.dir/src/quadrotor/ControlLaw/Alpha.cpp.o
  src/quadrotor/ControlLaw/Alpha.h
  src/quadrotor/ControlLaw/ControlLaw.h
  src/quadrotor/array.h
+ src/quadrotor/quadrotor.h
 CMakeFiles/quadrotor.dir/src/quadrotor/ControlLaw/ControlLaw.cpp.o
  /nfs/stak/students/r/rymalc/Documents/Programming/C++/quadrotor/c/quadrotor/src/quadrotor/ControlLaw/ControlLaw.cpp
  src/quadrotor/ControlLaw/ControlLaw.h

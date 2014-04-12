@@ -15,9 +15,9 @@ class Quadrotor;
 
 namespace CL {
 	class Base;
-	class X;
-	class V;
-	class Q;
+	template<int> class X;
+	template<int> class V;
+	template<int> class Q;
 }
 
 namespace Command {
@@ -53,22 +53,22 @@ class Brain {
 		// where the magic happends
 		CL::Base*	cl_;
 		
-		CL::X*		cl_x_;
-		CL::V*		cl_v_;
-		CL::Q*		cl_q_;
+		CL::Base*	cl_x_;
+		CL::Base*	cl_v_;
+		CL::Base*	cl_q_;
 
 		//Position*	pos_;
 		//Attitude*	att_;
 		
 
-		Array<math::vec3>	f_R_;
-		Array<math::vec3>	tau_R_;
-
-		Array<math::vec3>	a_RB_;
-
-		Array<double>		thrust_;
-		Array<double>		thrust_d_;
-
+		//Array<math::vec3>	f_R_;
+		//Array<math::vec3>	tau_R_;
+		
+		//Array<math::vec3>	a_RB_;
+		
+		//Array<double>		thrust_;
+		//Array<double>		thrust_d_;
+		
 		double		heading_;
 
 		std::deque<Command::Base*>	objs_;
