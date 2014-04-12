@@ -199,6 +199,8 @@ quadrotor/ControlLaw/ControlLaw.h
 src/quadrotor/ControlLaw/ControlLaw.h
 math/mat33.h
 -
+quadrotor/quadrotor.h
+-
 quadrotor/array.h
 -
 

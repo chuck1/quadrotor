@@ -7,17 +7,22 @@ namespace Alpha1 {
 	class Base: virtual public CL::Alpha {
 		public:
 			Base(Quadrotor* r): CL::Base(r), CL::Alpha(r) {}
+			virtual void	alloc(int);
 	};
-	class Q: virtual public CL::Q, virtual public Alpha1::Base {
+	class Q: virtual public CL::Q<2>, virtual public Alpha1::Base {
 		public:
-			Q(Quadrotor* r): CL::Base(r), CL::Q(r), CL::Alpha(r), Alpha1::Base(r) {}
+			Q(Quadrotor* r): CL::Base(r), CL::Q<2>(r), CL::Alpha(r), Alpha1::Base(r) {}
+			virtual void	alloc(int);
 	};
-	class Omega: virtual public CL::Omega, virtual public Alpha1::Base {
+	class Omega: public CL::Omega<2>, virtual public Alpha1::Base {
 		public:
-			Omega(Quadrotor* r): CL::Base(r), CL::Omega(r), CL::Alpha(r), Alpha1::Base(r) {}
-			void	Step(int i, double h);
+			Omega(Quadrotor* r): CL::Base(r), CL::Alpha(r), Alpha1::Base(r), CL::Omega<2>(r) {}
+			void		Step(int i, double h);
+			virtual void	alloc(int);
 	};
-	
 }
 
 #endif
+
+
+

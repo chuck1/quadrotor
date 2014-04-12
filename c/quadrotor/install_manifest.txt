@@ -10,3 +10,6 @@
 /nfs/stak/students/r/rymalc/usr/include/quadrotor/command.h
 /nfs/stak/students/r/rymalc/usr/include/quadrotor/telem.h
 /nfs/stak/students/r/rymalc/usr/include/quadrotor/ControlLaw/ControlLaw.h
+/nfs/stak/students/r/rymalc/usr/include/quadrotor/ControlLaw/Alpha.h
+/nfs/stak/students/r/rymalc/usr/include/quadrotor/ControlLaw/Jerk.h
+/nfs/stak/students/r/rymalc/usr/include/quadrotor/ControlLaw/Jounce.h

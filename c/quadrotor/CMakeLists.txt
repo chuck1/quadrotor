@@ -41,6 +41,10 @@ install(FILES ${PROJECT_SOURCE_DIR}/quadrotor/fda.h DESTINATION			include/quadro
 install(FILES ${PROJECT_SOURCE_DIR}/quadrotor/command.h DESTINATION		include/quadrotor/)
 install(FILES ${PROJECT_SOURCE_DIR}/quadrotor/telem.h DESTINATION					include/quadrotor/)
 install(FILES ${PROJECT_SOURCE_DIR}/quadrotor/ControlLaw/ControlLaw.h		DESTINATION		include/quadrotor/ControlLaw)
+install(FILES ${PROJECT_SOURCE_DIR}/quadrotor/ControlLaw/Alpha.h		DESTINATION		include/quadrotor/ControlLaw)
+install(FILES ${PROJECT_SOURCE_DIR}/quadrotor/ControlLaw/Jerk.h			DESTINATION		include/quadrotor/ControlLaw)
+install(FILES ${PROJECT_SOURCE_DIR}/quadrotor/ControlLaw/Jounce.h		DESTINATION		include/quadrotor/ControlLaw)
+
 #project(test_array)
 #add_executable(test_array test/array/main.cpp)
 #target_link_libraries(test_array math)

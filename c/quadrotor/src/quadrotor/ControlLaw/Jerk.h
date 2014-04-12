@@ -12,20 +12,23 @@ namespace Jerk {
 			Base(Quadrotor*);
 
 			virtual void	Step(int, double) = 0;
-
+			virtual void	alloc(int) = 0;
+			virtual void	write(int);
 		public:
 			Array<math::vec3>	jerk_;
 	};
-	class X: virtual public CL::X, virtual public Jerk::Base {
+	class X: virtual public CL::X<4>, virtual public Jerk::Base {
 		public:
 			X(Quadrotor*);
 
 			void		step(int, double);
+			virtual void	alloc(int) = 0;
+			virtual void	write(int);
 		public:
-			math::mat33	C_[4];
+			//math::mat33	C_[4];
 
-			Array<math::vec3>	e_[4];
-			Array<math::vec3>	x_ref_[4];
+			//Array<math::vec3>	e_[4];
+			//Array<math::vec3>	x_ref_[4];
 	};
 }
 

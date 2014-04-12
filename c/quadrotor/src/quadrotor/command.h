@@ -36,8 +36,9 @@ namespace Command {
 					Q,
 				};
 			};
-
+		public:
 			Base(Type::e, Mode::e, Quadrotor*);
+			virtual ~Base() {}
 		public:
 			Quadrotor*	r_;
 

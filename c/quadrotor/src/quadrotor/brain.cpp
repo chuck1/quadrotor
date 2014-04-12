@@ -18,20 +18,20 @@ Brain::Brain(Quadrotor* quad):
 
 	heading_ = 0.0;//M_PI * 0.5;
 
-	int n = quad_->N_;
+	//int n = quad_->N_;
 
-	f_R_.alloc(n);
+	//f_R_.alloc(n);
 
-	thrust_.alloc(n);
-	thrust_d_.alloc(n);
+	//thrust_.alloc(n);
+	//thrust_d_.alloc(n);
 
 	obj_ = NULL;
 
-	thrust_.fill(quad_->m_ * quad_->gravity_.magnitude());
+	//thrust_.fill(quad_->m_ * quad_->gravity_.magnitude());
 
 	cl_x_ = new Jounce::X(quad_);
-	cl_v_ = new Jounce::V(quad_);
-	cl_q_ = new Alpha1::Q(quad_);
+	//cl_v_ = new Jounce::V(quad_);
+	//cl_q_ = new Alpha1::Q(quad_);
 
 }
 void Brain::reset() {
@@ -205,7 +205,7 @@ void	Brain::CheckCommand(int i) {
 }
 void Brain::step(int i, double h) {
 
-	printf("%s\n",__PRETTY_FUNCTION__);
+	//printf("%s\n",__PRETTY_FUNCTION__);
 
 	CheckCommand(i);
 	
@@ -213,15 +213,16 @@ void Brain::step(int i, double h) {
 	
 }
 void Brain::write(int ti) {
+	cl_->write(quad_->N_);
+
 	const char * name = "data/brain.txt";
 
 	FILE* file = fopen(name,"w");
-
+	
 	ti = (ti > 0) ? (ti) : (quad_->N_);
-
-	fwrite(thrust_.v_,			sizeof(double),	ti, file);
-
-
+	
+	//fwrite(thrust_.v_,			sizeof(double),	ti, file);
+	
 	fclose(file);
 
 	//for(int ti = 0; ti < quad_->N_; ti++) {

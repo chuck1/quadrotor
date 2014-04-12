@@ -10,30 +10,30 @@ namespace Jounce {
 			Base(Quadrotor*);
 
 			virtual void	Step(int, double) = 0;
-
+			virtual void	alloc(int);
+			virtual void	write(int);
 		public:
 			Array<math::vec3>	jounce_;
 	};
-	class X: virtual public CL::X, virtual public Base {
+	class X: virtual public CL::X<5>, virtual public Base {
 		public:
 			X(Quadrotor*);
 			
 			void		Check(int);
 			virtual void	Step(int, double);
-		public:
-			math::mat33		C_[5];
-
-			Array<math::vec3>	e_[5];		
+			virtual void	alloc(int);
+			virtual void	write(int);
 	};
-	class V: virtual public CL::V, virtual public Base {
+	class V: virtual public CL::V<4>, virtual public Base {
 		public:
-			V(Quadrotor* r): CL::Base(r), CL::V(r), CL::Thrust(r), CL::Alpha(r), Jounce::Base(r) {}
+			V(Quadrotor* r): CL::Base(r), CL::V<4>(r), CL::Thrust(r), CL::Alpha(r), Jounce::Base(r) {}
 
 			virtual void	Step(int, double);
+			virtual void	alloc(int);
 		public:
-			math::mat33		C_[4];
+			//math::mat33		C_[4];
 
-			Array<math::vec3>	e_[4];		
+			//Array<math::vec3>	e_[4];		
 	};
 }
 
