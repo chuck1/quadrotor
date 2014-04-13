@@ -41,7 +41,7 @@ Command::X::X(Quadrotor* r, math::vec3 (*f)(double)):
 	if (f_ == NULL) throw;
 }
 Command::X::X(Quadrotor* r, math::vec3 (*f)(double), math::vec3 const & thresh):
-	Base(Command::Base::Type::X, Command::Base::Mode::HOLD, r),
+	Base(Command::Base::Type::X, Command::Base::Mode::NORMAL, r),
 	f_(f),
 	thresh_(thresh)
 {

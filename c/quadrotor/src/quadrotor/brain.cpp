@@ -210,25 +210,10 @@ void Brain::step(int i, double h) {
 	CheckCommand(i);
 	
 	cl_->Step(i, h);
-	
+	cl_->Check(i);
 }
-void Brain::write(int ti) {
-	cl_->write(quad_->N_);
-
-	const char * name = "data/brain.txt";
-
-	FILE* file = fopen(name,"w");
-	
-	ti = (ti > 0) ? (ti) : (quad_->N_);
-	
-	//fwrite(thrust_.v_,			sizeof(double),	ti, file);
-	
-	fclose(file);
-
-	//for(int ti = 0; ti < quad_->N_; ti++) {
-	// fwrite(&e1_[ti].x, sizeof(float), 1, file);
-	//}
-
+void Brain::write(int n) {
+	cl_->write(n);
 }
 
 

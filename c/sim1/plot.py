@@ -181,7 +181,7 @@ t = np.arange(N) * 0.01
 print np.shape(thrust)
 print np.shape(gamma0)
 
-
+plotv(t,[e_x[0]],'t','e0')
 plotv(t,[e_x[1]],'t','e1')
 plotv(t,[e_x[2]],'t','e2')
 plotv(t,[e_x[3]],'t','e3')

@@ -81,15 +81,15 @@ IF(NOT CMAKE_INSTALL_COMPONENT OR "${CMAKE_INSTALL_COMPONENT}" STREQUAL "Unspeci
 ENDIF(NOT CMAKE_INSTALL_COMPONENT OR "${CMAKE_INSTALL_COMPONENT}" STREQUAL "Unspecified")
 
 IF(NOT CMAKE_INSTALL_COMPONENT OR "${CMAKE_INSTALL_COMPONENT}" STREQUAL "Unspecified")
-  FILE(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/include/quadrotor/ControlLaw" TYPE FILE FILES "/nfs/stak/students/r/rymalc/Documents/Programming/C++/quadrotor/c/quadrotor/src/quadrotor/ControlLaw/Alpha.h")
+  FILE(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/include/quadrotor/ControlLaw" TYPE FILE FILES "/home/charles/Programming/C++/quadrotor/c/quadrotor/src/quadrotor/ControlLaw/Alpha.h")
 ENDIF(NOT CMAKE_INSTALL_COMPONENT OR "${CMAKE_INSTALL_COMPONENT}" STREQUAL "Unspecified")
 
 IF(NOT CMAKE_INSTALL_COMPONENT OR "${CMAKE_INSTALL_COMPONENT}" STREQUAL "Unspecified")
-  FILE(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/include/quadrotor/ControlLaw" TYPE FILE FILES "/nfs/stak/students/r/rymalc/Documents/Programming/C++/quadrotor/c/quadrotor/src/quadrotor/ControlLaw/Jerk.h")
+  FILE(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/include/quadrotor/ControlLaw" TYPE FILE FILES "/home/charles/Programming/C++/quadrotor/c/quadrotor/src/quadrotor/ControlLaw/Jerk.h")
 ENDIF(NOT CMAKE_INSTALL_COMPONENT OR "${CMAKE_INSTALL_COMPONENT}" STREQUAL "Unspecified")
 
 IF(NOT CMAKE_INSTALL_COMPONENT OR "${CMAKE_INSTALL_COMPONENT}" STREQUAL "Unspecified")
-  FILE(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/include/quadrotor/ControlLaw" TYPE FILE FILES "/nfs/stak/students/r/rymalc/Documents/Programming/C++/quadrotor/c/quadrotor/src/quadrotor/ControlLaw/Jounce.h")
+  FILE(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/include/quadrotor/ControlLaw" TYPE FILE FILES "/home/charles/Programming/C++/quadrotor/c/quadrotor/src/quadrotor/ControlLaw/Jounce.h")
 ENDIF(NOT CMAKE_INSTALL_COMPONENT OR "${CMAKE_INSTALL_COMPONENT}" STREQUAL "Unspecified")
 
 IF(CMAKE_INSTALL_COMPONENT)

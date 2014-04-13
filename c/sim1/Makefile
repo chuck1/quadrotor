@@ -1,5 +1,5 @@
 
-cpp_files = main.cpp 
+cpp_files = main.cpp Search.cpp Print.cpp InputFunc.cpp
 
 cflags = -Wall -std=c++0x -g -rdynamic
 

@@ -14,17 +14,17 @@
 #include <quadrotor/ControlLaw/ControlLaw.h>
 #include <quadrotor/ControlLaw/Jounce.h>
 
-void print_arr(double* arr, int len) {
-	for(int a = 0; a < len; a++) {
-		printf("%f ", arr[a]);
+#include <Search.hpp>
+
+#include <InputFunc.hpp>
+#include <Print.hpp>
+
+int* range(int s, int e) {
+	int* r = new int[e-s];
+	for(int i = 0; i < (e-s); ++i) {
+		r[i] = i + s;
 	}
-	printf("\n");
-}
-math::vec3 sinewave(double t) {
-	
-	double per = 15.0;
-	
-	return math::vec3(sin(t * 2.0 * M_PI / per), t, 0.0);
+	return r;
 }
 
 void set_coeff(double* center, double* length, int choices, int repeat, double* coeff) {
@@ -35,113 +35,6 @@ void set_coeff(double* center, double* length, int choices, int repeat, double* 
 		}
 	}
 }
-
-class search {
-	public:
-		search();
-		void		step();
-		void		exec(int);
-		bool		test();
-
-		Quadrotor*	r_;
-		double		C_[5];
-		double		ts_;
-		int		current_;
-		int		n_;
-		int		count_;
-};
-search::search():
-	ts_(1e10),
-	current_(0),
-	n_(10000),
-	count_(0)
-{
-	r_ = new Quadrotor(0.01, n_);
-
-	C_[0] = -0.9;
-	C_[1] = -0.9;
-	C_[2] = -0.8;
-	C_[3] = -0.7;
-	C_[4] = -0.7;
-}
-void search::step() {
-	
-	double low  = C_[current_] / 1.1;
-	double val  = C_[current_];
-	double high = C_[current_] * 1.1;
-	
-	C_[current_] = low;
-	if(test()) {
-		count_ = 0;
-		printf("%i %lf %lf\n", current_, C_[current_], ts_);
-		//print_arr(C_,5);
-		return;
-	}
-
-	C_[current_] = high;
-	if(test()) {
-		count_ = 0;
-		printf("%i %lf %lf\n", current_, C_[current_], ts_);
-		//print_arr(C_,5);
-		return;
-	}
-	
-	count_++;
-	
-	printf("no change\n");
-	
-	C_[current_] = val;
-	//print_arr(C_,5);
-	current_ = (current_ + 1) % 5;
-}
-void search::exec(int m) {
-
-	if(test()) {
-		for(int i = 0; i < m; i++) {
-			step();
-
-			if(count_ == 5) {
-				break;
-			}
-		}
-		print_arr(C_,5);
-
-		n_ += 100;
-		test();
-		r_->write();
-	} else {
-		printf("failed\n");
-	}
-}
-
-math::vec3 constant(double) {
-	return math::vec3(1,0,0);
-}
-
-bool search::test() {
-	r_->reset();
-
-	Jounce::X* x = dynamic_cast<Jounce::X*>(r_->brain_->cl_x_);
-	
-	x->set_poles(C_, 5);
-	r_->brain_->objs_.push_back(
-			new Command::X(r_, constant, math::vec3(0.01,0.01,0.01))
-			);
-	r_->ti_stop_ = n_;
-	r_->run();
-
-	Command::X* move = (Command::X*)(r_->brain_->obj_);
-
-	if(move->flag_ & Command::Base::Flag::COMPLETE) {
-		if(move->ts_ < ts_) {
-			ts_ = move->ts_;
-			n_ = move->ti_s_;
-			return true;
-		}
-	}
-	return false;
-}
-
 
 void reset_quadrotor(Quadrotor* r, double* C) {
 	r->reset();
@@ -154,8 +47,10 @@ void reset_quadrotor(Quadrotor* r, double* C) {
 	   r->brain_->pos_->C5_.SetDiagonal(C[3], C[3], C[3]);
 	   */
 	Jounce::X* x = dynamic_cast<Jounce::X*>(r->brain_->cl_x_);
-	x->set_poles(C, 5);
-
+	//int i[] = {0,1,2,3,4};
+	int i[] = {0,0,1,1,2};
+	x->set_poles(i, C, 3);
+	
 	//r->brain_->att_->C1_.SetDiagonal(C[3], C[3], C[3]);
 	//r->brain_->att_->C2_.SetDiagonal(C[4], C[4], C[4]);
 
@@ -237,8 +132,8 @@ void map() {
 	int N = 100000;
 	Quadrotor* r = new Quadrotor(dt, N);
 
-	int choices = 11;
-	int repeat = 4;
+	int choices = 7;
+	int repeat = 3;
 	//int len = pow(choices, repeat);
 
 	product(choices, repeat, arr);
@@ -246,8 +141,8 @@ void map() {
 	//double center[] = {10.0,  3.0,  7.0,  3.0};
 	//double length[] = { 9.9,  2.9,  6.9,  2.9};
 
-	double center[] = {-0.5,  -0.5,  -0.5,  -0.5};
-	double length[] = { 0.5,   0.5,   0.5,   0.5};
+	double center[] = {-10.0, -10.0, -00.0};
+	double length[] = {  5.0,   5.0,   0.0};
 
 	double* coeff = new double[choices * repeat];
 
@@ -292,18 +187,19 @@ void normal(int N, double dt) {
 
 	
 	double poles[] = {
-		-0.9,
-		-0.9,
-		-0.7,
-		-0.5,
-		-0.5};
+		-14.0,
+		-14.0,
+		-18.0,
+		-18.0,
+		-00.0};
+	
+	int i[] = {0,1,2,3,4};
+	x->set_poles(i, poles, 5);
 
-	x->set_poles(poles, 5);
-
-	r->brain_->objs_.push_back(new Command::X(r, constant));
+	//r->brain_->objs_.push_back(new Command::X(r, constant));
 
 	//r->brain_->objs_.push_back(new Command::Move(math::vec3(0.01,0,0)));
-	//r->brain_->objs_.push_back(new Command::Move(math::vec3(1,0,0), math::vec3(0.01,0.01,0.01)));
+	r->brain_->objs_.push_back(new Command::X(r, constant, math::vec3(0.01,0.01,0.01)));
 	//r->brain_->objs_.push_back(new Command::Move(math::vec3(1,1,0), math::vec3(0.01,0.01,0.01)));
 	//r->brain_->objs_.push_back(new Command::Path(sinewave));
 
@@ -312,8 +208,12 @@ void normal(int N, double dt) {
 	r->write();
 }
 void srch() {
-
-	search s;
+	//double c[] = {-10};
+	double p[] = {-10,-10};
+	int i[] = {0,0,0,1,1};
+	
+	search s(i,p,2);
+	
 	s.exec(200);
 
 }
@@ -331,7 +231,7 @@ int main(int argc, const char ** argv) {
 	}
 
 	if(strcmp(argv[1],"n")==0) {
-		normal(10000, dt);
+		normal(3000, dt);
 	} else if(strcmp(argv[1],"m")==0) {
 		map();
 	} else if(strcmp(argv[1],"s")==0) {

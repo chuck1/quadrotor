@@ -24,8 +24,8 @@ namespace Command {
 
 			struct Mode {
 				enum e {
-					NORMAL,
-					HOLD
+					NORMAL = 0,
+					HOLD = 1
 				};
 			};
 

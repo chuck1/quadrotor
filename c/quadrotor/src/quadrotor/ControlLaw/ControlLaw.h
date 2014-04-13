@@ -25,6 +25,7 @@ namespace CL {
 			//virtual void	SetCommand(int, Command::Base*) = 0;
 
 			virtual void	Step(int, double) = 0;
+			virtual void	Check(int) = 0;
 			virtual void	alloc(int) = 0;
 			virtual void	write(int) = 0;
 		public:
@@ -35,41 +36,27 @@ namespace CL {
 	template <int N> class Terms {
 		public:
 			virtual	~Terms() {}
-			void	set_poles(double* p, int n) {
-
-				if(n != N) {
-					printf("error poles\n");
-					abort();
+			void	set_poles(int* i, double* p, int n) {
+				for(int j = 0; j < N; ++j) {
+					p_[j] = p[i[j]];
 				}
-
+				
+				set_coeff();
+			}
+			void	set_coeff() {
+				
+				
+				
 				double c[N];
-
+				
 				for(int i = 0; i < N; ++i) {
-
-					c[i] = coeff(p, n, 0, i);
-					//c[i] = coeff(p, n, 0, N-1-i);
-					
+					c[i] = coeff(p_, N, 0, i);
 					c_[i].SetDiagonal(c[i], c[i], c[i]);
-					printf("c[%i] = %lf\n",i,c[i]);
+					//printf("c[%i] = %lf\n",i,c[i]);
 				}
-				/*	
-					double C1 = coeff(p, 5, 0, 0);
-					double C2 = coeff(p, 5, 0, 1);
-					double C3 = coeff(p, 5, 0, 2);
-					double C4 = coeff(p, 5, 0, 3);
-					double C5 = coeff(p, 5, 0, 4);
-				
-				
 
 				//	printf("poles % e % e % e % e % e\n",p[0],p[1],p[2],p[3],p[4]);
 				//	printf("coeff % e % e % e % e % e\n",C1,C2,C3,C4,C5);
-
-				C1_.SetDiagonal(C1,C1,C1);
-				C2_.SetDiagonal(C2,C2,C2);
-				C3_.SetDiagonal(C3,C3,C3);
-				C4_.SetDiagonal(C4,C4,C4);
-				C5_.SetDiagonal(C5,C5,C5);
-				*/
 			}
 			void	write(int n, FILE* file) {
 				for(int i = 0; i < N; ++i) {
@@ -77,12 +64,13 @@ namespace CL {
 				}
 			}
 			void	write_param() {
-				const char * name = "param.txt";
+				const char * name = "param/terms.txt";
 				FILE* file = fopen(name,"w");
 				if(file != NULL) {
 					for(int i = 0; i < N; ++i) {
 						c_[i].write(file);
 					}
+					fwrite(p_, sizeof(double), N, file);
 
 					printf("write file %s\n",name);
 
@@ -90,12 +78,13 @@ namespace CL {
 				}
 			}
 			void	read_param() {
-				const char * name = "param.txt";
+				const char * name = "param/terms.txt";
 				FILE* file = fopen(name,"r");
 				if(file != NULL) {
 					for(int i = 0; i < N; ++i) {
 						c_[i].read(file);
 					}
+					fwrite(p_, sizeof(double), N, file);
 
 					printf("read file %s\n",name);
 
@@ -112,12 +101,14 @@ namespace CL {
 
 			math::mat33		c_[N];
 			Array<math::vec3>	e_[N];
+			double			p_[N];
 	};
 	template <int N> class X: virtual public Base, public Terms<N> {
 		public:
 			X(Quadrotor* r): Base(r) {
 				alloc(r_->N_);
 			}
+			virtual void	Check(int) = 0;
 			virtual void	alloc(int n) {
 				printf("%s\n",__PRETTY_FUNCTION__);
 				for(int i = 0; i < N; ++i) {

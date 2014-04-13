@@ -67,6 +67,7 @@ Jounce::X::X(Quadrotor* r): CL::Base(r), CL::X<5>(r), CL::Thrust(r), CL::Alpha(r
 
 }
 void	Jounce::X::Check(int i) {
+	//printf("%s\n",__PRETTY_FUNCTION__);
 
 	math::vec3 tol(0.01,0.01,0.01);
 	
@@ -89,11 +90,13 @@ void	Jounce::X::Check(int i) {
 				}
 			}
 		}
+	} else {
+		printf("mode %i\n",command_->mode_);
 	}
 }
 void	Jounce::X::Step(int i, double h) {
 	//printf("%s\n",__PRETTY_FUNCTION__);
-	printf("%f\n",h);
+	//printf("%f\n",h);
 
 	Command::X* x = dynamic_cast<Command::X*>(command_);
 
@@ -170,6 +173,29 @@ void	Jounce::V::Step(int i, double h) {
 		v_ref_[3][i];
 
 	Jounce::Base::Step(i, h);
+}
+void	Jounce::V::Check(int i) {
+	//printf("%s\n",__PRETTY_FUNCTION__);
+
+	math::vec3 tol(0.01,0.01,0.01);
+	
+	Command::X* command = (Command::X*)command_;
+
+	if(command_->mode_ == Command::Base::Mode::NORMAL) {
+
+		if(e_[1][i].Abs() < command->thresh_) {
+
+			if(e_[2][i].Abs() < tol) {
+
+				if(e_[3][i].Abs() < tol) {
+
+					if(jounce_[i-1].Abs() < tol) {
+						command->Settle(i, r_->t_[i]);
+					}
+				}
+			}
+		}
+	}
 }
 void	Jounce::V::alloc(int n) {
 	Jounce::Base::alloc(n);
