@@ -5,7 +5,10 @@ CMakeFiles/quadrotor.dir/src/quadrotor/ControlLaw/Alpha.cpp.o
  /home/charles/Programming/C++/quadrotor/c/quadrotor/src/quadrotor/ControlLaw/Alpha.cpp
  src/quadrotor/ControlLaw/Alpha.h
  src/quadrotor/ControlLaw/ControlLaw.h
+ src/quadrotor/Input.hpp
  src/quadrotor/array.h
+ src/quadrotor/command.h
+ src/quadrotor/fda.h
  src/quadrotor/quadrotor.h
 CMakeFiles/quadrotor.dir/src/quadrotor/ControlLaw/ControlLaw.cpp.o
  /home/charles/Programming/C++/quadrotor/c/quadrotor/src/quadrotor/ControlLaw/ControlLaw.cpp
@@ -25,6 +28,7 @@ CMakeFiles/quadrotor.dir/src/quadrotor/ControlLaw/Jounce.cpp.o
  /home/charles/Programming/C++/quadrotor/c/quadrotor/src/quadrotor/ControlLaw/Jounce.cpp
  src/quadrotor/ControlLaw/ControlLaw.h
  src/quadrotor/ControlLaw/Jounce.h
+ src/quadrotor/Input.hpp
  src/quadrotor/array.h
  src/quadrotor/command.h
  src/quadrotor/except.h
@@ -69,6 +73,14 @@ CMakeFiles/quadrotor.dir/src/quadrotor/command.cpp.o
  src/quadrotor/position.h
  src/quadrotor/quadrotor.h
  src/quadrotor/telem.h
+CMakeFiles/quadrotor.dir/src/quadrotor/command/Stop.cpp.o
+ /home/charles/Programming/C++/quadrotor/c/quadrotor/src/quadrotor/command/Stop.cpp
+ src/quadrotor/ControlLaw/ControlLaw.h
+ src/quadrotor/array.h
+ src/quadrotor/brain.h
+ src/quadrotor/command.h
+ src/quadrotor/except.h
+ src/quadrotor/quadrotor.h
 CMakeFiles/quadrotor.dir/src/quadrotor/fda.cpp.o
  /home/charles/Programming/C++/quadrotor/c/quadrotor/src/quadrotor/fda.cpp
  src/quadrotor/array.h

@@ -53,6 +53,6 @@ template<typename T> void forward(Array<T> v, Array<T> vd, double h, int i) {
 
 
 
-void forward_quavec(Array<math::quat> v, Array<math::vec3> vd, double h, int ti, int ti_0, int pre, double tc = 0.0);
+void forward_quavec(Array<math::quat> v, Array<math::vec3> vd, double h, int i);
 
 #endif

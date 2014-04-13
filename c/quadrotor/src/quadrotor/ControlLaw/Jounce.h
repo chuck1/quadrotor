@@ -10,8 +10,8 @@ namespace Jounce {
 			Base(Quadrotor*);
 
 			virtual void	Step(int, double) = 0;
-			virtual void	Check(int, math::quat) {}
-			virtual void	Check(int, math::vec3) = 0;
+			//virtual bool	Check(int, math::quat) {}
+			virtual bool	Check(int, math::vec3) = 0;
 			virtual void	alloc(int);
 			virtual void	write(int);
 		public:
@@ -21,18 +21,19 @@ namespace Jounce {
 		public:
 			X(Quadrotor*);
 			
-			void		Check(int, math::vec3);
+			bool		Check(int, math::vec3);
 			virtual void	Step(int, double);
 			virtual void	alloc(int);
 			virtual void	write(int);
 	};
 	class V: virtual public CL::V<4>, virtual public Base {
 		public:
-			V(Quadrotor* r): CL::Base(r), CL::V<4>(r), CL::Thrust(r), CL::Alpha(r), Jounce::Base(r) {}
+			V(Quadrotor* r);
 
 			virtual void	Step(int, double);
-			virtual void	Check(int, math::vec3);
+			virtual bool	Check(int, math::vec3);
 			virtual void	alloc(int);
+			virtual void	write(int);
 		public:
 			//math::mat33		C_[4];
 

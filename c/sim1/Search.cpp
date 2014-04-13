@@ -3,6 +3,7 @@
 #include <quadrotor/ControlLaw/Jounce.h>
 #include <quadrotor/brain.h>
 #include <quadrotor/command.h>
+#include <quadrotor/Input.hpp>
 
 #include <Search.hpp>
 
@@ -82,21 +83,28 @@ bool search::test() {
 	r_->reset();
 
 	reset();
+	
+	auto comm_x = new Command::X(r_, new Input::Vec3Const(math::vec3(1,0,0)));
 
-	r_->brain_->objs_.push_back(
-			new Command::X(r_, constant, math::vec3(0.01,0.01,0.01))
-			);
+	auto stop_x = new Command::Stop::XSettle(comm_x, math::vec3(0.01,0.01,0.01));
+	
+	comm_x->stop_.push_back(stop_x);
+	
+	r_->brain_->objs_.push_back(comm_x);
+
 	r_->ti_stop_ = n_;
 	r_->run();
 
 	Command::X* move = (Command::X*)(r_->brain_->obj_);
-
+	
+	
+	
 	if(move->flag_ & Command::Base::Flag::COMPLETE) {
-		if(move->ts_ < ts_) {
-			ts_ = move->ts_;
-			n_ = move->ti_s_;
-			return true;
-		}
+		//if(move->ts_ < ts_) {
+		//	ts_ = move->ts_;
+		//	n_ = move->ti_s_;
+		//	return true;
+		//}
 	}
 	return false;
 }

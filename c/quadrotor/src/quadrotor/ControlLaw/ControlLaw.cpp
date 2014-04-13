@@ -39,6 +39,7 @@ void	CL::Alpha::Step(int i, double h) {
 
 
 void	CL::Alpha::alloc(int n) {
+	printf("%s\n",__PRETTY_FUNCTION__);
 	alpha_.alloc(n);
 }
 void	CL::Alpha::write(int n) {

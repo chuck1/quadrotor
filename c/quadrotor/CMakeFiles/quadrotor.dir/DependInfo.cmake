@@ -12,6 +12,7 @@ SET(CMAKE_DEPENDS_CHECK_CXX
   "/home/charles/Programming/C++/quadrotor/c/quadrotor/src/quadrotor/attitude.cpp" "/home/charles/Programming/C++/quadrotor/c/quadrotor/CMakeFiles/quadrotor.dir/src/quadrotor/attitude.cpp.o"
   "/home/charles/Programming/C++/quadrotor/c/quadrotor/src/quadrotor/brain.cpp" "/home/charles/Programming/C++/quadrotor/c/quadrotor/CMakeFiles/quadrotor.dir/src/quadrotor/brain.cpp.o"
   "/home/charles/Programming/C++/quadrotor/c/quadrotor/src/quadrotor/command.cpp" "/home/charles/Programming/C++/quadrotor/c/quadrotor/CMakeFiles/quadrotor.dir/src/quadrotor/command.cpp.o"
+  "/home/charles/Programming/C++/quadrotor/c/quadrotor/src/quadrotor/command/Stop.cpp" "/home/charles/Programming/C++/quadrotor/c/quadrotor/CMakeFiles/quadrotor.dir/src/quadrotor/command/Stop.cpp.o"
   "/home/charles/Programming/C++/quadrotor/c/quadrotor/src/quadrotor/fda.cpp" "/home/charles/Programming/C++/quadrotor/c/quadrotor/CMakeFiles/quadrotor.dir/src/quadrotor/fda.cpp.o"
   "/home/charles/Programming/C++/quadrotor/c/quadrotor/src/quadrotor/plant.cpp" "/home/charles/Programming/C++/quadrotor/c/quadrotor/CMakeFiles/quadrotor.dir/src/quadrotor/plant.cpp.o"
   "/home/charles/Programming/C++/quadrotor/c/quadrotor/src/quadrotor/position.cpp" "/home/charles/Programming/C++/quadrotor/c/quadrotor/CMakeFiles/quadrotor.dir/src/quadrotor/position.cpp.o"

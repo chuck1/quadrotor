@@ -256,9 +256,32 @@ CMakeFiles/quadrotor.dir/src/quadrotor/fda.cpp.o.provides: CMakeFiles/quadrotor.
 
 CMakeFiles/quadrotor.dir/src/quadrotor/fda.cpp.o.provides.build: CMakeFiles/quadrotor.dir/src/quadrotor/fda.cpp.o
 
+CMakeFiles/quadrotor.dir/src/quadrotor/command/Stop.cpp.o: CMakeFiles/quadrotor.dir/flags.make
+CMakeFiles/quadrotor.dir/src/quadrotor/command/Stop.cpp.o: src/quadrotor/command/Stop.cpp
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/charles/Programming/C++/quadrotor/c/quadrotor/CMakeFiles $(CMAKE_PROGRESS_10)
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building CXX object CMakeFiles/quadrotor.dir/src/quadrotor/command/Stop.cpp.o"
+	/usr/bin/c++   $(CXX_DEFINES) $(CXX_FLAGS) -o CMakeFiles/quadrotor.dir/src/quadrotor/command/Stop.cpp.o -c /home/charles/Programming/C++/quadrotor/c/quadrotor/src/quadrotor/command/Stop.cpp
+
+CMakeFiles/quadrotor.dir/src/quadrotor/command/Stop.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/quadrotor.dir/src/quadrotor/command/Stop.cpp.i"
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -E /home/charles/Programming/C++/quadrotor/c/quadrotor/src/quadrotor/command/Stop.cpp > CMakeFiles/quadrotor.dir/src/quadrotor/command/Stop.cpp.i
+
+CMakeFiles/quadrotor.dir/src/quadrotor/command/Stop.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/quadrotor.dir/src/quadrotor/command/Stop.cpp.s"
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -S /home/charles/Programming/C++/quadrotor/c/quadrotor/src/quadrotor/command/Stop.cpp -o CMakeFiles/quadrotor.dir/src/quadrotor/command/Stop.cpp.s
+
+CMakeFiles/quadrotor.dir/src/quadrotor/command/Stop.cpp.o.requires:
+.PHONY : CMakeFiles/quadrotor.dir/src/quadrotor/command/Stop.cpp.o.requires
+
+CMakeFiles/quadrotor.dir/src/quadrotor/command/Stop.cpp.o.provides: CMakeFiles/quadrotor.dir/src/quadrotor/command/Stop.cpp.o.requires
+	$(MAKE) -f CMakeFiles/quadrotor.dir/build.make CMakeFiles/quadrotor.dir/src/quadrotor/command/Stop.cpp.o.provides.build
+.PHONY : CMakeFiles/quadrotor.dir/src/quadrotor/command/Stop.cpp.o.provides
+
+CMakeFiles/quadrotor.dir/src/quadrotor/command/Stop.cpp.o.provides.build: CMakeFiles/quadrotor.dir/src/quadrotor/command/Stop.cpp.o
+
 CMakeFiles/quadrotor.dir/src/quadrotor/ControlLaw/ControlLaw.cpp.o: CMakeFiles/quadrotor.dir/flags.make
 CMakeFiles/quadrotor.dir/src/quadrotor/ControlLaw/ControlLaw.cpp.o: src/quadrotor/ControlLaw/ControlLaw.cpp
-	$(CMAKE_COMMAND) -E cmake_progress_report /home/charles/Programming/C++/quadrotor/c/quadrotor/CMakeFiles $(CMAKE_PROGRESS_10)
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/charles/Programming/C++/quadrotor/c/quadrotor/CMakeFiles $(CMAKE_PROGRESS_11)
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building CXX object CMakeFiles/quadrotor.dir/src/quadrotor/ControlLaw/ControlLaw.cpp.o"
 	/usr/bin/c++   $(CXX_DEFINES) $(CXX_FLAGS) -o CMakeFiles/quadrotor.dir/src/quadrotor/ControlLaw/ControlLaw.cpp.o -c /home/charles/Programming/C++/quadrotor/c/quadrotor/src/quadrotor/ControlLaw/ControlLaw.cpp
 
@@ -281,7 +304,7 @@ CMakeFiles/quadrotor.dir/src/quadrotor/ControlLaw/ControlLaw.cpp.o.provides.buil
 
 CMakeFiles/quadrotor.dir/src/quadrotor/ControlLaw/Alpha.cpp.o: CMakeFiles/quadrotor.dir/flags.make
 CMakeFiles/quadrotor.dir/src/quadrotor/ControlLaw/Alpha.cpp.o: src/quadrotor/ControlLaw/Alpha.cpp
-	$(CMAKE_COMMAND) -E cmake_progress_report /home/charles/Programming/C++/quadrotor/c/quadrotor/CMakeFiles $(CMAKE_PROGRESS_11)
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/charles/Programming/C++/quadrotor/c/quadrotor/CMakeFiles $(CMAKE_PROGRESS_12)
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building CXX object CMakeFiles/quadrotor.dir/src/quadrotor/ControlLaw/Alpha.cpp.o"
 	/usr/bin/c++   $(CXX_DEFINES) $(CXX_FLAGS) -o CMakeFiles/quadrotor.dir/src/quadrotor/ControlLaw/Alpha.cpp.o -c /home/charles/Programming/C++/quadrotor/c/quadrotor/src/quadrotor/ControlLaw/Alpha.cpp
 
@@ -304,7 +327,7 @@ CMakeFiles/quadrotor.dir/src/quadrotor/ControlLaw/Alpha.cpp.o.provides.build: CM
 
 CMakeFiles/quadrotor.dir/src/quadrotor/ControlLaw/Jerk.cpp.o: CMakeFiles/quadrotor.dir/flags.make
 CMakeFiles/quadrotor.dir/src/quadrotor/ControlLaw/Jerk.cpp.o: src/quadrotor/ControlLaw/Jerk.cpp
-	$(CMAKE_COMMAND) -E cmake_progress_report /home/charles/Programming/C++/quadrotor/c/quadrotor/CMakeFiles $(CMAKE_PROGRESS_12)
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/charles/Programming/C++/quadrotor/c/quadrotor/CMakeFiles $(CMAKE_PROGRESS_13)
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building CXX object CMakeFiles/quadrotor.dir/src/quadrotor/ControlLaw/Jerk.cpp.o"
 	/usr/bin/c++   $(CXX_DEFINES) $(CXX_FLAGS) -o CMakeFiles/quadrotor.dir/src/quadrotor/ControlLaw/Jerk.cpp.o -c /home/charles/Programming/C++/quadrotor/c/quadrotor/src/quadrotor/ControlLaw/Jerk.cpp
 
@@ -327,7 +350,7 @@ CMakeFiles/quadrotor.dir/src/quadrotor/ControlLaw/Jerk.cpp.o.provides.build: CMa
 
 CMakeFiles/quadrotor.dir/src/quadrotor/ControlLaw/Jounce.cpp.o: CMakeFiles/quadrotor.dir/flags.make
 CMakeFiles/quadrotor.dir/src/quadrotor/ControlLaw/Jounce.cpp.o: src/quadrotor/ControlLaw/Jounce.cpp
-	$(CMAKE_COMMAND) -E cmake_progress_report /home/charles/Programming/C++/quadrotor/c/quadrotor/CMakeFiles $(CMAKE_PROGRESS_13)
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/charles/Programming/C++/quadrotor/c/quadrotor/CMakeFiles $(CMAKE_PROGRESS_14)
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building CXX object CMakeFiles/quadrotor.dir/src/quadrotor/ControlLaw/Jounce.cpp.o"
 	/usr/bin/c++   $(CXX_DEFINES) $(CXX_FLAGS) -o CMakeFiles/quadrotor.dir/src/quadrotor/ControlLaw/Jounce.cpp.o -c /home/charles/Programming/C++/quadrotor/c/quadrotor/src/quadrotor/ControlLaw/Jounce.cpp
 
@@ -359,6 +382,7 @@ quadrotor_OBJECTS = \
 "CMakeFiles/quadrotor.dir/src/quadrotor/quadrotor.cpp.o" \
 "CMakeFiles/quadrotor.dir/src/quadrotor/telem.cpp.o" \
 "CMakeFiles/quadrotor.dir/src/quadrotor/fda.cpp.o" \
+"CMakeFiles/quadrotor.dir/src/quadrotor/command/Stop.cpp.o" \
 "CMakeFiles/quadrotor.dir/src/quadrotor/ControlLaw/ControlLaw.cpp.o" \
 "CMakeFiles/quadrotor.dir/src/quadrotor/ControlLaw/Alpha.cpp.o" \
 "CMakeFiles/quadrotor.dir/src/quadrotor/ControlLaw/Jerk.cpp.o" \
@@ -376,6 +400,7 @@ libquadrotor.a: CMakeFiles/quadrotor.dir/src/quadrotor/position.cpp.o
 libquadrotor.a: CMakeFiles/quadrotor.dir/src/quadrotor/quadrotor.cpp.o
 libquadrotor.a: CMakeFiles/quadrotor.dir/src/quadrotor/telem.cpp.o
 libquadrotor.a: CMakeFiles/quadrotor.dir/src/quadrotor/fda.cpp.o
+libquadrotor.a: CMakeFiles/quadrotor.dir/src/quadrotor/command/Stop.cpp.o
 libquadrotor.a: CMakeFiles/quadrotor.dir/src/quadrotor/ControlLaw/ControlLaw.cpp.o
 libquadrotor.a: CMakeFiles/quadrotor.dir/src/quadrotor/ControlLaw/Alpha.cpp.o
 libquadrotor.a: CMakeFiles/quadrotor.dir/src/quadrotor/ControlLaw/Jerk.cpp.o
@@ -399,6 +424,7 @@ CMakeFiles/quadrotor.dir/requires: CMakeFiles/quadrotor.dir/src/quadrotor/positi
 CMakeFiles/quadrotor.dir/requires: CMakeFiles/quadrotor.dir/src/quadrotor/quadrotor.cpp.o.requires
 CMakeFiles/quadrotor.dir/requires: CMakeFiles/quadrotor.dir/src/quadrotor/telem.cpp.o.requires
 CMakeFiles/quadrotor.dir/requires: CMakeFiles/quadrotor.dir/src/quadrotor/fda.cpp.o.requires
+CMakeFiles/quadrotor.dir/requires: CMakeFiles/quadrotor.dir/src/quadrotor/command/Stop.cpp.o.requires
 CMakeFiles/quadrotor.dir/requires: CMakeFiles/quadrotor.dir/src/quadrotor/ControlLaw/ControlLaw.cpp.o.requires
 CMakeFiles/quadrotor.dir/requires: CMakeFiles/quadrotor.dir/src/quadrotor/ControlLaw/Alpha.cpp.o.requires
 CMakeFiles/quadrotor.dir/requires: CMakeFiles/quadrotor.dir/src/quadrotor/ControlLaw/Jerk.cpp.o.requires

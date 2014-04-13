@@ -11,12 +11,10 @@
 #include <quadrotor/position.h>
 #include <quadrotor/ControlLaw/ControlLaw.h>
 
-Command::Base::Base(Quadrotor* r, Command::Base::Type::e type, Command::Base::Mode::e mode, std::vector<Command::Stop::Base*> stop):
+Command::Base::Base(Quadrotor* r, Command::Base::Type::e type):
 	r_(r),
 	flag_(0),
-	mode_(mode),
-	type_(type),
-	stop_(stop)
+	type_(type)
 {
 }
 void	Command::Base::Check(int i) {
@@ -24,7 +22,7 @@ void	Command::Base::Check(int i) {
 		(*it)->Check(i);
 	}
 }
-
+/*
 void Command::X::Settle(int i, double t) {
 
 	if(!(flag_ & Command::Base::Flag::COMPLETE)) {
@@ -37,19 +35,26 @@ void Command::X::Settle(int i, double t) {
 	}
 
 }
-
-Command::X::X(Quadrotor* r, math::vec3 (*f)(double), std::vector<Command::Stop::Base*> stop):
-	Base(r, Command::Base::Type::X, Command::Base::Mode::HOLD, stop),
-	f_(f)
+*/
+Command::X::X(Quadrotor* r, Input::Vec3* in):
+	Base(r, Command::Base::Type::X),
+	in_(in)
 {
-	printf("f %p\n",f_);
+	printf("in %p\n",in_);
 
-	if (f_ == NULL) throw;
+	if (in_ == NULL) throw;
 }
+Command::V::V(Quadrotor* r, Input::Vec3* in):
+	Base(r, Command::Base::Type::V),
+	in_(in)
+{
+	printf("in %p\n",in_);
 
-Command::Q::Q(Quadrotor* r, math::quat (*f)(double), std::vector<Command::Stop::Base*> stop):
-	Base(r, Base::Type::Q, Base::Mode::NORMAL, stop),
-	f_(f)
+	if (in_ == NULL) throw;
+}
+Command::Q::Q(Quadrotor* r, Input::Quat* in):
+	Base(r, Base::Type::Q),
+	in_(in)
 {
 }
 

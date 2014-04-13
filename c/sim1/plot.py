@@ -109,7 +109,17 @@ with open("data/cl_x.txt","rb") as f:
 	e_x = []
 	for i in range(5):
 		e_x.append(read(f ,N, 3))
-
+with open("data/cl_v.txt","rb") as f:
+	types = (8)*3
+	N = size(f)/(8 * types)
+	print N,"data/cl_v.txt"
+	
+	v_ref = []
+	for i in range(4):
+		v_ref.append(read(f ,N, 3))
+	e_v = []
+	for i in range(4):
+		e_v.append(read(f ,N, 3))
 
 with open("data/jounce.txt","rb") as f:
 	types = (1)*3
@@ -181,25 +191,27 @@ t = np.arange(N) * 0.01
 print np.shape(thrust)
 print np.shape(gamma0)
 
-plotv(t,[e_x[0]],'t','e0')
-plotv(t,[e_x[1]],'t','e1')
-plotv(t,[e_x[2]],'t','e2')
-plotv(t,[e_x[3]],'t','e3')
+#plotv(t,[e_v[1]],'t','e1')
+
+#plotv(t,[e_x[0]],'t','e0')
+#plotv(t,[e_x[1]],'t','e1')
+#plotv(t,[e_x[2]],'t','e2')
+#plotv(t,[e_x[3]],'t','e3')
 
 
 #plotv(t,[e2],'t','e2')
 #plotv(t,[e3],'t','e3')
 #plotv(t,[e4],'t','e4')
 
-#plotv(t,[x,x_ref[0]],'t','x',['',' ref'],['-','--'])
+plotv(t,[x],'t','x')
 
 #plotv(t,[x,x_ref[0]],'t','x',)
 
 #plotv(t,[x_ref_d],'t','x_ref_d')
 
-plotv(t,[jounce], 't', 'jounce')
-plotv(t,[alpha], 't', 'alpha')
-plots(t,[thrust],'t','thrust')
+#plotv(t,[jounce], 't', 'jounce')
+#plotv(t,[alpha], 't', 'alpha')
+#plots(t,[thrust],'t','thrust')
 
 plotv(t,[q[:,1:4]],'t','q')
 """

@@ -11,6 +11,10 @@
 
 class Quadrotor;
 
+namespace Input {
+	class Vec3;
+	class Quat;
+}
 namespace Command {
 	namespace Stop {
 		class Base;
@@ -25,13 +29,6 @@ namespace Command {
 				};
 			};
 
-			struct Mode {
-				enum e {
-					NORMAL = 0,
-					HOLD = 1
-				};
-			};
-
 			struct Type {
 				enum e {
 					X,
@@ -40,7 +37,7 @@ namespace Command {
 				};
 			};
 		public:
-			Base(Quadrotor*, Type::e, Mode::e);
+			Base(Quadrotor*, Type::e);
 			virtual ~Base() {}
 
 			virtual void	Check(int);
@@ -51,9 +48,7 @@ namespace Command {
 			unsigned int	mode_;
 			unsigned int	type_;
 
-			double		ts_;
-			int		ti_s_;
-
+		
 			std::vector<Command::Stop::Base*>	stop_;
 	};
 	namespace Stop {
@@ -66,59 +61,77 @@ namespace Command {
 				Command::Base*	cmd_;
 		};
 		class XSettle: public Command::Stop::Base {
-			XSettle(Command::Base* cmd, math::vec3 e): Command::Stop::Base(cmd), e_(e) {}
+			public:
+				XSettle(Command::Base* cmd, math::vec3 e): Command::Stop::Base(cmd), e_(e) {}
 
-			math::vec3	e_;
-
-			virtual void		Check(int);
+				math::vec3	e_;
+				struct {
+					double		t_;
+					int		i_;
+				} stats_;
+				
+				virtual void		Check(int);
 		};
 		class VSettle: public Command::Stop::Base {
-			VSettle(Command::Base* cmd, math::vec3 e): Command::Stop::Base(cmd), e_(e) {}
+			public:
+				VSettle(Command::Base* cmd, math::vec3 e): Command::Stop::Base(cmd), e_(e) {}
 
-			math::vec3	e_;
+				math::vec3	e_;
+				struct {
+					double		t_;
+					int		i_;
+				} stats_;
 
-			virtual void		Check(int);
+				virtual void		Check(int);
 		};
 		class QSettle: public Command::Stop::Base {
-			QSettle(Command::Base* cmd, double e): Command::Stop::Base(cmd), e_(e) {}
+			public:
+				QSettle(Command::Base* cmd, double e): Command::Stop::Base(cmd), e_(e) {}
 
-			double		e_;
+				double		e_;
 
-			virtual void		Check(int);
+				virtual void		Check(int);
 		};
 		class ZCross: public Command::Stop::Base {
-			ZCross(Command::Base* cmd, double z): Command::Stop::Base(cmd), z_(z), s_(0) {}
-			
-			double		z_;
-			int		s_;
+			public:
+				ZCross(Command::Base* cmd, double z): Command::Stop::Base(cmd), z_(z), s_(0) {}
 
-			virtual void		Check(int);
+				double		z_;
+				int		s_;
+
+				virtual void		Check(int);
 		};
 		class Time: public Command::Stop::Base {
-			Time(Command::Base* cmd, double t): Command::Stop::Base(cmd), t_(t) {}
+			public:
+				Time(Command::Base* cmd, double t): Command::Stop::Base(cmd), t_(t) {}
 
-			double		t_;
+				double		t_;
 
-			virtual void		Check(int);
+				virtual void		Check(int);
 		};
 	}
+	class V: public Base {
+		public:
+			V(Quadrotor*,  Input::Vec3*);
+
+		public:
+			Input::Vec3*	in_;
+
+	};
 	class X: public Base {
 		public:
-			X(Quadrotor*, math::vec3 (*)(double));
+			X(Quadrotor*,  Input::Vec3*);
 
-			void		Settle(int, double t);
 		public:
-			math::vec3	(*f_)(double);
-
+			Input::Vec3*	in_;
 	};
 
 
 	class Q: public Base {
 		public:
-			math::quat 	(*f_)(double);
-			double		thresh_;
+			Q(Quadrotor*, Input::Quat*);
 
-			Q(Quadrotor*, math::quat (*)(double));
+			Input::Quat*	in_;
 	};	
 
 

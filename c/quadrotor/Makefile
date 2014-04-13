@@ -334,6 +334,30 @@ src/quadrotor/command.cpp.s:
 	$(MAKE) -f CMakeFiles/quadrotor.dir/build.make CMakeFiles/quadrotor.dir/src/quadrotor/command.cpp.s
 .PHONY : src/quadrotor/command.cpp.s
 
+src/quadrotor/command/Stop.o: src/quadrotor/command/Stop.cpp.o
+.PHONY : src/quadrotor/command/Stop.o
+
+# target to build an object file
+src/quadrotor/command/Stop.cpp.o:
+	$(MAKE) -f CMakeFiles/quadrotor.dir/build.make CMakeFiles/quadrotor.dir/src/quadrotor/command/Stop.cpp.o
+.PHONY : src/quadrotor/command/Stop.cpp.o
+
+src/quadrotor/command/Stop.i: src/quadrotor/command/Stop.cpp.i
+.PHONY : src/quadrotor/command/Stop.i
+
+# target to preprocess a source file
+src/quadrotor/command/Stop.cpp.i:
+	$(MAKE) -f CMakeFiles/quadrotor.dir/build.make CMakeFiles/quadrotor.dir/src/quadrotor/command/Stop.cpp.i
+.PHONY : src/quadrotor/command/Stop.cpp.i
+
+src/quadrotor/command/Stop.s: src/quadrotor/command/Stop.cpp.s
+.PHONY : src/quadrotor/command/Stop.s
+
+# target to generate assembly for a file
+src/quadrotor/command/Stop.cpp.s:
+	$(MAKE) -f CMakeFiles/quadrotor.dir/build.make CMakeFiles/quadrotor.dir/src/quadrotor/command/Stop.cpp.s
+.PHONY : src/quadrotor/command/Stop.cpp.s
+
 src/quadrotor/fda.o: src/quadrotor/fda.cpp.o
 .PHONY : src/quadrotor/fda.o
 
@@ -490,6 +514,9 @@ help:
 	@echo "... src/quadrotor/command.o"
 	@echo "... src/quadrotor/command.i"
 	@echo "... src/quadrotor/command.s"
+	@echo "... src/quadrotor/command/Stop.o"
+	@echo "... src/quadrotor/command/Stop.i"
+	@echo "... src/quadrotor/command/Stop.s"
 	@echo "... src/quadrotor/fda.o"
 	@echo "... src/quadrotor/fda.i"
 	@echo "... src/quadrotor/fda.s"

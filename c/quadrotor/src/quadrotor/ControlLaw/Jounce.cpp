@@ -3,6 +3,7 @@
 #include <quadrotor/command.h>
 #include <quadrotor/except.h>
 #include <quadrotor/fda.h>
+#include <quadrotor/Input.hpp>
 #include <quadrotor/ControlLaw/ControlLaw.h>
 #include <quadrotor/ControlLaw/Jounce.h>
 
@@ -66,27 +67,24 @@ Jounce::X::X(Quadrotor* r): CL::Base(r), CL::X<5>(r), CL::Thrust(r), CL::Alpha(r
 	alloc(r->N_);
 
 }
-void	Jounce::X::Check(int i, math::vec3 tol) {
+bool	Jounce::X::Check(int i, math::vec3 tol) {
 	//printf("%s\n",__PRETTY_FUNCTION__);
 
-	Command::X* command = (Command::X*)command_;
+	//Command::X* command = (Command::X*)command_;
 
-	if(command_->mode_ == Command::Base::Mode::NORMAL) {
-
-		if(e_[1][i].Abs() < tol) {
-			if(e_[2][i].Abs() < tol) {
-				if(e_[3][i].Abs() < tol) {
-					if(e_[4][i].Abs() < tol) {
-						if(jounce_[i-1].Abs() < tol) {
-							command->Settle(i, r_->t_[i]);
-						}
+	if(e_[1][i].Abs() < tol) {
+		if(e_[2][i].Abs() < tol) {
+			if(e_[3][i].Abs() < tol) {
+				if(e_[4][i].Abs() < tol) {
+					if(jounce_[i-1].Abs() < tol) {
+						//command->Settle(i, r_->t_[i]);
+						return true;
 					}
 				}
 			}
 		}
-	} else {
-		printf("mode %i\n",command_->mode_);
 	}
+	return false;
 }
 void	Jounce::X::Step(int i, double h) {
 	//printf("%s\n",__PRETTY_FUNCTION__);
@@ -96,12 +94,12 @@ void	Jounce::X::Step(int i, double h) {
 
 	if(i == 0) {	
 		// back fill
-		x_ref_[0][-1] = x->f_(r_->t(-1));
-		x_ref_[0][-2] = x->f_(r_->t(-2));
-		x_ref_[0][-3] = x->f_(r_->t(-3));
+		x_ref_[0][-1] = x->in_->f(r_->t(-1));
+		x_ref_[0][-2] = x->in_->f(r_->t(-2));
+		x_ref_[0][-3] = x->in_->f(r_->t(-3));
 	}
 
-	x_ref_[0][i] = x->f_(r_->t(i));
+	x_ref_[0][i] = x->in_->f(r_->t(i));
 
 	forward(x_ref_[0], x_ref_[1], h, i);
 	forward(x_ref_[1], x_ref_[2], h, i);
@@ -145,19 +143,39 @@ void	Jounce::X::write(int n) {
 	Jounce::Base::write(n);
 	CL::X<5>::write(n);
 }
+
+Jounce::V::V(Quadrotor* r): CL::Base(r), CL::V<4>(r), CL::Thrust(r), CL::Alpha(r), Jounce::Base(r) {
+	printf("%s\n",__PRETTY_FUNCTION__);
+	alloc(r->N_);
+}
 void	Jounce::V::Step(int i, double h) {
+	//printf("%s\n",__PRETTY_FUNCTION__);
 
+	Command::V* v = dynamic_cast<Command::V*>(command_);
 
+	if(i == 0) {	
+		// back fill
+		v_ref_[0][-1] = v->in_->f(r_->t(-1));
+		v_ref_[0][-2] = v->in_->f(r_->t(-2));
+		v_ref_[0][-3] = v->in_->f(r_->t(-3));
+	}
+
+	v_ref_[0][i] = v->in_->f(r_->t(i));
+	//v_ref_[0][i].print();
+
+	// reference derivatives
 
 	forward(v_ref_[0], v_ref_[1], h, i);
 	forward(v_ref_[1], v_ref_[2], h, i);
 	forward(v_ref_[2], v_ref_[3], h, i);
 
-	e_[1][i] = r_->v(i) - v_ref_[1][i];
-	e_[2][i] = r_->a(i) - v_ref_[2][i];
-	e_[3][i] = r_->jerk(i) - v_ref_[3][i];
+	e_[1][i] = v_ref_[0][i] - r_->v(i);
+	e_[2][i] = v_ref_[1][i] - r_->a(i);
+	e_[3][i] = v_ref_[2][i] - r_->jerk(i);
 
 	e_[0][i] = e_[0][i-1] + e_[1][i] * h;
+
+	//c_[1].print();
 
 	jounce_[i] = 
 		c_[0] * e_[0][i] + 
@@ -166,30 +184,35 @@ void	Jounce::V::Step(int i, double h) {
 		c_[3] * e_[3][i] +
 		v_ref_[3][i];
 
+	//jounce_[i].print();
+
 	Jounce::Base::Step(i, h);
 }
-void	Jounce::V::Check(int i, math::vec3 tol) {
+bool	Jounce::V::Check(int i, math::vec3 tol) {
 	//printf("%s\n",__PRETTY_FUNCTION__);
 
-	Command::X* command = (Command::X*)command_;
-
-	if(command_->mode_ == Command::Base::Mode::NORMAL) {
-
-		if(e_[1][i].Abs() < tol) {
-			if(e_[2][i].Abs() < tol) {
-				if(e_[3][i].Abs() < tol) {
-
-					if(jounce_[i-1].Abs() < tol) {
-						command->Settle(i, r_->t_[i]);
-					}
+	if(e_[1][i].Abs() < tol) {
+		if(e_[2][i].Abs() < tol) {
+			if(e_[3][i].Abs() < tol) {
+				if(jounce_[i-1].Abs() < tol) {
+					printf("i=%i\n",i);
+					e_[1][i].print();
+					e_[2][i].print();
+					e_[3][i].print();
+					return true;
+					//command->Settle(i, r_->t_[i]);
 				}
 			}
 		}
 	}
+	return false;
 }
 void	Jounce::V::alloc(int n) {
 	Jounce::Base::alloc(n);
 	CL::V<4>::alloc(n);
 }
-
+void	Jounce::V::write(int n) {
+	Jounce::Base::write(n);
+	CL::V<4>::write(n);
+}
 

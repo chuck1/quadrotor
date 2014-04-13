@@ -3,8 +3,8 @@
 
 #include <math/vec3.h>
 
-math::vec3 constant(double);
-
+math::vec3 constantx(double);
+math::vec3 constantz(double);
 math::vec3 sinewave(double);
 math::vec3 circle(double);
 

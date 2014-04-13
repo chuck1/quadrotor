@@ -74,61 +74,6 @@ void Attitude::set_obj(int ti1, Command::Q* att) {
 	for (int ti = ti1; ti < quad_->N_; ti++) q_ref_[ti] = att_->q_;
 }*/	
 void Attitude::step(double dt, int ti, int ti_0) {
-/*
-	// reference derivatives
-	forward_quavec(q_ref_, q_ref_d_,  dt, ti, ti_0, 0);
-	
-	forward(q_ref_d_, q_ref_dd_, dt, ti);
-	
-	if(!q_ref_dd_[ti].isSane()) {
-		printf("insane\n");
-		q_ref_d_[ti].print();
-		q_ref_dd_[ti].print();
-		throw;
-	}
-	
-	// errors and their magnitudes	
-
-	switch(mode_) {
-		case Attitude::Mode::e::VEL:
-			e2_[ti] = o_ref_[ti] - quad_->telem_->o_[ti];
-
-			if(!e2_[ti].isSane()) {
-				printf("e2\n");
-				e2_[ti].print();
-				printf("o_ref\n");
-				o_ref_[ti].print();
-				printf("o\n");
-				quad_->telem_->o_[ti].print();
-				throw;
-			}
-
-			break;
-		case Attitude::Mode::e::ATT:
-			e1_[ti] = q_ref_[ti] * quad_->telem_->q_[ti].getConjugate();
-
-			e1_mag_[ti] = e1_[ti].getImaginaryPart().magnitude();
-
-			e2_[ti] = q_ref_d_[ti] - quad_->telem_->o_[ti];
-			break;
-	}
-
-	// magnitude derivatives
-	forward(e1_mag_,  e1_mag_d_, dt, ti);
-
-	// check
-	if (ti_0 > 0) {
-		if (att_) {
-			if (att_->mode_ == Command::Base::Mode::NORMAL) {
-				if ((e1_mag_d_[ti] < 0.0) && (e1_mag_d_[ti] > -0.001)) {
-					if (e1_[ti].getAngle() < att_->thresh_) {
-						att_->flag_ |= Command::Base::Flag::COMPLETE;
-					}
-				}
-			}
-		}
-	}
-	*/
 }
 void Attitude::step_torque_rotor_body_att(int ti, int ti_0) {
 

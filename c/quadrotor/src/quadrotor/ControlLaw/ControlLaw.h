@@ -25,8 +25,7 @@ namespace CL {
 			//virtual void	SetCommand(int, Command::Base*) = 0;
 
 			virtual void	Step(int, double) = 0;
-			virtual void	Check(int, math::quat) = 0;
-			virtual void	Check(int, math::vec3) = 0;
+			virtual bool	Check(int, math::vec3) = 0;
 			virtual void	alloc(int) = 0;
 			virtual void	write(int) = 0;
 		public:
@@ -46,15 +45,15 @@ namespace CL {
 			}
 			void	set_coeff() {
 				
-				
-				
 				double c[N];
 				
 				for(int i = 0; i < N; ++i) {
 					c[i] = coeff(p_, N, 0, i);
 					c_[i].SetDiagonal(c[i], c[i], c[i]);
-					//printf("c[%i] = %lf\n",i,c[i]);
+					printf("c[%i] = %lf\n",i,c[i]);
 				}
+				
+				
 
 				//	printf("poles % e % e % e % e % e\n",p[0],p[1],p[2],p[3],p[4]);
 				//	printf("coeff % e % e % e % e % e\n",C1,C2,C3,C4,C5);
@@ -109,7 +108,7 @@ namespace CL {
 			X(Quadrotor* r): Base(r) {
 				alloc(r_->N_);
 			}
-			virtual void	Check(int, math::vec3) = 0;
+			virtual bool	Check(int, math::vec3) = 0;
 			virtual void	alloc(int n) {
 				printf("%s\n",__PRETTY_FUNCTION__);
 				for(int i = 0; i < N; ++i) {
@@ -142,11 +141,29 @@ namespace CL {
 			V(Quadrotor* r): Base(r) {
 				alloc(r_->N_);
 			}
+			virtual bool	Check(int, math::vec3) = 0;
 			virtual void	alloc(int n) {
 				for(int i = 0; i < N; ++i) {
 					v_ref_[i].alloc(n);
 				}
 				Terms<N>::alloc(n);
+			}
+			virtual void	write(int n) {
+				printf("%s %i\n",__PRETTY_FUNCTION__,n);
+				FILE* file = fopen("data/cl_v.txt","w");
+				if(file != NULL) {
+					for(int i = 0; i < N; ++i) {
+						v_ref_[i].write(file, n);
+					}
+					
+					Terms<N>::write(n, file);
+					
+					fclose(file);
+				} else {
+					printf("file error\n");
+				}
+				
+				
 			}
 		public:
 			Array<math::vec3>	v_ref_[N];
@@ -155,6 +172,24 @@ namespace CL {
 		public:
 			Q(Quadrotor* r): Base(r) {
 				alloc(r_->N_);
+			}
+			virtual void	write(int n) {
+				printf("%s %i\n",__PRETTY_FUNCTION__,n);
+				FILE* file = fopen("data/cl_q.txt","w");
+				if(file != NULL) {
+					q_ref_.write(file, n);
+					for(int i = 0; i < N; ++i) {
+						q_ref__[i].write(file, n);
+					}
+					
+					Terms<N+1>::write(n, file);
+					
+					fclose(file);
+				} else {
+					printf("file error\n");
+				}
+				
+				
 			}
 			virtual void	alloc(int n) {
 				q_ref_.alloc(n);
@@ -177,6 +212,23 @@ namespace CL {
 					omega_ref_[i].alloc(n);
 				}
 				Terms<N>::alloc(n);
+			}
+			virtual void	write(int n) {
+				printf("%s %i\n",__PRETTY_FUNCTION__,n);
+				FILE* file = fopen("data/cl_omega.txt","w");
+				if(file != NULL) {
+					for(int i = 0; i < N; ++i) {
+						omega_ref_[i].write(file, n);
+					}
+					
+					Terms<N>::write(n, file);
+					
+					fclose(file);
+				} else {
+					printf("file error\n");
+				}
+				
+				
 			}
 			//void		set_ref(int i, math::vec3 omega) { omega_ref_[i] = omega; }
 		public:

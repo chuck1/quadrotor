@@ -22,6 +22,7 @@ namespace Jerk {
 			X(Quadrotor*);
 
 			void		step(int, double);
+			virtual bool	Check(int, math::vec3);
 			virtual void	alloc(int) = 0;
 			virtual void	write(int);
 		public:

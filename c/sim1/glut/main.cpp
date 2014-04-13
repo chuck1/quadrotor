@@ -61,8 +61,9 @@ static struct timeval last_idle_time;
 #endif
 
 float g_view_x = 0.5;//0.0;
-float g_view_y = 0.5;//7.5;
-float g_view_dist = 6.0;
+float g_view_y = 0.5;
+float g_view_z = 10.0;//7.5;
+float g_view_dist = 15.0;
 
 
 enum {
@@ -111,7 +112,7 @@ void RenderObjects(void)
 	
 	glPushMatrix();
 	{
-		glTranslatef(-g_view_x, -g_view_y, 0.0);
+		glTranslatef(-g_view_x, -g_view_y, 0);
 
 		// Main object (cube) ... transform to its coordinates, and render
 		glMultMatrixf(m);
@@ -156,8 +157,8 @@ void display(void)
 	glLoadIdentity();
 	
 	gluLookAt(
-			0.0, g_view_dist, 0.0,
-			0.0, 0.0, 0,
+			0.0, g_view_dist, g_view_z,
+			0.0, 0.0, g_view_z,
 			0.0, 0.0, 1);
 
 	glRotatef(g_view_yaw/M_PI*180.0,   0, 0, 1);

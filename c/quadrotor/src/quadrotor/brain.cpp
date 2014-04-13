@@ -30,8 +30,8 @@ Brain::Brain(Quadrotor* quad):
 	//thrust_.fill(quad_->m_ * quad_->gravity_.magnitude());
 
 	cl_x_ = new Jounce::X(quad_);
-	//cl_v_ = new Jounce::V(quad_);
-	//cl_q_ = new Alpha1::Q(quad_);
+	cl_v_ = new Jounce::V(quad_);
+	cl_q_ = new Alpha1::Q(quad_);
 
 }
 void Brain::reset() {
@@ -114,76 +114,22 @@ void Brain::reset() {
 
 }
 */
-/*
-void Brain::control_law_position(double dt, int ti, int ti_0) {
-	// position control
-	
-	switch(mode_) {
-		case Brain::Mode::e::ACCEL:
-			pos_->step(dt, ti, ti_0);
-
-			pos_->step_accel(dt, ti, ti_0);
-
-			step_accel(ti);
-
-			att_->step(dt, ti, ti_0);
-
-			att_->step_torque_rotor_body(ti, ti_0);
-
-			break;
-		case Brain::Mode::e::JERK:
-			pos_->step(dt, ti, ti_0);
-
-			pos_->step_jerk(dt, ti, ti_0);
-
-			step_jerk(dt, ti);
-
-			att_->step(dt, ti, ti_0);
-
-			att_->step_torque_rotor_body(ti, ti_0);
-
-			break;
-		case Brain::Mode::e::JOUNCE:
-			pos_->step(dt, ti, ti_0);
-
-			switch(pos_->type_) {
-				case Command::Base::Type::e::POINT:
-				case Command::Base::Type::e::PATH:
-					pos_->step_jounce(dt, ti, ti_0);
-					break;
-				case Command::Base::Type::e::VELOCITY:
-					pos_->step_jounce_velocity(dt, ti, ti_0);
-					break;
-			}
-
-			step_jounce(ti, dt);
-
-			break;
-		default:
-			throw InvalidOp();
-			break;
-	}
-
-
-	step_motor_speed(ti);
-}
-*/
-
 void	Brain::CheckCommand(int i) {
 	bool pop = false;
 
 	if (obj_ == NULL) {
-		printf("obj is NULL\n");
+		printf("i=%i obj is NULL\n",i);
 		pop = true;
 	} else {
 		if(obj_->flag_ & Command::Base::Flag::COMPLETE) {
-			printf("obj is complete\n");
+			printf("i=%i obj is complete\n",i);
 			pop = true;
 		}
 	}
 		
 	if(pop) {
 		if(objs_.empty()) {
+			printf("i=%i empty queue\n",i);
 			throw EmptyQueue();
 		}
 
@@ -194,6 +140,9 @@ void	Brain::CheckCommand(int i) {
 		switch(obj_->type_) {
 			case Command::Base::Type::X:
 				cl_ = cl_x_;
+				break;
+			case Command::Base::Type::V:
+				cl_ = cl_v_;
 				break;
 			case Command::Base::Type::Q:
 				cl_ = cl_q_;
@@ -216,7 +165,9 @@ void Brain::step(int i, double h) {
 	//cl_->Check(i);
 }
 void Brain::write(int n) {
-	cl_->write(n);
+	cl_x_->write(n);
+	cl_v_->write(n);
+	cl_q_->write(n);
 }
 
 
