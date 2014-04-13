@@ -210,7 +210,10 @@ void Brain::step(int i, double h) {
 	CheckCommand(i);
 	
 	cl_->Step(i, h);
-	cl_->Check(i);
+	
+	obj_->Check(i);
+	
+	//cl_->Check(i);
 }
 void Brain::write(int n) {
 	cl_->write(n);

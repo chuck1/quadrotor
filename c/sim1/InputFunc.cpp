@@ -6,8 +6,15 @@ math::vec3 constant(double) {
 
 math::vec3 sinewave(double t) {
 	
-	double per = 15.0;
+	double per = 2.0;
+	double omega = 2.0 * M_PI / per;
+	return math::vec3(sin(t * omega), t, 0.0);
+}
+
+math::vec3 circle(double t) {
 	
-	return math::vec3(sin(t * 2.0 * M_PI / per), t, 0.0);
+	double per = 2.0;
+	double omega = 2.0 * M_PI / per;
+	return math::vec3(sin(t * omega), cos(t * omega), 0.0);
 }
 

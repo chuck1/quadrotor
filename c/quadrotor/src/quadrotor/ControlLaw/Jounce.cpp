@@ -66,23 +66,17 @@ Jounce::X::X(Quadrotor* r): CL::Base(r), CL::X<5>(r), CL::Thrust(r), CL::Alpha(r
 	alloc(r->N_);
 
 }
-void	Jounce::X::Check(int i) {
+void	Jounce::X::Check(int i, math::vec3 tol) {
 	//printf("%s\n",__PRETTY_FUNCTION__);
 
-	math::vec3 tol(0.01,0.01,0.01);
-	
 	Command::X* command = (Command::X*)command_;
 
 	if(command_->mode_ == Command::Base::Mode::NORMAL) {
 
-		if(e_[1][i].Abs() < command->thresh_) {
-
+		if(e_[1][i].Abs() < tol) {
 			if(e_[2][i].Abs() < tol) {
-
 				if(e_[3][i].Abs() < tol) {
-
 					if(e_[4][i].Abs() < tol) {
-
 						if(jounce_[i-1].Abs() < tol) {
 							command->Settle(i, r_->t_[i]);
 						}
@@ -102,12 +96,12 @@ void	Jounce::X::Step(int i, double h) {
 
 	if(i == 0) {	
 		// back fill
-		x_ref_[0][-1] = x->f_(0.0);
-		x_ref_[0][-2] = x->f_(0.0);
-		x_ref_[0][-3] = x->f_(0.0);
+		x_ref_[0][-1] = x->f_(r_->t(-1));
+		x_ref_[0][-2] = x->f_(r_->t(-2));
+		x_ref_[0][-3] = x->f_(r_->t(-3));
 	}
 
-	x_ref_[0][i] = x->f_(0.0);
+	x_ref_[0][i] = x->f_(r_->t(i));
 
 	forward(x_ref_[0], x_ref_[1], h, i);
 	forward(x_ref_[1], x_ref_[2], h, i);
@@ -174,19 +168,15 @@ void	Jounce::V::Step(int i, double h) {
 
 	Jounce::Base::Step(i, h);
 }
-void	Jounce::V::Check(int i) {
+void	Jounce::V::Check(int i, math::vec3 tol) {
 	//printf("%s\n",__PRETTY_FUNCTION__);
 
-	math::vec3 tol(0.01,0.01,0.01);
-	
 	Command::X* command = (Command::X*)command_;
 
 	if(command_->mode_ == Command::Base::Mode::NORMAL) {
 
-		if(e_[1][i].Abs() < command->thresh_) {
-
+		if(e_[1][i].Abs() < tol) {
 			if(e_[2][i].Abs() < tol) {
-
 				if(e_[3][i].Abs() < tol) {
 
 					if(jounce_[i-1].Abs() < tol) {

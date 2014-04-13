@@ -11,12 +11,18 @@
 #include <quadrotor/position.h>
 #include <quadrotor/ControlLaw/ControlLaw.h>
 
-Command::Base::Base(Command::Base::Type::e type, Command::Base::Mode::e mode, Quadrotor* r):
+Command::Base::Base(Quadrotor* r, Command::Base::Type::e type, Command::Base::Mode::e mode, std::vector<Command::Stop::Base*> stop):
 	r_(r),
 	flag_(0),
 	mode_(mode),
-	type_(type)
+	type_(type),
+	stop_(stop)
 {
+}
+void	Command::Base::Check(int i) {
+	for(auto it = stop_.begin(); it != stop_.end(); ++it) {
+		(*it)->Check(i);
+	}
 }
 
 void Command::X::Settle(int i, double t) {
@@ -32,35 +38,21 @@ void Command::X::Settle(int i, double t) {
 
 }
 
-Command::X::X(Quadrotor* r, math::vec3 (*f)(double)):
-	Base(Command::Base::Type::X, Command::Base::Mode::HOLD, r),
+Command::X::X(Quadrotor* r, math::vec3 (*f)(double), std::vector<Command::Stop::Base*> stop):
+	Base(r, Command::Base::Type::X, Command::Base::Mode::HOLD, stop),
 	f_(f)
 {
 	printf("f %p\n",f_);
 
 	if (f_ == NULL) throw;
 }
-Command::X::X(Quadrotor* r, math::vec3 (*f)(double), math::vec3 const & thresh):
-	Base(Command::Base::Type::X, Command::Base::Mode::NORMAL, r),
-	f_(f),
-	thresh_(thresh)
-{
-	printf("f %p\n",f_);
 
-	if (f_ == NULL) throw;
-}
-
-Command::Q::Q(Quadrotor* r, math::quat (*f)(double), double thresh):
-	Base(Base::Type::Q, Base::Mode::NORMAL, r),
-	f_(f),
-	thresh_(thresh)
+Command::Q::Q(Quadrotor* r, math::quat (*f)(double), std::vector<Command::Stop::Base*> stop):
+	Base(r, Base::Type::Q, Base::Mode::NORMAL, stop),
+	f_(f)
 {
 }
 
-Command::Q::Q(Quadrotor* r, math::quat (*f)(double)):
-	Base(Base::Type::Q, Base::Mode::HOLD, r)
-{
-}
 
 
 

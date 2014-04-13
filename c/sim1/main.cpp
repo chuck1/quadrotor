@@ -53,9 +53,16 @@ void reset_quadrotor(Quadrotor* r, double* C) {
 	
 	//r->brain_->att_->C1_.SetDiagonal(C[3], C[3], C[3]);
 	//r->brain_->att_->C2_.SetDiagonal(C[4], C[4], C[4]);
-
+	
+	auto comm_x = new Command::X(r, constant, math::vec3(0.01,0.01,0.01);
+	
+	Command::Stop::XSettle* stop_x = new Command::Stop::XSettle;
+	
+	std::vector<Command::Stop::Base*> stop;
+	stop.push_back(stop_x);
+	
 	r->brain_->objs_.push_back(
-			new Command::X(r, constant, math::vec3(0.01,0.01,0.01))
+			)
 			);
 
 
@@ -199,9 +206,10 @@ void normal(int N, double dt) {
 	//r->brain_->objs_.push_back(new Command::X(r, constant));
 
 	//r->brain_->objs_.push_back(new Command::Move(math::vec3(0.01,0,0)));
-	r->brain_->objs_.push_back(new Command::X(r, constant, math::vec3(0.01,0.01,0.01)));
+	//r->brain_->objs_.push_back(new Command::X(r, constant, math::vec3(0.01,0.01,0.01)));
 	//r->brain_->objs_.push_back(new Command::Move(math::vec3(1,1,0), math::vec3(0.01,0.01,0.01)));
-	//r->brain_->objs_.push_back(new Command::Path(sinewave));
+	r->brain_->objs_.push_back(new Command::X(r, circle));
+	//r->brain_->objs_.push_back(new Command::X(r, sinewave));
 
 	r->run();
 

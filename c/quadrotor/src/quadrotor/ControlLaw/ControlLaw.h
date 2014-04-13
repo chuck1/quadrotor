@@ -25,7 +25,8 @@ namespace CL {
 			//virtual void	SetCommand(int, Command::Base*) = 0;
 
 			virtual void	Step(int, double) = 0;
-			virtual void	Check(int) = 0;
+			virtual void	Check(int, math::quat) = 0;
+			virtual void	Check(int, math::vec3) = 0;
 			virtual void	alloc(int) = 0;
 			virtual void	write(int) = 0;
 		public:
@@ -108,7 +109,7 @@ namespace CL {
 			X(Quadrotor* r): Base(r) {
 				alloc(r_->N_);
 			}
-			virtual void	Check(int) = 0;
+			virtual void	Check(int, math::vec3) = 0;
 			virtual void	alloc(int n) {
 				printf("%s\n",__PRETTY_FUNCTION__);
 				for(int i = 0; i < N; ++i) {

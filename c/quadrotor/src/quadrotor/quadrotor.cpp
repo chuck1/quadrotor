@@ -147,11 +147,13 @@ math::vec4	Quadrotor::thrust_torque_to_motor_speed(int i, double const & thrust,
 	return (plant_->gamma1_[i] + plant_->gamma0_[i]);
 }	
 void Quadrotor::write() {
-	brain_->write(ti_f_);
+	int n = (ti_f_ > 0) ? ti_f_ : N_;
+	
+	brain_->write(n);
 	//brain_->pos_->write(ti_f_);
 	//brain_->att_->write(ti_f_);
-	plant_->write(ti_f_);
-	telem_->write(ti_f_);
+	plant_->write(n);
+	telem_->write(n);
 
 	write_param();
 }
