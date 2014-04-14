@@ -8,6 +8,7 @@ SET(CMAKE_DEPENDS_CHECK_CXX
   "/home/charles/Programming/C++/quadrotor/c/quadrotor/src/quadrotor/ControlLaw/ControlLaw.cpp" "/home/charles/Programming/C++/quadrotor/c/quadrotor/CMakeFiles/quadrotor.dir/src/quadrotor/ControlLaw/ControlLaw.cpp.o"
   "/home/charles/Programming/C++/quadrotor/c/quadrotor/src/quadrotor/ControlLaw/Jerk.cpp" "/home/charles/Programming/C++/quadrotor/c/quadrotor/CMakeFiles/quadrotor.dir/src/quadrotor/ControlLaw/Jerk.cpp.o"
   "/home/charles/Programming/C++/quadrotor/c/quadrotor/src/quadrotor/ControlLaw/Jounce.cpp" "/home/charles/Programming/C++/quadrotor/c/quadrotor/CMakeFiles/quadrotor.dir/src/quadrotor/ControlLaw/Jounce.cpp.o"
+  "/home/charles/Programming/C++/quadrotor/c/quadrotor/src/quadrotor/Input.cpp" "/home/charles/Programming/C++/quadrotor/c/quadrotor/CMakeFiles/quadrotor.dir/src/quadrotor/Input.cpp.o"
   "/home/charles/Programming/C++/quadrotor/c/quadrotor/src/quadrotor/array.cpp" "/home/charles/Programming/C++/quadrotor/c/quadrotor/CMakeFiles/quadrotor.dir/src/quadrotor/array.cpp.o"
   "/home/charles/Programming/C++/quadrotor/c/quadrotor/src/quadrotor/attitude.cpp" "/home/charles/Programming/C++/quadrotor/c/quadrotor/CMakeFiles/quadrotor.dir/src/quadrotor/attitude.cpp.o"
   "/home/charles/Programming/C++/quadrotor/c/quadrotor/src/quadrotor/brain.cpp" "/home/charles/Programming/C++/quadrotor/c/quadrotor/CMakeFiles/quadrotor.dir/src/quadrotor/brain.cpp.o"

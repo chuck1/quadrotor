@@ -86,6 +86,7 @@ bool	Jounce::X::Check(int i, math::vec3 tol) {
 	}
 	return false;
 }
+
 void	Jounce::X::Step(int i, double h) {
 	//printf("%s\n",__PRETTY_FUNCTION__);
 	//printf("%f\n",h);
@@ -123,14 +124,14 @@ void	Jounce::X::Step(int i, double h) {
 
 	Jounce::Base::Step(i, h);
 
-	if(false) {
+	if(0) {
 		printf("e_[2][i]\n");
 		e_[2][i].print();
 		x_ref_[1][i].print();
 		r_->v(i).print();
-		printf("x_ref_[0][i]\n");
+		printf("x_ref_[0][%i]\n",i);
 		x_ref_[0][i].print();
-		printf("x_ref_[0][i-1]\n");
+		printf("x_ref_[0][%i]\n",i-1);
 		x_ref_[0][i-1].print();
 	}
 }

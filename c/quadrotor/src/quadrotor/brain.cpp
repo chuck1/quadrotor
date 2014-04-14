@@ -18,16 +18,7 @@ Brain::Brain(Quadrotor* quad):
 
 	heading_ = 0.0;//M_PI * 0.5;
 
-	//int n = quad_->N_;
-
-	//f_R_.alloc(n);
-
-	//thrust_.alloc(n);
-	//thrust_d_.alloc(n);
-
 	obj_ = NULL;
-
-	//thrust_.fill(quad_->m_ * quad_->gravity_.magnitude());
 
 	cl_x_ = new Jounce::X(quad_);
 	cl_v_ = new Jounce::V(quad_);
@@ -147,9 +138,17 @@ void	Brain::CheckCommand(int i) {
 			case Command::Base::Type::Q:
 				cl_ = cl_q_;
 				break;
+			default:
+				cl_ = NULL;
+				break;
 		}
 		
-		cl_->command_ = obj_;
+		obj_->Start(i);
+		
+		if(cl_ != NULL) {
+			cl_->command_ = obj_;
+			cl_->Init(i);
+		}
 	}
 }
 void Brain::step(int i, double h) {
@@ -158,7 +157,9 @@ void Brain::step(int i, double h) {
 
 	CheckCommand(i);
 	
-	cl_->Step(i, h);
+	if(cl_ != NULL) {
+		cl_->Step(i, h);
+	}
 	
 	obj_->Check(i);
 	

@@ -3,6 +3,7 @@ FILE(REMOVE_RECURSE
   "CMakeFiles/quadrotor.dir/src/quadrotor/attitude.cpp.o"
   "CMakeFiles/quadrotor.dir/src/quadrotor/brain.cpp.o"
   "CMakeFiles/quadrotor.dir/src/quadrotor/command.cpp.o"
+  "CMakeFiles/quadrotor.dir/src/quadrotor/Input.cpp.o"
   "CMakeFiles/quadrotor.dir/src/quadrotor/plant.cpp.o"
   "CMakeFiles/quadrotor.dir/src/quadrotor/position.cpp.o"
   "CMakeFiles/quadrotor.dir/src/quadrotor/quadrotor.cpp.o"

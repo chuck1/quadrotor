@@ -12,6 +12,7 @@
 #include <quadrotor/Input.hpp>
 #include <quadrotor/position.h>
 #include <quadrotor/quadrotor.h>
+#include <quadrotor/command/Stop.hpp>
 #include <quadrotor/ControlLaw/ControlLaw.h>
 #include <quadrotor/ControlLaw/Jounce.h>
 #include <quadrotor/ControlLaw/Alpha.h>
@@ -28,6 +29,52 @@ int* range(int s, int e) {
 	}
 	return r;
 }
+
+void VQPoles(Quadrotor* r) {
+
+	Jounce::V* v = dynamic_cast<Jounce::V*>(r->brain_->cl_v_);
+	Alpha1::Q* q = dynamic_cast<Alpha1::Q*>(r->brain_->cl_q_);
+	
+	double poles_v[] = {
+		-19.0,
+		-19.0,
+		-19.0,
+		-00.0};
+	
+	int i_v[] = {0,1,2,3};
+	v->set_poles(i_v, poles_v, 4);
+
+	double poles_q[] = {
+		-01.8,
+		-01.8,
+		-00.0};
+	
+	int i_q[] = {0,1,2,3};
+	q->set_poles(i_q, poles_q, 4);
+
+}
+
+void CommandScheme1(Quadrotor* r) {
+
+	auto cmd_v = new Command::V(r, new Input::Vec3::Const(math::vec3(0,0,10)));
+	auto stop_v = new Command::Stop::VSettle(cmd_v, math::vec3(0.01,0.01,0.01));
+	cmd_v->stop_.push_back(stop_v);
+	
+	auto cmd_q = new Command::Q(r, new Input::QuatConst(math::quat(0.5 * M_PI,math::vec3(1,0,0))));
+	auto stop_q = new Command::Stop::VCross(cmd_q, math::plane(math::vec3(0,0,1), 0));
+	cmd_q->stop_.push_back(stop_q);
+	
+	
+	//auto cmd_freeze = new Command::Freeze(r);
+	auto cmd_freeze = new Command::V(r, new Input::Vec3::Const(math::vec3(0,0,0)));
+	
+
+	r->brain_->objs_.push_back(cmd_v);
+	r->brain_->objs_.push_back(cmd_q);
+	r->brain_->objs_.push_back(cmd_freeze);
+
+}
+
 
 void set_coeff(double* center, double* length, int choices, int repeat, double* coeff) {
 	
@@ -56,15 +103,7 @@ void reset_quadrotor(Quadrotor* r, double* C) {
 	//r->brain_->att_->C1_.SetDiagonal(C[3], C[3], C[3]);
 	//r->brain_->att_->C2_.SetDiagonal(C[4], C[4], C[4]);
 	
-	auto comm_x = new Command::X(r, new Input::Vec3Const(math::vec3(1,0,0)));
-	
-	Command::Stop::XSettle* stop_x = new Command::Stop::XSettle(comm_x, math::vec3(0.01,0.01,0.01));
-	
-	std::vector<Command::Stop::Base*> stop;
-	stop.push_back(stop_x);
-	
-	r->brain_->objs_.push_back(comm_x);
-
+	CommandScheme1(r);
 
 }
 
@@ -141,7 +180,9 @@ void map() {
 	int N = 100000;
 	Quadrotor* r = new Quadrotor(dt, N);
 
-	int choices = 7;
+	VQPoles(r);
+
+	int choices = 5;
 	int repeat = 3;
 	//int len = pow(choices, repeat);
 
@@ -192,50 +233,28 @@ void normal(int N, double dt) {
 	Quadrotor* r = new Quadrotor(dt, N);
 
 	Jounce::X* x = dynamic_cast<Jounce::X*>(r->brain_->cl_x_);
-	Jounce::V* v = dynamic_cast<Jounce::V*>(r->brain_->cl_v_);
-	Alpha1::Q* q = dynamic_cast<Alpha1::Q*>(r->brain_->cl_q_);
-	//x->read();
-	
 	
 	double poles[] = {
-		-14.0,
-		-14.0,
-		-18.0,
-		-18.0,
+		-16.8,
+		-16.8,
+		-15.5,
+		-15.5,
 		-00.0};
 	
 	int i[] = {0,1,2,3,4};
 	x->set_poles(i, poles, 5);
 	
-	double poles_v[] = {
-		-18.0,
-		-18.0,
-		-18.0,
-		-00.0};
+	VQPoles(r);
 	
-	int i_v[] = {0,1,2,3};
-	v->set_poles(i_v, poles_v, 4);
-
-	double poles_q[] = {
-		-02.0,
-		-02.0,
-		-00.0};
-	
-	int i_q[] = {0,1,2,3};
-	q->set_poles(i_q, poles_q, 4);
+	//CommandScheme1(r);
 	
 	
-	auto cmd_v = new Command::V(r, new Input::Vec3Const(math::vec3(0,0,10)));
-	auto stop_v = new Command::Stop::VSettle(cmd_v, math::vec3(0.01,0.01,0.01));
-	cmd_v->stop_.push_back(stop_v);
+	auto cmd_x = new Command::X(r, new Input::Vec3::Circle(1.0, 4.0));
+	auto stop_x = new Command::Stop::VSettle(cmd_x, math::vec3(0.01,0.01,0.01));
+	cmd_x->stop_.push_back(stop_x);
+	r->brain_->objs_.push_back(cmd_x);
 	
-	auto cmd_q = new Command::Q(r, new Input::QuatConst(math::quat(0.5 * M_PI,math::vec3(1,0,0))));
 	
-
-	r->brain_->objs_.push_back(cmd_v);
-	r->brain_->objs_.push_back(cmd_q);
-	
-	//r->brain_->objs_.push_back(new Command::Move(math::vec3(0.01,0,0)));
 	//r->brain_->objs_.push_back(new Command::X(r, constant, ));
 	//r->brain_->objs_.push_back(new Command::Move(math::vec3(1,1,0), math::vec3(0.01,0.01,0.01)));
 	//r->brain_->objs_.push_back(new Command::X(r, circle));
@@ -269,7 +288,7 @@ int main(int argc, const char ** argv) {
 	}
 
 	if(strcmp(argv[1],"n")==0) {
-		normal(300, dt);
+		normal(5000, dt);
 	} else if(strcmp(argv[1],"m")==0) {
 		map();
 	} else if(strcmp(argv[1],"s")==0) {

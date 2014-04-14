@@ -238,6 +238,30 @@ src/quadrotor/ControlLaw/Jounce.cpp.s:
 	$(MAKE) -f CMakeFiles/quadrotor.dir/build.make CMakeFiles/quadrotor.dir/src/quadrotor/ControlLaw/Jounce.cpp.s
 .PHONY : src/quadrotor/ControlLaw/Jounce.cpp.s
 
+src/quadrotor/Input.o: src/quadrotor/Input.cpp.o
+.PHONY : src/quadrotor/Input.o
+
+# target to build an object file
+src/quadrotor/Input.cpp.o:
+	$(MAKE) -f CMakeFiles/quadrotor.dir/build.make CMakeFiles/quadrotor.dir/src/quadrotor/Input.cpp.o
+.PHONY : src/quadrotor/Input.cpp.o
+
+src/quadrotor/Input.i: src/quadrotor/Input.cpp.i
+.PHONY : src/quadrotor/Input.i
+
+# target to preprocess a source file
+src/quadrotor/Input.cpp.i:
+	$(MAKE) -f CMakeFiles/quadrotor.dir/build.make CMakeFiles/quadrotor.dir/src/quadrotor/Input.cpp.i
+.PHONY : src/quadrotor/Input.cpp.i
+
+src/quadrotor/Input.s: src/quadrotor/Input.cpp.s
+.PHONY : src/quadrotor/Input.s
+
+# target to generate assembly for a file
+src/quadrotor/Input.cpp.s:
+	$(MAKE) -f CMakeFiles/quadrotor.dir/build.make CMakeFiles/quadrotor.dir/src/quadrotor/Input.cpp.s
+.PHONY : src/quadrotor/Input.cpp.s
+
 src/quadrotor/array.o: src/quadrotor/array.cpp.o
 .PHONY : src/quadrotor/array.o
 
@@ -502,6 +526,9 @@ help:
 	@echo "... src/quadrotor/ControlLaw/Jounce.o"
 	@echo "... src/quadrotor/ControlLaw/Jounce.i"
 	@echo "... src/quadrotor/ControlLaw/Jounce.s"
+	@echo "... src/quadrotor/Input.o"
+	@echo "... src/quadrotor/Input.i"
+	@echo "... src/quadrotor/Input.s"
 	@echo "... src/quadrotor/array.o"
 	@echo "... src/quadrotor/array.i"
 	@echo "... src/quadrotor/array.s"

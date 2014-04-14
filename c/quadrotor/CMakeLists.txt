@@ -12,6 +12,7 @@ add_library(quadrotor
 	src/quadrotor/attitude.cpp
 	src/quadrotor/brain.cpp
 	src/quadrotor/command.cpp
+	src/quadrotor/Input.cpp
 	src/quadrotor/plant.cpp
 	src/quadrotor/position.cpp
 	src/quadrotor/quadrotor.cpp
@@ -41,7 +42,7 @@ install(FILES ${PROJECT_SOURCE_DIR}/quadrotor/position.h DESTINATION		include/qu
 install(FILES ${PROJECT_SOURCE_DIR}/quadrotor/fda.h DESTINATION			include/quadrotor/)
 install(FILES ${PROJECT_SOURCE_DIR}/quadrotor/command.h DESTINATION		include/quadrotor/)
 install(FILES ${PROJECT_SOURCE_DIR}/quadrotor/Input.hpp DESTINATION		include/quadrotor/)
-
+install(FILES ${PROJECT_SOURCE_DIR}/quadrotor/command/Stop.hpp			DESTINATION		include/quadrotor/command)
 install(FILES ${PROJECT_SOURCE_DIR}/quadrotor/telem.h DESTINATION					include/quadrotor/)
 install(FILES ${PROJECT_SOURCE_DIR}/quadrotor/ControlLaw/ControlLaw.h		DESTINATION		include/quadrotor/ControlLaw)
 install(FILES ${PROJECT_SOURCE_DIR}/quadrotor/ControlLaw/Alpha.h		DESTINATION		include/quadrotor/ControlLaw)

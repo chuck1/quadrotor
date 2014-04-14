@@ -12,7 +12,9 @@ CMakeFiles/quadrotor.dir/src/quadrotor/ControlLaw/Alpha.cpp.o: src/quadrotor/qua
 
 CMakeFiles/quadrotor.dir/src/quadrotor/ControlLaw/ControlLaw.cpp.o: src/quadrotor/ControlLaw/ControlLaw.cpp
 CMakeFiles/quadrotor.dir/src/quadrotor/ControlLaw/ControlLaw.cpp.o: src/quadrotor/ControlLaw/ControlLaw.h
+CMakeFiles/quadrotor.dir/src/quadrotor/ControlLaw/ControlLaw.cpp.o: src/quadrotor/Input.hpp
 CMakeFiles/quadrotor.dir/src/quadrotor/ControlLaw/ControlLaw.cpp.o: src/quadrotor/array.h
+CMakeFiles/quadrotor.dir/src/quadrotor/ControlLaw/ControlLaw.cpp.o: src/quadrotor/command.h
 CMakeFiles/quadrotor.dir/src/quadrotor/ControlLaw/ControlLaw.cpp.o: src/quadrotor/plant.h
 CMakeFiles/quadrotor.dir/src/quadrotor/ControlLaw/ControlLaw.cpp.o: src/quadrotor/quadrotor.h
 
@@ -20,7 +22,9 @@ CMakeFiles/quadrotor.dir/src/quadrotor/ControlLaw/Jerk.cpp.o: src/quadrotor/Cont
 CMakeFiles/quadrotor.dir/src/quadrotor/ControlLaw/Jerk.cpp.o: src/quadrotor/ControlLaw/Alpha.h
 CMakeFiles/quadrotor.dir/src/quadrotor/ControlLaw/Jerk.cpp.o: src/quadrotor/ControlLaw/ControlLaw.h
 CMakeFiles/quadrotor.dir/src/quadrotor/ControlLaw/Jerk.cpp.o: src/quadrotor/ControlLaw/Jerk.h
+CMakeFiles/quadrotor.dir/src/quadrotor/ControlLaw/Jerk.cpp.o: src/quadrotor/Input.hpp
 CMakeFiles/quadrotor.dir/src/quadrotor/ControlLaw/Jerk.cpp.o: src/quadrotor/array.h
+CMakeFiles/quadrotor.dir/src/quadrotor/ControlLaw/Jerk.cpp.o: src/quadrotor/command.h
 CMakeFiles/quadrotor.dir/src/quadrotor/ControlLaw/Jerk.cpp.o: src/quadrotor/fda.h
 CMakeFiles/quadrotor.dir/src/quadrotor/ControlLaw/Jerk.cpp.o: src/quadrotor/quadrotor.h
 
@@ -33,6 +37,9 @@ CMakeFiles/quadrotor.dir/src/quadrotor/ControlLaw/Jounce.cpp.o: src/quadrotor/co
 CMakeFiles/quadrotor.dir/src/quadrotor/ControlLaw/Jounce.cpp.o: src/quadrotor/except.h
 CMakeFiles/quadrotor.dir/src/quadrotor/ControlLaw/Jounce.cpp.o: src/quadrotor/fda.h
 CMakeFiles/quadrotor.dir/src/quadrotor/ControlLaw/Jounce.cpp.o: src/quadrotor/quadrotor.h
+
+CMakeFiles/quadrotor.dir/src/quadrotor/Input.cpp.o: src/quadrotor/Input.cpp
+CMakeFiles/quadrotor.dir/src/quadrotor/Input.cpp.o: src/quadrotor/Input.hpp
 
 CMakeFiles/quadrotor.dir/src/quadrotor/array.cpp.o: src/quadrotor/array.cpp
 
@@ -51,6 +58,7 @@ CMakeFiles/quadrotor.dir/src/quadrotor/brain.cpp.o: src/quadrotor/ControlLaw/Alp
 CMakeFiles/quadrotor.dir/src/quadrotor/brain.cpp.o: src/quadrotor/ControlLaw/ControlLaw.h
 CMakeFiles/quadrotor.dir/src/quadrotor/brain.cpp.o: src/quadrotor/ControlLaw/Jerk.h
 CMakeFiles/quadrotor.dir/src/quadrotor/brain.cpp.o: src/quadrotor/ControlLaw/Jounce.h
+CMakeFiles/quadrotor.dir/src/quadrotor/brain.cpp.o: src/quadrotor/Input.hpp
 CMakeFiles/quadrotor.dir/src/quadrotor/brain.cpp.o: src/quadrotor/array.h
 CMakeFiles/quadrotor.dir/src/quadrotor/brain.cpp.o: src/quadrotor/attitude.h
 CMakeFiles/quadrotor.dir/src/quadrotor/brain.cpp.o: src/quadrotor/brain.h
@@ -64,9 +72,11 @@ CMakeFiles/quadrotor.dir/src/quadrotor/brain.cpp.o: src/quadrotor/telem.h
 
 CMakeFiles/quadrotor.dir/src/quadrotor/command.cpp.o: src/quadrotor/command.cpp
 CMakeFiles/quadrotor.dir/src/quadrotor/command.cpp.o: src/quadrotor/ControlLaw/ControlLaw.h
+CMakeFiles/quadrotor.dir/src/quadrotor/command.cpp.o: src/quadrotor/Input.hpp
 CMakeFiles/quadrotor.dir/src/quadrotor/command.cpp.o: src/quadrotor/array.h
 CMakeFiles/quadrotor.dir/src/quadrotor/command.cpp.o: src/quadrotor/brain.h
 CMakeFiles/quadrotor.dir/src/quadrotor/command.cpp.o: src/quadrotor/command.h
+CMakeFiles/quadrotor.dir/src/quadrotor/command.cpp.o: src/quadrotor/command/Stop.hpp
 CMakeFiles/quadrotor.dir/src/quadrotor/command.cpp.o: src/quadrotor/except.h
 CMakeFiles/quadrotor.dir/src/quadrotor/command.cpp.o: src/quadrotor/plant.h
 CMakeFiles/quadrotor.dir/src/quadrotor/command.cpp.o: src/quadrotor/position.h
@@ -75,9 +85,11 @@ CMakeFiles/quadrotor.dir/src/quadrotor/command.cpp.o: src/quadrotor/telem.h
 
 CMakeFiles/quadrotor.dir/src/quadrotor/command/Stop.cpp.o: src/quadrotor/command/Stop.cpp
 CMakeFiles/quadrotor.dir/src/quadrotor/command/Stop.cpp.o: src/quadrotor/ControlLaw/ControlLaw.h
+CMakeFiles/quadrotor.dir/src/quadrotor/command/Stop.cpp.o: src/quadrotor/Input.hpp
 CMakeFiles/quadrotor.dir/src/quadrotor/command/Stop.cpp.o: src/quadrotor/array.h
 CMakeFiles/quadrotor.dir/src/quadrotor/command/Stop.cpp.o: src/quadrotor/brain.h
 CMakeFiles/quadrotor.dir/src/quadrotor/command/Stop.cpp.o: src/quadrotor/command.h
+CMakeFiles/quadrotor.dir/src/quadrotor/command/Stop.cpp.o: src/quadrotor/command/Stop.hpp
 CMakeFiles/quadrotor.dir/src/quadrotor/command/Stop.cpp.o: src/quadrotor/except.h
 CMakeFiles/quadrotor.dir/src/quadrotor/command/Stop.cpp.o: src/quadrotor/quadrotor.h
 

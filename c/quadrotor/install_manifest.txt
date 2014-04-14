@@ -9,6 +9,7 @@
 /home/charles/usr/include/quadrotor/fda.h
 /home/charles/usr/include/quadrotor/command.h
 /home/charles/usr/include/quadrotor/Input.hpp
+/home/charles/usr/include/quadrotor/command/Stop.hpp
 /home/charles/usr/include/quadrotor/telem.h
 /home/charles/usr/include/quadrotor/ControlLaw/ControlLaw.h
 /home/charles/usr/include/quadrotor/ControlLaw/Alpha.h

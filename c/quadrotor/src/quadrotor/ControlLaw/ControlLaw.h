@@ -3,8 +3,10 @@
 
 #include <math/mat33.h>
 
+#include <quadrotor/Input.hpp>
 #include <quadrotor/quadrotor.h>
 #include <quadrotor/array.h>
+#include <quadrotor/command.h>
 
 double coeff(double* r, int n, int i, int k);
 /*
@@ -15,6 +17,7 @@ class Quadrotor;
 
 namespace Command {
 	class Base;
+	class X;
 }
 
 namespace CL {
@@ -28,6 +31,7 @@ namespace CL {
 			virtual bool	Check(int, math::vec3) = 0;
 			virtual void	alloc(int) = 0;
 			virtual void	write(int) = 0;
+			virtual void	Init(int) {}
 		public:
 			Quadrotor*	r_;
 
@@ -130,8 +134,18 @@ namespace CL {
 				} else {
 					printf("file error\n");
 				}
-				
-				
+
+
+			}
+			virtual void	Init(int i) {
+				printf("%s i=%i\n",__PRETTY_FUNCTION__,i);
+				Command::X* x = dynamic_cast<Command::X*>(command_);
+
+				// back fill
+				x_ref_[0][i] = x->in_->f(r_->t(i));
+				x_ref_[0][i-1] = x->in_->f(r_->t(i-1));
+				x_ref_[0][i-2] = x->in_->f(r_->t(i-2));
+				x_ref_[0][i-3] = x->in_->f(r_->t(i-3));
 			}
 		public:
 			Array<math::vec3>	x_ref_[N];
@@ -155,15 +169,15 @@ namespace CL {
 					for(int i = 0; i < N; ++i) {
 						v_ref_[i].write(file, n);
 					}
-					
+
 					Terms<N>::write(n, file);
-					
+
 					fclose(file);
 				} else {
 					printf("file error\n");
 				}
-				
-				
+
+
 			}
 		public:
 			Array<math::vec3>	v_ref_[N];
@@ -181,15 +195,15 @@ namespace CL {
 					for(int i = 0; i < N; ++i) {
 						q_ref__[i].write(file, n);
 					}
-					
+
 					Terms<N+1>::write(n, file);
-					
+
 					fclose(file);
 				} else {
 					printf("file error\n");
 				}
-				
-				
+
+
 			}
 			virtual void	alloc(int n) {
 				q_ref_.alloc(n);
@@ -220,15 +234,15 @@ namespace CL {
 					for(int i = 0; i < N; ++i) {
 						omega_ref_[i].write(file, n);
 					}
-					
+
 					Terms<N>::write(n, file);
-					
+
 					fclose(file);
 				} else {
 					printf("file error\n");
 				}
-				
-				
+
+
 			}
 			//void		set_ref(int i, math::vec3 omega) { omega_ref_[i] = omega; }
 		public:

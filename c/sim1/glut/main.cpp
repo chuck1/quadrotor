@@ -60,10 +60,10 @@ static DWORD last_idle_time;
 static struct timeval last_idle_time;
 #endif
 
-float g_view_x = 0.5;//0.0;
-float g_view_y = 0.5;
-float g_view_z = 10.0;//7.5;
-float g_view_dist = 15.0;
+float g_view_x = 0.0;//0.0;
+float g_view_y = 0.0;
+float g_view_z = 0.0;//7.5;
+float g_view_dist = 5.0;
 
 
 enum {

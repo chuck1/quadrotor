@@ -12,7 +12,9 @@
 class Quadrotor;
 
 namespace Input {
-	class Vec3;
+	namespace Vec3 {
+		class Base;
+	}
 	class Quat;
 }
 namespace Command {
@@ -34,6 +36,7 @@ namespace Command {
 					X,
 					V,
 					Q,
+					FREEZE,
 				};
 			};
 		public:
@@ -41,6 +44,7 @@ namespace Command {
 			virtual ~Base() {}
 
 			virtual void	Check(int);
+			virtual void	Start(int) {}
 		public:
 			Quadrotor*	r_;
 
@@ -51,79 +55,21 @@ namespace Command {
 		
 			std::vector<Command::Stop::Base*>	stop_;
 	};
-	namespace Stop {
-		class Base {
-			public:
-				Base(Command::Base* cmd): cmd_(cmd) {}
 
-				virtual void		Check(int) = 0;
-
-				Command::Base*	cmd_;
-		};
-		class XSettle: public Command::Stop::Base {
-			public:
-				XSettle(Command::Base* cmd, math::vec3 e): Command::Stop::Base(cmd), e_(e) {}
-
-				math::vec3	e_;
-				struct {
-					double		t_;
-					int		i_;
-				} stats_;
-				
-				virtual void		Check(int);
-		};
-		class VSettle: public Command::Stop::Base {
-			public:
-				VSettle(Command::Base* cmd, math::vec3 e): Command::Stop::Base(cmd), e_(e) {}
-
-				math::vec3	e_;
-				struct {
-					double		t_;
-					int		i_;
-				} stats_;
-
-				virtual void		Check(int);
-		};
-		class QSettle: public Command::Stop::Base {
-			public:
-				QSettle(Command::Base* cmd, double e): Command::Stop::Base(cmd), e_(e) {}
-
-				double		e_;
-
-				virtual void		Check(int);
-		};
-		class ZCross: public Command::Stop::Base {
-			public:
-				ZCross(Command::Base* cmd, double z): Command::Stop::Base(cmd), z_(z), s_(0) {}
-
-				double		z_;
-				int		s_;
-
-				virtual void		Check(int);
-		};
-		class Time: public Command::Stop::Base {
-			public:
-				Time(Command::Base* cmd, double t): Command::Stop::Base(cmd), t_(t) {}
-
-				double		t_;
-
-				virtual void		Check(int);
-		};
-	}
 	class V: public Base {
 		public:
-			V(Quadrotor*,  Input::Vec3*);
+			V(Quadrotor*,  Input::Vec3::Base*);
 
 		public:
-			Input::Vec3*	in_;
+			Input::Vec3::Base*	in_;
 
 	};
 	class X: public Base {
 		public:
-			X(Quadrotor*,  Input::Vec3*);
+			X(Quadrotor*,  Input::Vec3::Base*);
 
 		public:
-			Input::Vec3*	in_;
+			Input::Vec3::Base*	in_;
 	};
 
 
@@ -133,8 +79,13 @@ namespace Command {
 
 			Input::Quat*	in_;
 	};	
-
-
+	
+	class Freeze: public Base {
+		public:
+			Freeze(Quadrotor* r): Command::Base(r, Command::Base::Type::e::FREEZE) {}
+			
+			virtual void	Start(int);
+	};
 
 
 }

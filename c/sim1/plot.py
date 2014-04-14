@@ -194,9 +194,9 @@ print np.shape(gamma0)
 #plotv(t,[e_v[1]],'t','e1')
 
 #plotv(t,[e_x[0]],'t','e0')
-#plotv(t,[e_x[1]],'t','e1')
-#plotv(t,[e_x[2]],'t','e2')
-#plotv(t,[e_x[3]],'t','e3')
+plotv(t,[e_x[1]],'t','e1')
+plotv(t,[e_x[2]],'t','e2')
+plotv(t,[e_x[3]],'t','e3')
 
 
 #plotv(t,[e2],'t','e2')
@@ -205,7 +205,7 @@ print np.shape(gamma0)
 
 plotv(t,[x],'t','x')
 
-#plotv(t,[x,x_ref[0]],'t','x',)
+plotv(t,[x_ref[0]],'t','x',)
 
 #plotv(t,[x_ref_d],'t','x_ref_d')
 
