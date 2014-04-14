@@ -1,0 +1,13 @@
+<map id="G" name="G">
+<area shape="rect" id="node2" href="$classCL_1_1Alpha.html" title="CL::Alpha" alt="" coords="15,429,95,459"/>
+<area shape="rect" id="node4" href="$classCL_1_1Base.html" title="CL::Base" alt="" coords="111,5,188,35"/>
+<area shape="rect" id="node8" href="$classBrain.html" title="Brain" alt="" coords="271,152,321,181"/>
+<area shape="rect" id="node6" href="$classQuadrotor.html" title="Quadrotor" alt="" coords="553,248,631,277"/>
+<area shape="rect" id="node12" href="$classCommand_1_1Base.html" title="Command::Base" alt="" coords="119,429,239,459"/>
+<area shape="rect" id="node15" href="$classPlant.html" title="Plant" alt="" coords="744,429,795,459"/>
+<area shape="rect" id="node24" href="$classTelem.html" title="Telem" alt="" coords="376,429,435,459"/>
+<area shape="rect" id="node17" href="$classArray.html" title="Array\&lt; math::vec4 \&gt;" alt="" coords="921,248,1063,277"/>
+<area shape="rect" id="node19" href="$classArray.html" title="Array\&lt; math::vec3 \&gt;" alt="" coords="388,248,529,277"/>
+<area shape="rect" id="node21" href="$classArray.html" title="Array\&lt; double \&gt;" alt="" coords="783,248,897,277"/>
+<area shape="rect" id="node26" href="$classArray.html" title="Array\&lt; math::quat \&gt;" alt="" coords="225,248,364,277"/>
+</map>

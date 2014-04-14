@@ -1,0 +1,16 @@
+<map id="G" name="G">
+<area shape="rect" id="node2" href="$classCL_1_1Omega.html" title="CL::Omega\&lt; 2 \&gt;" alt="" coords="464,333,584,363"/>
+<area shape="rect" id="node4" href="$classCL_1_1Base.html" title="CL::Base" alt="" coords="284,5,362,35"/>
+<area shape="rect" id="node8" href="$classBrain.html" title="Brain" alt="" coords="195,152,246,181"/>
+<area shape="rect" id="node37" href="$classCL_1_1Alpha.html" title="CL::Alpha" alt="" coords="727,152,807,181"/>
+<area shape="rect" id="node6" href="$classQuadrotor.html" title="Quadrotor" alt="" coords="290,333,367,363"/>
+<area shape="rect" id="node12" href="$classCommand_1_1Base.html" title="Command::Base" alt="" coords="14,445,134,475"/>
+<area shape="rect" id="node15" href="$classPlant.html" title="Plant" alt="" coords="763,445,814,475"/>
+<area shape="rect" id="node24" href="$classTelem.html" title="Telem" alt="" coords="300,445,359,475"/>
+<area shape="rect" id="node17" href="$classArray.html" title="Array\&lt; math::vec4 \&gt;" alt="" coords="870,333,1011,363"/>
+<area shape="rect" id="node19" href="$classArray.html" title="Array\&lt; math::vec3 \&gt;" alt="" coords="559,5,700,35"/>
+<area shape="rect" id="node31" href="$classCL_1_1Terms.html" title="CL::Terms\&lt; N \&gt;" alt="" coords="464,152,582,181"/>
+<area shape="rect" id="node21" href="$classArray.html" title="Array\&lt; double \&gt;" alt="" coords="731,333,846,363"/>
+<area shape="rect" id="node26" href="$classArray.html" title="Array\&lt; math::quat \&gt;" alt="" coords="127,333,266,363"/>
+<area shape="rect" id="node35" href="$classAlpha1_1_1Base.html" title="Alpha1::Base" alt="" coords="608,333,707,363"/>
+</map>

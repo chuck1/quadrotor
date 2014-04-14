@@ -43,14 +43,42 @@ CMAKE_COMMAND = /usr/bin/cmake
 # The command to remove a file.
 RM = /usr/bin/cmake -E remove -f
 
-# Escaping for special characters.
-EQUALS = =
-
 # The top-level source directory on which CMake was run.
 CMAKE_SOURCE_DIR = /home/charles/Programming/C++/quadrotor/c/quadrotor
 
 # The top-level build directory on which CMake was run.
 CMAKE_BINARY_DIR = /home/charles/Programming/C++/quadrotor/c/quadrotor
+
+#=============================================================================
+# Target rules for target CMakeFiles/doc.dir
+
+# All Build rule for target.
+CMakeFiles/doc.dir/all:
+	$(MAKE) -f CMakeFiles/doc.dir/build.make CMakeFiles/doc.dir/depend
+	$(MAKE) -f CMakeFiles/doc.dir/build.make CMakeFiles/doc.dir/build
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/charles/Programming/C++/quadrotor/c/quadrotor/CMakeFiles  1
+	@echo "Built target doc"
+.PHONY : CMakeFiles/doc.dir/all
+
+# Build rule for subdir invocation for target.
+CMakeFiles/doc.dir/rule: cmake_check_build_system
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/charles/Programming/C++/quadrotor/c/quadrotor/CMakeFiles 1
+	$(MAKE) -f CMakeFiles/Makefile2 CMakeFiles/doc.dir/all
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/charles/Programming/C++/quadrotor/c/quadrotor/CMakeFiles 0
+.PHONY : CMakeFiles/doc.dir/rule
+
+# Convenience name for target.
+doc: CMakeFiles/doc.dir/rule
+.PHONY : doc
+
+# clean rule for target.
+CMakeFiles/doc.dir/clean:
+	$(MAKE) -f CMakeFiles/doc.dir/build.make CMakeFiles/doc.dir/clean
+.PHONY : CMakeFiles/doc.dir/clean
+
+# clean rule for target.
+clean: CMakeFiles/doc.dir/clean
+.PHONY : clean
 
 #=============================================================================
 # Target rules for target CMakeFiles/quadrotor.dir
@@ -59,7 +87,7 @@ CMAKE_BINARY_DIR = /home/charles/Programming/C++/quadrotor/c/quadrotor
 CMakeFiles/quadrotor.dir/all:
 	$(MAKE) -f CMakeFiles/quadrotor.dir/build.make CMakeFiles/quadrotor.dir/depend
 	$(MAKE) -f CMakeFiles/quadrotor.dir/build.make CMakeFiles/quadrotor.dir/build
-	$(CMAKE_COMMAND) -E cmake_progress_report /home/charles/Programming/C++/quadrotor/c/quadrotor/CMakeFiles  1 2 3 4 5 6 7 8 9 10 11 12 13 14 15
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/charles/Programming/C++/quadrotor/c/quadrotor/CMakeFiles  2 3 4 5 6 7 8 9 10 11 12 13 14 15 16
 	@echo "Built target quadrotor"
 .PHONY : CMakeFiles/quadrotor.dir/all
 

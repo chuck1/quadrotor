@@ -1,0 +1,7 @@
+<map id="G" name="G">
+<area shape="rect" id="node1" href="$classStopCond.html" title="StopCond" alt="" coords="5,85,85,115"/>
+<area shape="rect" id="node3" href="$classEmptyQueue.html" title="EmptyQueue" alt="" coords="133,5,232,35"/>
+<area shape="rect" id="node5" href="$classInf.html" title="Inf" alt="" coords="164,59,201,88"/>
+<area shape="rect" id="node7" href="$classInvalidOp.html" title="InvalidOp" alt="" coords="144,112,221,141"/>
+<area shape="rect" id="node9" href="$classOmegaHigh.html" title="OmegaHigh" alt="" coords="137,165,228,195"/>
+</map>

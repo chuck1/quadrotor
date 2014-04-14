@@ -1,1 +1,2 @@
+/home/charles/Programming/C++/quadrotor/c/quadrotor/CMakeFiles/doc.dir
 /home/charles/Programming/C++/quadrotor/c/quadrotor/CMakeFiles/quadrotor.dir
