@@ -1,0 +1,35 @@
+digraph G
+{
+  edge [fontname="Helvetica",fontsize="10",labelfontname="Helvetica",labelfontsize="10"];
+  node [fontname="Helvetica",fontsize="10",shape=record];
+  Node1 [label="Position",height=0.2,width=0.4,color="black", fillcolor="grey75", style="filled" fontcolor="black"];
+  Node2 -> Node1 [dir=back,color="darkorchid3",fontsize="10",style="dashed",label="x_ref_dddd_\njerk_\nx_ref_ddd_\nx_ref_\nx_ref_d_\ne4_\ne3_\ne2_\nx_ref_dd_\ne1_\n...",fontname="Helvetica"];
+  Node2 [label="Array\< math::vec3 \>",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$classArray.html"];
+  Node3 -> Node1 [dir=back,color="darkorchid3",fontsize="10",style="dashed",label="e1_mag_dd_\ne1_mag_d_\ne1_mag_",fontname="Helvetica"];
+  Node3 [label="Array\< double \>",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$classArray.html"];
+  Node4 -> Node1 [dir=back,color="darkorchid3",fontsize="10",style="dashed",label="quad_",fontname="Helvetica"];
+  Node4 [label="Quadrotor",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$classQuadrotor.html"];
+  Node5 -> Node4 [dir=back,color="darkorchid3",fontsize="10",style="dashed",label="brain_",fontname="Helvetica"];
+  Node5 [label="Brain",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$classBrain.html"];
+  Node6 -> Node5 [dir=back,color="darkorchid3",fontsize="10",style="dashed",label="cl_q_\ncl_\ncl_x_\ncl_v_",fontname="Helvetica"];
+  Node6 [label="CL::Base",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$classCL_1_1Base.html"];
+  Node4 -> Node6 [dir=back,color="darkorchid3",fontsize="10",style="dashed",label="r_",fontname="Helvetica"];
+  Node7 -> Node6 [dir=back,color="darkorchid3",fontsize="10",style="dashed",label="command_",fontname="Helvetica"];
+  Node7 [label="Command::Base",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$classCommand_1_1Base.html"];
+  Node4 -> Node7 [dir=back,color="darkorchid3",fontsize="10",style="dashed",label="r_",fontname="Helvetica"];
+  Node4 -> Node5 [dir=back,color="darkorchid3",fontsize="10",style="dashed",label="quad_",fontname="Helvetica"];
+  Node7 -> Node5 [dir=back,color="darkorchid3",fontsize="10",style="dashed",label="obj_",fontname="Helvetica"];
+  Node8 -> Node4 [dir=back,color="darkorchid3",fontsize="10",style="dashed",label="plant_",fontname="Helvetica"];
+  Node8 [label="Plant",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$classPlant.html"];
+  Node9 -> Node8 [dir=back,color="darkorchid3",fontsize="10",style="dashed",label="gamma1_\ngamma1_act_",fontname="Helvetica"];
+  Node9 [label="Array\< math::vec4 \>",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$classArray.html"];
+  Node2 -> Node8 [dir=back,color="darkorchid3",fontsize="10",style="dashed",label="tau_RB_\nf_RB_",fontname="Helvetica"];
+  Node3 -> Node8 [dir=back,color="darkorchid3",fontsize="10",style="dashed",label="gamma0_\ngamma0_act_",fontname="Helvetica"];
+  Node4 -> Node8 [dir=back,color="darkorchid3",fontsize="10",style="dashed",label="quad_",fontname="Helvetica"];
+  Node10 -> Node4 [dir=back,color="darkorchid3",fontsize="10",style="dashed",label="telem_",fontname="Helvetica"];
+  Node10 [label="Telem",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$classTelem.html"];
+  Node11 -> Node10 [dir=back,color="darkorchid3",fontsize="10",style="dashed",label="q_",fontname="Helvetica"];
+  Node11 [label="Array\< math::quat \>",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$classArray.html"];
+  Node2 -> Node10 [dir=back,color="darkorchid3",fontsize="10",style="dashed",label="alpha_\njerk_\nx_\nv_\ns_\na_\nomega_",fontname="Helvetica"];
+  Node4 -> Node10 [dir=back,color="darkorchid3",fontsize="10",style="dashed",label="quad_",fontname="Helvetica"];
+}

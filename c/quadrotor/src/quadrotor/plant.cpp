@@ -132,37 +132,37 @@ math::vec3 Plant::get_force(int ti) {
 	math::vec3 f = quad_->telem_->q_[ti].getConjugate().rotate(f_B);
 	
 	
-	
-		/*
-		   ver = False
-		   if ver:	
-		   print 'A6 ',A6
-		   print 'f_g',f_g
-		   print 'f_B',f_B
-		   print 'f  ',f
-		   */
+
+	/*
+	   ver = False
+	   if ver:	
+	   print 'A6 ',A6
+	   print 'f_g',f_g
+	   print 'f_B',f_B
+	   print 'f  ',f
+	   */
 	return f;
 }
-void Plant::step(int ti) {
+void Plant::step(int i) {
 	//double dt = t_[ti] - t_[ti-1];
 	
-	step_rotor_body(ti-1);
+	step_rotor_body(i);
 	
 	// rotation
-	math::vec3 tau = tau_RB_[ti-1];
+	math::vec3 tau = tau_RB_[i];
 	
-	quad_->alpha(ti) = quad_->Iinv_ * (tau - quad_->omega(ti-1).cross(quad_->I_ * quad_->omega(ti-1)));
+	quad_->alpha(i) = quad_->Iinv_ * (tau - quad_->omega(i-1).cross(quad_->I_ * quad_->omega(i-1)));
 	
 	// translation
-	math::vec3 f = get_force(ti-1);
+	math::vec3 f = get_force(i);
 	
-	quad_->a(ti) = quad_->gravity_ + f / quad_->m_;
+	quad_->a(i) = quad_->gravity_ + f / quad_->m_;
 }
 void Plant::write(int n) {
 	FILE* file = fopen("data/plant.txt","w");
-	
+
 	n = (n > 0) ? (n) : (quad_->N_);
-	
+
 	gamma1_.write(file, n);
 	gamma1_act_.write(file, n);
 

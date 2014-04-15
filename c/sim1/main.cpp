@@ -45,8 +45,8 @@ void VQPoles(Quadrotor* r) {
 	v->set_poles(i_v, poles_v, 4);
 
 	double poles_q[] = {
-		-01.8,
-		-01.8,
+		-02.0,
+		-02.0,
 		-00.0};
 	
 	int i_q[] = {0,1,2,3};
@@ -65,8 +65,8 @@ void CommandScheme1(Quadrotor* r) {
 	cmd_q->stop_.push_back(stop_q);
 	
 	
-	//auto cmd_freeze = new Command::Freeze(r);
-	auto cmd_freeze = new Command::V(r, new Input::Vec3::Const(math::vec3(0,0,0)));
+	auto cmd_freeze = new Command::Freeze(r);
+	//auto cmd_freeze = new Command::V(r, new Input::Vec3::Const(math::vec3(0,0,0)));
 	
 
 	r->brain_->objs_.push_back(cmd_v);
@@ -235,11 +235,11 @@ void normal(int N, double dt) {
 	Jounce::X* x = dynamic_cast<Jounce::X*>(r->brain_->cl_x_);
 	
 	double poles[] = {
-		-16.8,
-		-16.8,
-		-15.5,
-		-15.5,
-		-00.0};
+		-0.1,
+		-0.1,
+		-0.1,
+		-0.1,
+		-0.0};
 	
 	int i[] = {0,1,2,3,4};
 	x->set_poles(i, poles, 5);
@@ -248,12 +248,15 @@ void normal(int N, double dt) {
 	
 	//CommandScheme1(r);
 	
-	
+	/*
 	auto cmd_x = new Command::X(r, new Input::Vec3::Circle(1.0, 4.0));
 	auto stop_x = new Command::Stop::VSettle(cmd_x, math::vec3(0.01,0.01,0.01));
 	cmd_x->stop_.push_back(stop_x);
 	r->brain_->objs_.push_back(cmd_x);
+	*/
 	
+	auto cmd_x = new Command::X(r, new Input::Vec3::Const(math::vec3(1,0,0)));
+	r->brain_->objs_.push_back(cmd_x);
 	
 	//r->brain_->objs_.push_back(new Command::X(r, constant, ));
 	//r->brain_->objs_.push_back(new Command::Move(math::vec3(1,1,0), math::vec3(0.01,0.01,0.01)));
@@ -288,7 +291,7 @@ int main(int argc, const char ** argv) {
 	}
 
 	if(strcmp(argv[1],"n")==0) {
-		normal(5000, dt);
+		normal(1000, dt);
 	} else if(strcmp(argv[1],"m")==0) {
 		map();
 	} else if(strcmp(argv[1],"s")==0) {

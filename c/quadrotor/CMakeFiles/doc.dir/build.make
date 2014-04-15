@@ -31,11 +31,14 @@ CMAKE_COMMAND = /usr/bin/cmake
 # The command to remove a file.
 RM = /usr/bin/cmake -E remove -f
 
+# The program to use to edit the cache.
+CMAKE_EDIT_COMMAND = /usr/bin/ccmake
+
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /home/charles/Programming/C++/quadrotor/c/quadrotor
+CMAKE_SOURCE_DIR = /nfs/stak/students/r/rymalc/Documents/Programming/C++/quadrotor/c/quadrotor
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /home/charles/Programming/C++/quadrotor/c/quadrotor
+CMAKE_BINARY_DIR = /nfs/stak/students/r/rymalc/Documents/Programming/C++/quadrotor/c/quadrotor
 
 # Utility rule file for doc.
 
@@ -43,9 +46,9 @@ CMAKE_BINARY_DIR = /home/charles/Programming/C++/quadrotor/c/quadrotor
 include CMakeFiles/doc.dir/progress.make
 
 CMakeFiles/doc:
-	$(CMAKE_COMMAND) -E cmake_progress_report /home/charles/Programming/C++/quadrotor/c/quadrotor/CMakeFiles $(CMAKE_PROGRESS_1)
+	$(CMAKE_COMMAND) -E cmake_progress_report /nfs/stak/students/r/rymalc/Documents/Programming/C++/quadrotor/c/quadrotor/CMakeFiles $(CMAKE_PROGRESS_1)
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold "Generating API documentation with Doxygen"
-	/usr/bin/doxygen /home/charles/Programming/C++/quadrotor/c/quadrotor/Doxyfile
+	/usr/bin/doxygen /nfs/stak/students/r/rymalc/Documents/Programming/C++/quadrotor/c/quadrotor/Doxyfile
 
 doc: CMakeFiles/doc
 doc: CMakeFiles/doc.dir/build.make
@@ -60,6 +63,6 @@ CMakeFiles/doc.dir/clean:
 .PHONY : CMakeFiles/doc.dir/clean
 
 CMakeFiles/doc.dir/depend:
-	cd /home/charles/Programming/C++/quadrotor/c/quadrotor && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /home/charles/Programming/C++/quadrotor/c/quadrotor /home/charles/Programming/C++/quadrotor/c/quadrotor /home/charles/Programming/C++/quadrotor/c/quadrotor /home/charles/Programming/C++/quadrotor/c/quadrotor /home/charles/Programming/C++/quadrotor/c/quadrotor/CMakeFiles/doc.dir/DependInfo.cmake --color=$(COLOR)
+	cd /nfs/stak/students/r/rymalc/Documents/Programming/C++/quadrotor/c/quadrotor && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /nfs/stak/students/r/rymalc/Documents/Programming/C++/quadrotor/c/quadrotor /nfs/stak/students/r/rymalc/Documents/Programming/C++/quadrotor/c/quadrotor /nfs/stak/students/r/rymalc/Documents/Programming/C++/quadrotor/c/quadrotor /nfs/stak/students/r/rymalc/Documents/Programming/C++/quadrotor/c/quadrotor /nfs/stak/students/r/rymalc/Documents/Programming/C++/quadrotor/c/quadrotor/CMakeFiles/doc.dir/DependInfo.cmake --color=$(COLOR)
 .PHONY : CMakeFiles/doc.dir/depend
 

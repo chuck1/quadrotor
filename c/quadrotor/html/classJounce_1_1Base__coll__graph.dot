@@ -1,0 +1,41 @@
+digraph G
+{
+  edge [fontname="Helvetica",fontsize="10",labelfontname="Helvetica",labelfontsize="10"];
+  node [fontname="Helvetica",fontsize="10",shape=record];
+  Node1 [label="Jounce::Base",height=0.2,width=0.4,color="black", fillcolor="grey75", style="filled" fontcolor="black"];
+  Node2 -> Node1 [dir=back,color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node2 [label="CL::Thrust",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$classCL_1_1Thrust.html"];
+  Node3 -> Node2 [dir=back,color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node3 [label="CL::Base",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$classCL_1_1Base.html"];
+  Node4 -> Node3 [dir=back,color="darkorchid3",fontsize="10",style="dashed",label="r_",fontname="Helvetica"];
+  Node4 [label="Quadrotor",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$classQuadrotor.html"];
+  Node5 -> Node4 [dir=back,color="darkorchid3",fontsize="10",style="dashed",label="brain_",fontname="Helvetica"];
+  Node5 [label="Brain",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$classBrain.html"];
+  Node3 -> Node5 [dir=back,color="darkorchid3",fontsize="10",style="dashed",label="cl_q_\ncl_\ncl_x_\ncl_v_",fontname="Helvetica"];
+  Node4 -> Node5 [dir=back,color="darkorchid3",fontsize="10",style="dashed",label="quad_",fontname="Helvetica"];
+  Node6 -> Node5 [dir=back,color="darkorchid3",fontsize="10",style="dashed",label="obj_",fontname="Helvetica"];
+  Node6 [label="Command::Base",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$classCommand_1_1Base.html"];
+  Node4 -> Node6 [dir=back,color="darkorchid3",fontsize="10",style="dashed",label="r_",fontname="Helvetica"];
+  Node7 -> Node4 [dir=back,color="darkorchid3",fontsize="10",style="dashed",label="plant_",fontname="Helvetica"];
+  Node7 [label="Plant",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$classPlant.html"];
+  Node8 -> Node7 [dir=back,color="darkorchid3",fontsize="10",style="dashed",label="gamma1_\ngamma1_act_",fontname="Helvetica"];
+  Node8 [label="Array\< math::vec4 \>",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$classArray.html"];
+  Node9 -> Node7 [dir=back,color="darkorchid3",fontsize="10",style="dashed",label="tau_RB_\nf_RB_",fontname="Helvetica"];
+  Node9 [label="Array\< math::vec3 \>",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$classArray.html"];
+  Node10 -> Node7 [dir=back,color="darkorchid3",fontsize="10",style="dashed",label="gamma0_\ngamma0_act_",fontname="Helvetica"];
+  Node10 [label="Array\< double \>",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$classArray.html"];
+  Node4 -> Node7 [dir=back,color="darkorchid3",fontsize="10",style="dashed",label="quad_",fontname="Helvetica"];
+  Node11 -> Node4 [dir=back,color="darkorchid3",fontsize="10",style="dashed",label="telem_",fontname="Helvetica"];
+  Node11 [label="Telem",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$classTelem.html"];
+  Node12 -> Node11 [dir=back,color="darkorchid3",fontsize="10",style="dashed",label="q_",fontname="Helvetica"];
+  Node12 [label="Array\< math::quat \>",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$classArray.html"];
+  Node9 -> Node11 [dir=back,color="darkorchid3",fontsize="10",style="dashed",label="alpha_\njerk_\nx_\nv_\ns_\na_\nomega_",fontname="Helvetica"];
+  Node4 -> Node11 [dir=back,color="darkorchid3",fontsize="10",style="dashed",label="quad_",fontname="Helvetica"];
+  Node6 -> Node3 [dir=back,color="darkorchid3",fontsize="10",style="dashed",label="command_",fontname="Helvetica"];
+  Node10 -> Node2 [dir=back,color="darkorchid3",fontsize="10",style="dashed",label="thrust_",fontname="Helvetica"];
+  Node13 -> Node1 [dir=back,color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node13 [label="CL::Alpha",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$classCL_1_1Alpha.html"];
+  Node3 -> Node13 [dir=back,color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node9 -> Node13 [dir=back,color="darkorchid3",fontsize="10",style="dashed",label="alpha_",fontname="Helvetica"];
+  Node9 -> Node1 [dir=back,color="darkorchid3",fontsize="10",style="dashed",label="jounce_",fontname="Helvetica"];
+}

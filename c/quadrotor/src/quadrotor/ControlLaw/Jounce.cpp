@@ -35,6 +35,8 @@ void	Jounce::Base::Step(int i, double h) {
 		alpha_[i].x() = -(thrust_[i] * o.y() * o.z() + 2.0 * thrust_d * o.x() - tmp.y()) / thrust_[i];
 	}
 	
+	alpha_[i].print();
+
 	CL::Thrust::Step(i,h);
 	CL::Alpha::Step(i,h);
 	

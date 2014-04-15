@@ -97,7 +97,7 @@ void Quadrotor::run() {
 
 		try {
 			brain_->step(ti-1, dt_);
-			plant_->step(ti);
+			plant_->step(ti-1);
 			telem_->step(ti, dt_);
 		}
 		catch(EmptyQueue &e) {

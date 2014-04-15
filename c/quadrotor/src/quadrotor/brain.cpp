@@ -167,8 +167,8 @@ void Brain::step(int i, double h) {
 }
 void Brain::write(int n) {
 	cl_x_->write(n);
-	cl_v_->write(n);
-	cl_q_->write(n);
+	//cl_v_->write(n);
+	//cl_q_->write(n);
 }
 
 

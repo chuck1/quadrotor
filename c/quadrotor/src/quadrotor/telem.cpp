@@ -27,6 +27,7 @@ Telem::Telem(Quadrotor* quad):
 	v_.alloc(n);
 	a_.alloc(n);
 	jerk_.alloc(n);
+	s_.alloc(n);
 
 }
 
@@ -34,7 +35,7 @@ void Telem::step(int ti, double dt) {
 	//double dt = quad_->t_[ti] - quad_->t_[ti-1];
 
 	// rotation
-	omega_[ti] = omega_[ti-1] + alpha_[ti] * dt;
+	omega_[ti] = omega_[ti-1] + alpha_[ti-1] * dt;
 	
 	
 	if(omega_[ti].IsNan()) {
@@ -51,11 +52,10 @@ void Telem::step(int ti, double dt) {
 
 	math::quat r;
 	
-	if (o_magn == 0.0) {
+	if (o_magn < 1e-6) {
 		r = math::quat();
 	} else {
-		math::vec3 o_hat = omega_[ti] / o_magn;
-		r = math::quat(o_magn * dt, o_hat);
+		r = math::quat(o_magn * dt, omega_[ti]);
 	}
 	
 	if(!r.isSane()) {
@@ -67,10 +67,12 @@ void Telem::step(int ti, double dt) {
 	q_[ti] = r * q_[ti-1];
 	
 	// translation
-	v_[ti] = v_[ti-1] + a_[ti] * dt;
-	x_[ti] = x_[ti-1] + v_[ti] * dt;
 	
-	jerk_[ti] = (a_[ti] - a_[ti-1]) / dt;
+	v_[ti] = v_[ti-1] + a_[ti-1] * dt;
+	x_[ti] = x_[ti-1] + v_[ti-1] * dt;
+	
+	jerk_[ti-1] = (a_[ti-1] - a_[ti-2]) / dt;
+	s_[ti-1] = (jerk_[ti-1] - jerk_[ti-2]) / dt;
 }
 void Telem::write(int n) {
 	FILE* file = fopen("data/telem.txt","w");
@@ -90,6 +92,9 @@ void Telem::write(int n) {
 	
 	x_.write(file, n);
 	v_.write(file, n);
+	a_.write(file, n);
+	jerk_.write(file, n);
+	s_.write(file, n);
 
 	q_.write(file, n);
 	omega_.write(file, n);

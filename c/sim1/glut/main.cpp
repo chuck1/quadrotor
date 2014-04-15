@@ -39,6 +39,8 @@ int ti = 0;
 
 Array<math::vec3> g_x;
 Array<math::vec3> g_v;
+Array<math::vec3> g_j;
+Array<math::vec3> g_s;
 Array<math::quat> g_q;
 Array<math::vec3> g_o;
 
@@ -63,7 +65,7 @@ static struct timeval last_idle_time;
 float g_view_x = 0.0;//0.0;
 float g_view_y = 0.0;
 float g_view_z = 0.0;//7.5;
-float g_view_dist = 5.0;
+float g_view_dist = 25.0;
 
 
 enum {
@@ -349,7 +351,7 @@ void load() {
 		abort();
 	}
 	
-	int types = (3*3 + 1*4) * 8;
+	int types = (5*3 + 1*4) * 8;
 
 	g_n = file_size(file) / types;
 		
@@ -357,11 +359,15 @@ void load() {
 	
 	g_x.alloc(g_n);
 	g_v.alloc(g_n);
+	g_j.alloc(g_n);
+	g_s.alloc(g_n);
 	g_q.alloc(g_n);
 	g_o.alloc(g_n);
 	
 	g_x.read(file, g_n);
 	g_v.read(file, g_n);
+	g_j.read(file, g_n);
+	g_s.read(file, g_n);
 	g_q.read(file, g_n);
 	g_o.read(file, g_n);
 

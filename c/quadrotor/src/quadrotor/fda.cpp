@@ -32,7 +32,9 @@ math::quat diff(math::quat const & a, math::quat const & b) {
 
 
 void forward_quavec(Array<math::quat> q, Array<math::vec3> qd, double h, int ti) {
-
+	q[ti].print();
+	q[ti-1].print();
+	
 	math::quat r = diff(q[ti], q[ti-1]);
 	qd[ti] = r.getOmega(h);
 }

@@ -1,0 +1,24 @@
+digraph G
+{
+  edge [fontname="Helvetica",fontsize="10",labelfontname="Helvetica",labelfontsize="10"];
+  node [fontname="Helvetica",fontsize="10",shape=record];
+  Node1 [label="CL::Alpha",height=0.2,width=0.4,color="black", fillcolor="grey75", style="filled" fontcolor="black"];
+  Node2 -> Node1 [dir=back,color="midnightblue",fontsize="10",style="solid"];
+  Node2 [label="CL::Base",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$classCL_1_1Base.html"];
+  Node1 -> Node3 [dir=back,color="midnightblue",fontsize="10",style="solid"];
+  Node3 [label="Alpha1::Base",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$classAlpha1_1_1Base.html"];
+  Node3 -> Node4 [dir=back,color="midnightblue",fontsize="10",style="solid"];
+  Node4 [label="Alpha1::Omega",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$classAlpha1_1_1Omega.html"];
+  Node4 -> Node5 [dir=back,color="midnightblue",fontsize="10",style="solid"];
+  Node5 [label="Jerk::Base",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$classJerk_1_1Base.html"];
+  Node5 -> Node6 [dir=back,color="midnightblue",fontsize="10",style="solid"];
+  Node6 [label="Jerk::X",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$classJerk_1_1X.html"];
+  Node3 -> Node7 [dir=back,color="midnightblue",fontsize="10",style="solid"];
+  Node7 [label="Alpha1::Q",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$classAlpha1_1_1Q.html"];
+  Node1 -> Node8 [dir=back,color="midnightblue",fontsize="10",style="solid"];
+  Node8 [label="Jounce::Base",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$classJounce_1_1Base.html"];
+  Node8 -> Node9 [dir=back,color="midnightblue",fontsize="10",style="solid"];
+  Node9 [label="Jounce::V",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$classJounce_1_1V.html"];
+  Node8 -> Node10 [dir=back,color="midnightblue",fontsize="10",style="solid"];
+  Node10 [label="Jounce::X",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$classJounce_1_1X.html"];
+}

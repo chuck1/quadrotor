@@ -11,7 +11,8 @@ include_directories("${PROJECT_SOURCE_DIR}")
 # add a target to generate API documentation with Doxygen
 find_package(Doxygen)
 if(DOXYGEN_FOUND)
-	configure_file(${CMAKE_CURRENT_SOURCE_DIR}/Doxyfile.in ${CMAKE_CURRENT_BINARY_DIR}/Doxyfile @ONLY)
+	configure_file(${CMAKE_CURRENT_SOURCE_DIR}/Doxyfile.in
+		${CMAKE_CURRENT_BINARY_DIR}/Doxyfile @ONLY)
 	add_custom_target(doc
 		${DOXYGEN_EXECUTABLE} ${CMAKE_CURRENT_BINARY_DIR}/Doxyfile
 		WORKING_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}
@@ -45,27 +46,25 @@ set(CMAKE_INSTALL_PREFIX $ENV{HOME}/usr)
 
 install(TARGETS quadrotor DESTINATION lib)
 
-install(FILES ${PROJECT_SOURCE_DIR}/quadrotor/array.h DESTINATION		include/quadrotor/)
-install(FILES ${PROJECT_SOURCE_DIR}/quadrotor/attitude.h DESTINATION		include/quadrotor/)
-install(FILES ${PROJECT_SOURCE_DIR}/quadrotor/except.h DESTINATION		include/quadrotor/)
-install(FILES ${PROJECT_SOURCE_DIR}/quadrotor/quadrotor.h DESTINATION		include/quadrotor/)
-install(FILES ${PROJECT_SOURCE_DIR}/quadrotor/brain.h DESTINATION		include/quadrotor/)
-install(FILES ${PROJECT_SOURCE_DIR}/quadrotor/plant.h DESTINATION		include/quadrotor/)
-install(FILES ${PROJECT_SOURCE_DIR}/quadrotor/position.h DESTINATION		include/quadrotor/)
-install(FILES ${PROJECT_SOURCE_DIR}/quadrotor/fda.h DESTINATION			include/quadrotor/)
-install(FILES ${PROJECT_SOURCE_DIR}/quadrotor/command.h DESTINATION		include/quadrotor/)
-install(FILES ${PROJECT_SOURCE_DIR}/quadrotor/Input.hpp DESTINATION		include/quadrotor/)
-install(FILES ${PROJECT_SOURCE_DIR}/quadrotor/command/Stop.hpp			DESTINATION		include/quadrotor/command)
-install(FILES ${PROJECT_SOURCE_DIR}/quadrotor/telem.h DESTINATION					include/quadrotor/)
-install(FILES ${PROJECT_SOURCE_DIR}/quadrotor/ControlLaw/ControlLaw.h		DESTINATION		include/quadrotor/ControlLaw)
-install(FILES ${PROJECT_SOURCE_DIR}/quadrotor/ControlLaw/Alpha.h		DESTINATION		include/quadrotor/ControlLaw)
-install(FILES ${PROJECT_SOURCE_DIR}/quadrotor/ControlLaw/Jerk.h			DESTINATION		include/quadrotor/ControlLaw)
-install(FILES ${PROJECT_SOURCE_DIR}/quadrotor/ControlLaw/Jounce.h		DESTINATION		include/quadrotor/ControlLaw)
+install(FILES ${PROJECT_SOURCE_DIR}/quadrotor/array.h DESTINATION			include/quadrotor/)
+install(FILES ${PROJECT_SOURCE_DIR}/quadrotor/attitude.h DESTINATION			include/quadrotor/)
+install(FILES ${PROJECT_SOURCE_DIR}/quadrotor/except.h DESTINATION			include/quadrotor/)
+install(FILES ${PROJECT_SOURCE_DIR}/quadrotor/quadrotor.h DESTINATION			include/quadrotor/)
+install(FILES ${PROJECT_SOURCE_DIR}/quadrotor/brain.h DESTINATION			include/quadrotor/)
+install(FILES ${PROJECT_SOURCE_DIR}/quadrotor/plant.h DESTINATION			include/quadrotor/)
+install(FILES ${PROJECT_SOURCE_DIR}/quadrotor/position.h DESTINATION			include/quadrotor/)
+install(FILES ${PROJECT_SOURCE_DIR}/quadrotor/fda.h DESTINATION				include/quadrotor/)
+install(FILES ${PROJECT_SOURCE_DIR}/quadrotor/command.h DESTINATION			include/quadrotor/)
+install(FILES ${PROJECT_SOURCE_DIR}/quadrotor/Input.hpp DESTINATION			include/quadrotor/)
+install(FILES ${PROJECT_SOURCE_DIR}/quadrotor/command/Stop.hpp	DESTINATION		include/quadrotor/command)
+install(FILES ${PROJECT_SOURCE_DIR}/quadrotor/telem.h DESTINATION			include/quadrotor/)
+install(FILES ${PROJECT_SOURCE_DIR}/quadrotor/ControlLaw/ControlLaw.h	DESTINATION	include/quadrotor/ControlLaw)
+install(FILES ${PROJECT_SOURCE_DIR}/quadrotor/ControlLaw/Alpha.h	DESTINATION	include/quadrotor/ControlLaw)
+install(FILES ${PROJECT_SOURCE_DIR}/quadrotor/ControlLaw/Jerk.h	DESTINATION		include/quadrotor/ControlLaw)
+install(FILES ${PROJECT_SOURCE_DIR}/quadrotor/ControlLaw/Jounce.h	DESTINATION	include/quadrotor/ControlLaw)
 
 #project(test_array)
 #add_executable(test_array test/array/main.cpp)
 #target_link_libraries(test_array math)
-
-
 
 

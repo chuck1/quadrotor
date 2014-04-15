@@ -35,6 +35,7 @@ class Telem {
 		Array<math::vec3>	v_;
 		Array<math::vec3>	a_;
 		Array<math::vec3>	jerk_;
+		Array<math::vec3>	s_;
 };
 
 

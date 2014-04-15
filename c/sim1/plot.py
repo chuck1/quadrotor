@@ -176,20 +176,21 @@ with open("data/brain.txt","rb") as f:
 """
 
 with open("data/telem.txt","rb") as f:
-	types = 3*3 + 1*4
+	types = 6*3 + 1*4
 	N = size(f)/(types * 8)
 	print N
-
+	
 	x = read(f, N, 3)
 	v = read(f, N, 3)
+	a = read(f, N, 3)
+	j = read(f, N, 3)
+	s = read(f, N, 3)
 	q = read(f, N, 4)
 	o = read(f, N, 3)
 
 
 t = np.arange(N) * 0.01
 
-print np.shape(thrust)
-print np.shape(gamma0)
 
 #plotv(t,[e_v[1]],'t','e1')
 
@@ -203,15 +204,16 @@ plotv(t,[e_x[3]],'t','e3')
 #plotv(t,[e3],'t','e3')
 #plotv(t,[e4],'t','e4')
 
-plotv(t,[x],'t','x')
+#plotv(t,[x],'t','x')
 
-plotv(t,[x_ref[0]],'t','x',)
+#plotv(t,[x_ref[0]],'t','x',)
 
 #plotv(t,[x_ref_d],'t','x_ref_d')
 
-#plotv(t,[jounce], 't', 'jounce')
-#plotv(t,[alpha], 't', 'alpha')
-#plots(t,[thrust],'t','thrust')
+plotv(t,[a],'t','a')
+plotv(t,[jounce,s], 't', 'jounce',['des','act'],['-','--'])
+plotv(t,[alpha], 't', 'alpha')
+plots(t,[thrust],'t','thrust')
 
 plotv(t,[q[:,1:4]],'t','q')
 """
