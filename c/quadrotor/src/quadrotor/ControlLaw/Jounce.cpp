@@ -111,8 +111,8 @@ void	Jounce::X::Step(int i, double h) {
 
 	e_[1][i] = x_ref_[0][i] - r_->x(i);
 	e_[2][i] = x_ref_[1][i] - r_->v(i);
-	e_[3][i] = x_ref_[2][i] - r_->a(i);
-	e_[4][i] = x_ref_[3][i] - r_->jerk(i);
+	e_[3][i] = x_ref_[2][i] - r_->a(i-1);
+	e_[4][i] = x_ref_[3][i] - r_->jerk(i-1);
 
 	e_[0][i] = e_[0][i-1] + e_[1][i] * h;
 

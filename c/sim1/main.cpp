@@ -235,10 +235,10 @@ void normal(int N, double dt) {
 	Jounce::X* x = dynamic_cast<Jounce::X*>(r->brain_->cl_x_);
 	
 	double poles[] = {
-		-0.1,
-		-0.1,
-		-0.1,
-		-0.1,
+		-6.0,
+		-6.0,
+		-4.0,
+		-4.0,
 		-0.0};
 	
 	int i[] = {0,1,2,3,4};
@@ -291,7 +291,7 @@ int main(int argc, const char ** argv) {
 	}
 
 	if(strcmp(argv[1],"n")==0) {
-		normal(1000, dt);
+		normal(5000, dt);
 	} else if(strcmp(argv[1],"m")==0) {
 		map();
 	} else if(strcmp(argv[1],"s")==0) {
