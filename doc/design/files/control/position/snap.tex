@@ -41,3 +41,51 @@ Rotate a vector from body to global frame
 \right) \V{q}
 \]
 
+\paragraph{State Space}
+
+No integral control
+
+\[
+x =
+\begin{bmatrix}
+\dddot{x} \\
+\ddot{x} \\
+\dot{x} \\
+x
+\end{bmatrix}
+\]
+
+\[
+A =
+\begin{bmatrix}
+0 & 0 & 0 & 0 \\
+1 & 0 & 0 & 0 \\
+0 & 1 & 0 & 0 \\
+0 & 0 & 1 & 0
+\end{bmatrix}
+\]
+
+\[
+E =
+\begin{bmatrix}
+c_4 & c_3 & c_2 & c_1 \\
+0 & 0 & 0 & 0 \\
+0 & 0 & 0 & 0 \\
+0 & 0 & 0 & 0
+\end{bmatrix}
+\]
+
+\[
+\dot{x} = (A-E)x +
+\begin{bmatrix}
+c_1 \\
+0 \\
+0 \\
+0
+\end{bmatrix}
+\]
+
+
+
+
+
