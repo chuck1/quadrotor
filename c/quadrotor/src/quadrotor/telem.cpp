@@ -7,9 +7,9 @@
 #include <math/mat33.h>
 #include <math/mat44.h>
 
-#include <quadrotor/telem.h>
-#include <quadrotor/plant.h>
-#include <quadrotor/quadrotor.h>
+#include "quadrotor/telem.h"
+#include "quadrotor/plant.h"
+#include "quadrotor/quadrotor.h"
 
 
 Telem::Telem(Quadrotor* quad):

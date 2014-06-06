@@ -1,0 +1,117 @@
+digraph {
+	arraycpp [label="array.cpp"]
+	commandcpp [label="command.cpp"]
+	fdacpp [label="fda.cpp"]
+	positioncpp [label="position.cpp"]
+	Inputcpp [label="Input.cpp"]
+	attitudecpp [label="attitude.cpp"]
+	plantcpp [label="plant.cpp"]
+	braincpp [label="brain.cpp"]
+	quadrotorcpp [label="quadrotor.cpp"]
+	telemcpp [label="telem.cpp"]
+	usrincludebitswordsizeh [label="/usr/include/bits/wordsize.h"]
+	usrincludestdioh [label="/usr/include/stdio.h"]
+	mathvec3hpp [label="/math/vec3.hpp"]
+	mathmathhpp [label="/math/math.hpp"]
+	usrincludemathh [label="/usr/include/math.h"]
+	mathvecbasehpp [label="/math/vecbase.hpp"]
+	usrincludestringh [label="/usr/include/string.h"]
+	mathprinthpp [label="/math/print.hpp"]
+	mathdiscretediscretehpp [label="/math/discrete/discrete.hpp"]
+	mathvec4hpp [label="/math/vec4.hpp"]
+	mathconfighpp [label="/math/config.hpp"]
+	mathquathpp [label="/math/quat.hpp"]
+	quadrotorcommandh [label="/quadrotor/command.h"]
+	quadrotorquadrotorh [label="/quadrotor/quadrotor.h"]
+	quadrotorbrainh [label="/quadrotor/brain.h"]
+	quadrotorarrayh [label="/quadrotor/array.h"]
+	usrincludestdlibh [label="/usr/include/stdlib.h"]
+	quadrotorexcepth [label="/quadrotor/except.h"]
+	quadrotorInputhpp [label="/quadrotor/Input.hpp"]
+	quadrotorpositionh [label="/quadrotor/position.h"]
+	quadrotortelemh [label="/quadrotor/telem.h"]
+	quadrotorplanth [label="/quadrotor/plant.h"]
+	quadrotorcommandStophpp [label="/quadrotor/command/Stop.hpp"]
+	quadrotorControlLawControlLawh [label="/quadrotor/ControlLaw/ControlLaw.h"]
+	quadrotorfdah [label="/quadrotor/fda.h"]
+	quadrotorattitudeh [label="/quadrotor/attitude.h"]
+	quadrotorControlLawJounceh [label="/quadrotor/ControlLaw/Jounce.h"]
+	quadrotorControlLawJerkh [label="/quadrotor/ControlLaw/Jerk.h"]
+	quadrotorControlLawAlphah [label="/quadrotor/ControlLaw/Alpha.h"]
+	arraycpp -> usrincludebitswordsizeh
+	arraycpp -> mathvec3hpp
+	mathvec3hpp -> mathmathhpp
+	mathmathhpp -> usrincludemathh
+	mathvec3hpp -> mathvecbasehpp
+	mathvecbasehpp -> usrincludestringh
+	mathvecbasehpp -> mathprinthpp
+	mathvecbasehpp -> mathdiscretediscretehpp
+	arraycpp -> mathvec4hpp
+	mathvec4hpp -> mathconfighpp
+	arraycpp -> mathquathpp
+	commandcpp -> usrincludestdioh
+	commandcpp -> quadrotorcommandh
+	quadrotorcommandh -> usrincludebitswordsizeh
+	commandcpp -> quadrotorquadrotorh
+	commandcpp -> quadrotorbrainh
+	quadrotorbrainh -> quadrotorarrayh
+	quadrotorarrayh -> usrincludestdlibh
+	quadrotorbrainh -> quadrotorexcepth
+	commandcpp -> quadrotorInputhpp
+	commandcpp -> quadrotorpositionh
+	quadrotorpositionh -> quadrotortelemh
+	quadrotorpositionh -> quadrotorplanth
+	commandcpp -> quadrotorcommandStophpp
+	commandcpp -> quadrotorControlLawControlLawh
+	fdacpp -> quadrotorfdah
+	quadrotorfdah -> quadrotorarrayh
+	quadrotorarrayh -> usrincludebitswordsizeh
+	quadrotorarrayh -> usrincludestdioh
+	positioncpp -> quadrotorbrainh
+	quadrotorbrainh -> usrincludebitswordsizeh
+	positioncpp -> quadrotorcommandh
+	positioncpp -> quadrotorfdah
+	positioncpp -> quadrotorquadrotorh
+	positioncpp -> quadrotortelemh
+	positioncpp -> quadrotorplanth
+	positioncpp -> quadrotorpositionh
+	Inputcpp -> quadrotorInputhpp
+	attitudecpp -> quadrotorattitudeh
+	quadrotorattitudeh -> quadrotorarrayh
+	attitudecpp -> quadrotorcommandh
+	attitudecpp -> quadrotorfdah
+	attitudecpp -> quadrotorquadrotorh
+	attitudecpp -> quadrotortelemh
+	quadrotortelemh -> quadrotorexcepth
+	attitudecpp -> quadrotorplanth
+	plantcpp -> usrincludestdioh
+	plantcpp -> usrincludebitswordsizeh
+	plantcpp -> quadrotorquadrotorh
+	plantcpp -> quadrotortelemh
+	quadrotortelemh -> quadrotorarrayh
+	plantcpp -> quadrotorplanth
+	braincpp -> usrincludebitswordsizeh
+	braincpp -> quadrotorarrayh
+	braincpp -> quadrotorattitudeh
+	braincpp -> quadrotorcommandh
+	braincpp -> quadrotorpositionh
+	quadrotorpositionh -> quadrotorbrainh
+	quadrotorpositionh -> quadrotorquadrotorh
+	braincpp -> quadrotorControlLawControlLawh
+	quadrotorControlLawControlLawh -> quadrotorInputhpp
+	braincpp -> quadrotorControlLawJounceh
+	quadrotorControlLawJounceh -> quadrotorfdah
+	braincpp -> quadrotorControlLawJerkh
+	quadrotorControlLawJerkh -> quadrotorControlLawAlphah
+	quadrotorcpp -> quadrotorattitudeh
+	quadrotorcpp -> quadrotorbrainh
+	quadrotorcpp -> quadrotortelemh
+	quadrotorcpp -> quadrotorplanth
+	quadrotorcpp -> quadrotorquadrotorh
+	quadrotorcpp -> quadrotorpositionh
+	quadrotorpositionh -> quadrotorcommandh
+	telemcpp -> usrincludestdioh
+	telemcpp -> quadrotortelemh
+	telemcpp -> quadrotorplanth
+	telemcpp -> quadrotorquadrotorh
+}

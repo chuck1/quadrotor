@@ -1,9 +1,9 @@
 
 #include <cstdio>
 
-#include <math/vec3.h>
-#include <math/vec4.h>
-#include <math/quat.h>
+#include <math/vec3.hpp>
+#include <math/vec4.hpp>
+#include <math/quat.hpp>
 
 void write(FILE* file, math::vec3 const & v) {
 	v.write(file);
