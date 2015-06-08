@@ -1,11 +1,20 @@
 # quadrotor
 
-quadrotor autonomous control and simulation programs
+quadrotor controller simulation and visualization
+
+[video](https://youtu.be/j_Yc1QRB2lk)
+
+## features
+
+- controller simulation (C++)
+- 3D visualization (C++, OpenGL)
+- 2D graph plotting for control variables (python)
 
 ## directories
 
 ### c
-cpp implementation of controller, simulator, and visualization (includes python script for basic graphing and opengl-based visualization program)
+
+c++ implementation of controller, simulator, and visualization (includes python script for basic graphing and opengl-based visualization program)
 
 ### doc
 literature on quadrotors by myself and others
