@@ -1,38 +1,29 @@
 The position control law outputs net jerk in the inertial frame.
 
-\begin{align}\nonumber
-\V{j} = + &~ \mathbf{C}_{9} \boldsymbol\chi_5 \\\nonumber
-+ &~ \mathbf{C}_{10} (\mathbf{x}_{ref} - \mathbf{x}) \\\nonumber
-+ &~ \mathbf{C}_{11} (\dot{\mathbf{x}}_{ref} - \mathbf{v}) \\\nonumber
-+ &~ \V{C}_{12} ( \Vdd{x}_{ref} - \V{a} ) \\\nonumber
-+ &~ \Vddd{x}_{ref}
-\end{align}
+j = C_9 chi_5 + C_10 (x_ref - x) + C_11 (x_ref' - v) + C_12 (x_ref'' - a) + x_ref'''
 
 From this jerk, x- and y-components of angular velcity and rate of change of net thrust are calculated.
 
 Ignoring drag, the net force in the global frame is
 
-\[
-\V{f} = \V{f}_{g} + \V{f}_{R}
-\]
+- f - net force on drone in global frame
+- f_g - force from gravity
+- f_R - force from rotors in global frame
+- f_RB - force from rotors in body frame
+
+f = f_g + f_R
 
 Differentiate in time
 
-\[
-\Vd{f} = \Vd{f}_{R} = m \V{j}
-\]
+f' = f_R' = m j
 
 Rotor force in the inertial and body frame is related by
 
-\[
-\V{f}_R = \V{q}^* \V{f}_{RB} \V{q}
-\]
+f_R = q* f_RB q
 
 Differentiate in time
 
-\[
-\Vd{f}_R = \V{q}^* \left( \Vd{f}_{RB} + \V{f}_{RB} \times \G{\omega} \right) \V{q}
-\]
+f_R' = q* ( f_RB' + f_RB x \G{\omega} ) q
 
 In our case
 
