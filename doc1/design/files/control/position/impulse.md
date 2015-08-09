@@ -23,42 +23,33 @@ f_R = q* f_RB q
 
 Differentiate in time
 
-f_R' = q* ( f_RB' + f_RB x \G{\omega} ) q
+f_R' = q* ( f_RB' + f_RB x omega ) q
 
 In our case
 
-\[
-\V{f}_{RB} = \begin{bmatrix} 0 \\ 0 \\ f_{RB} \end{bmatrix}
-\]
+f_RB = [ 0 , 0 , f_RB ]
 
 and the above becomes
 
-\[
-\V{q} \Vd{f}_R \V{q}^* =
-\begin{bmatrix}
--\omega_y f_{zRB} \\
-\omega_x f_{zRB} \\
-\dot{f}_{zRB}
-\end{bmatrix}
-\]
 
-The left side is known. First, the derivative of rotor force from the z-component is integrated to get rotor force for the current time step.
+q f_R' q* = [ -omega_y f_zRB , omega_x f_zRB , f_zRB' ]
 
-\[
-f_{zRB}(t_i) = f_{zRB}(t_{i-1}) + \dot{f}_{zRB}
-\]
+The left side is known.
+First, the derivative of rotor force from the z-component is integrated to get rotor force for the current time step.
+
+postfix (i) represents the value at frame i
+
+f_zRB(i) = f_zRB(i-1) + f_zRB'
 
 The angular velocity components can then be calculated. These are the reference values for the second controller with outputs torque.
 
-\subsubsection{Time Derivative of quaternion rotation}
+## Time Derivative of quaternion rotation
 
 In general, if q rotates from y to x frame
 
 \[
 \V{y} = \V{q}^* \V{x} \V{q}
 \]
-
-
 
 \[
 \Vd{y} = \Vd{q}^* \V{x} \V{q} + \V{q}^* \Vd{x} \V{q} + \V{q}^* \V{x} \Vd{q}
