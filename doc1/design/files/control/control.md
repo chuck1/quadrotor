@@ -1,5 +1,16 @@
 # Control
 
+## variables
+
+- Alpha\_M - vec4 - angular acceleration of each motor
+
+## instructions
+
+1. choose a control variable (position? velocity?)
+2. choose an intermediate variable (accel? jerk? jounce?)
+3. write an equation for the intermediate variable in terms of the control variable
+4. write an equation for Alpha\_M as a function of the intermediate variable
+
 ## motor speeds
 
 for any given motor
