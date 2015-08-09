@@ -1,5 +1,5 @@
 
-%\input{files/control/position/accel.tex}
+[accel](accel.md)
 [impulse](impulse.md)
 [snap](snap.md)
 
