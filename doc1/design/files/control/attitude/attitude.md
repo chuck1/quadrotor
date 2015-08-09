@@ -1,5 +1,5 @@
 # Attitude
 
-%\input{files/control/attitude/euler.tex}
+[euler based](euler.md)
 [quaternion based](quat.md)
 
