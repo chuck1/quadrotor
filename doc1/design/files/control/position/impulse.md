@@ -6,42 +6,41 @@ From this jerk, x- and y-components of angular velcity and rate of change of net
 
 Ignoring drag, the net force in the global frame is
 
-- f - net force on drone in global frame
-- f_g - force from gravity
-- f_R - force from rotors in global frame
-- f_RB - force from rotors in body frame
+- F - net force on drone in global frame
+- F_g - force from gravity
+- F_R - force from rotors in global frame
+- F_RB - force from rotors in body frame
 
-f = f_g + f_R
+F = F_g + F_R
 
 Differentiate in time
 
-f' = f_R' = m j
+F' = F_R' = m j
 
 Rotor force in the inertial and body frame is related by
 
-f_R = q* f_RB q
+F_R = q* F_RB q
 
 Differentiate in time
 
-f_R' = q* ( f_RB' + f_RB x omega ) q
+F_R' = q* ( F_RB' + F_RB x omega ) q
 
 In our case
 
-f_RB = [ 0 , 0 , f_RB ]
+F_RB = [ 0 , 0 , f_zRB ]
 
 and the above becomes
-
 
 q f_R' q* = [ -omega_y f_zRB , omega_x f_zRB , f_zRB' ]
 
 The left side is known.
-First, the derivative of rotor force from the z-component is integrated to get rotor force for the current time step.
+First, the derivative of f\_zRB is integrated to get rotor force for the current time step.
 
-postfix (i) represents the value at frame i
+postfix (i) represents the value at discrete time i
 
-f_zRB(i) = f_zRB(i-1) + f_zRB'
+f_zRB(i) = f_zRB(i-1) + f_zRB' dt
 
-The angular velocity components can then be calculated. These are the reference values for the second controller with outputs torque.
+The angular velocity components can then be calculated. These are the reference values for the second controller which outputs torque.
 
 ## Time Derivative of quaternion rotation
 
