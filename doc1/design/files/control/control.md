@@ -1,7 +1,12 @@
 # Control
 
+output
+
 - F\_M - vec4 - force from motors
 - f\_Mx - scalar - force from individual motor
+
+input
+
 - f\_zRB - scalar - net body-frame force of rotors on drone
 - T\_RB - vec3 - net body-frame torque of rotors on drone
 
