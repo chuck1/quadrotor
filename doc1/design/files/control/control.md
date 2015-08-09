@@ -1,5 +1,18 @@
 # Control
 
+## motor speeds
+
+for any given motor
+
+- s - scalar - motor speed
+- f - scalar - lift force of rotor
+
+s = func(f)
+
+the function is based on propeller shape
+
+## individual motor force
+
 output
 
 - F\_M - vec4 - force from motors
