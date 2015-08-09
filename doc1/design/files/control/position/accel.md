@@ -1,6 +1,6 @@
 # Acceleration Based
 
-## position error
+## Position Error
 
 - e_5 - vector - position error
 - x - vector - position
@@ -13,25 +13,23 @@ e_5' = x_ref' - x'
 
 e_5' = x_ref' - v
 
-v_ref = C_5 e_5 + x_ref' + Lambda_5 chi_5
+chi_5' = e_5
 
-v_ref = C_5 \dot{\mathbf{e}}_5 + \ddot{\mathbf{x}}_{ref} + \boldsymbol\Lambda_5 \mathbf{e}_5
+so chi\_5 is time integral of e_5
 
-\[
-\mathbf{e}_6 = \mathbf{v}_{ref} - \mathbf{v}
-\]
+v\_ref = C_5 e_5 + x_ref' + Lambda_5 chi_5
 
-\[
-\mathbf{e}_6 = \mathbf{C}_5 \mathbf{e}_5 + \dot{\mathbf{x}}_{ref} + \boldsymbol\Lambda_5 \boldsymbol\chi_5 - \mathbf{v}
-\]
+v\_ref = C_5 e_5' + x_ref'' + Lambda_5 e_5
 
-\[
-\dot{\mathbf{e}}_6 = \dot{\mathbf{v}}_{ref} - \dot{\mathbf{v}} = \Vd{v}_{ref} - \V{a}
-\]
+## Velocity Error
 
-\[
-\dot{\mathbf{e}}_6 = \mathbf{C}_5 \dot{\mathbf{e}}_5 + \ddot{\mathbf{x}}_{ref} + \boldsymbol\Lambda_5 \mathbf{e}_5 - \ddot{\mathbf{x}}
-\]
+e\_6 = v_ref - v
+
+e\_6 = C\_5 e\_5 + x\_ref' + Lambda\_5 chi_5 - v
+
+e_6' = v_ref' - v' = v_ref' - a
+
+e_6 = C_5 e_5' + x_{ref}'' + Lambda_5 e_5 - x''
 
 \[
 \dot{\mathbf{x}}_{ref} = \mathbf{v}_{ref} - \mathbf{C}_5 \mathbf{e}_5 - \boldsymbol\Lambda_5 \boldsymbol\chi_5
