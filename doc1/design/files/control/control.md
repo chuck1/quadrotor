@@ -2,5 +2,5 @@
 
 [attitude](attitude/attitude.md)
 
-[position]{position/position.md}
+[position](position/position.md)
 
