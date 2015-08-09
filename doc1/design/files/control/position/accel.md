@@ -1,25 +1,20 @@
-\subsection{Acceleration Based}
+# Acceleration Based
 
-\[
-\mathbf{e}_5 = \mathbf{x}_{ref} - \mathbf{x}
-\]
+## position error
 
-\[
-\dot{\mathbf{e}}_5 = \dot{\mathbf{x}}_{ref} - \dot{\mathbf{x}}
-\]
+- e_5 - vector - position error
+- x - vector - position
+- x_ref - vector - position target
 
-\[
-\dot{\mathbf{e}}_5 = \dot{\mathbf{x}}_{ref} - \mathbf{v}
-\]
+e_5 = x_ref - x
 
-\[
-\mathbf{v}_{ref} = \mathbf{C}_5 \mathbf{e}_5 + \dot{\mathbf{x}}_{ref} + \boldsymbol\Lambda_5 \boldsymbol\chi_5
-\]
+e_5' = x_ref' - x'
 
-\[
-\dot{\mathbf{v}}_{ref} = \mathbf{C}_5 \dot{\mathbf{e}}_5 + \ddot{\mathbf{x}}_{ref} + \boldsymbol\Lambda_5 \mathbf{e}_5
-\]
+e_5' = x_ref' - v
 
+v_ref = C_5 e_5 + x_ref' + Lambda_5 chi_5
+
+v_ref = C_5 \dot{\mathbf{e}}_5 + \ddot{\mathbf{x}}_{ref} + \boldsymbol\Lambda_5 \mathbf{e}_5
 
 \[
 \mathbf{e}_6 = \mathbf{v}_{ref} - \mathbf{v}
