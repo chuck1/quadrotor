@@ -1,5 +1,5 @@
 
-\subsubsection{Quaternion}
+# Quaternion
 
 \[
 \V{e}_1 = \V{q}_{ref} \V{q}^*
