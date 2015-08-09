@@ -1,11 +1,12 @@
 
 # Quaternion
 
-\[
-\V{e}_1 = \V{q}_{ref} \V{q}^*
-\]
+## Error terms
 
-\[
-\V{e}_2 = \G{\omega}_{ref} - \G{\omega}
-\]
+e\_1 is a quat representing the orientation error and e\_2 is a vector representing the angular velocity error.
+
+e_1 = q_ref q*
+
+e_2 = omega_ref - omega
+
 
