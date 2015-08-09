@@ -1,32 +1,32 @@
-\subsection{Rotation}
+# Rotation
 
-\[
-\mathbf{I} \dot{\boldsymbol\omega}
-= \tau - \boldsymbol\omega \times \left( \mathbf{I} \boldsymbol\omega \right)
-\]
+I omega' = tau - omega x ( I omega )
 
-\[
-\dot{\boldsymbol\omega}
-= \mathbf{I}^{-1} \left( \boldsymbol\tau - \boldsymbol\omega \times \left( \mathbf{I} \boldsymbol\omega \right) \right)
-\]
+omega' = I^-1 ( tau - omega x ( I omega ) )
 
-\[
-I =
-\begin{bmatrix}
-I_{xx} & 0 & 0 \\
-0 & I_{yy} & 0 \\
-0 & 0 & I_{zz}
-\end{bmatrix}
-\]
+I = [
+[I_xx & 0 & 0]
+[0 & I_yy & 0]
+[0 & 0 & I_zz]
+]
 
-\[
-\boldsymbol\tau_B =
-\begin{bmatrix}
-Lk \left( \gamma_1 - \gamma_3 \right) \\
-Lk \left( \gamma_2 - \gamma_4 \right) \\
-b \left( \gamma_1 - \gamma_2 + \gamma_3 - \gamma_4 \right)
-\end{bmatrix}
-=
+for an individual rotor
+
+gamma = omega^2
+
+thrust = k gamma
+
+torque = b gamma
+
+In the body-frame, rotor 0 is on the y+ axis, rotor 2 on the y- axis, rotor 1 on the x- axis, and rotor 3 on the x+ axis. All rotors are equal distance L to the center of mass
+
+tau_B = [
+L k ( gamma_0 - gamma_2 ) \\
+L k ( gamma_1 - gamma_3 ) \\
+b ( gamma_0 - gamma_1 + gamma_2 - gamma_3 )
+]
+
+tau_B =
 \begin{bmatrix}
 Lk & 0  & -Lk & 0 \\
 0  & Lk & 0   & -Lk \\
