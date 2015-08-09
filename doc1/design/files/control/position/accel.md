@@ -5,6 +5,7 @@
 - e_5 - vector - position error
 - x - vector - position
 - x_ref - vector - position target
+- C_5 - matrix - coefficient
 
 e_5 = x_ref - x
 
