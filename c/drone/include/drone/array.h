@@ -6,15 +6,19 @@
 
 #include <glm/glm.hpp>
 
+void write(FILE* file, glm::mat3 const & v);
+void write(FILE* file, glm::mat4 const & v);
 void write(FILE* file, glm::vec3 const & v);
 void write(FILE* file, glm::vec4 const & v);
 void write(FILE* file, glm::quat const & v);
-void write(FILE* file, double const & f);
+void write(FILE* file, float const & f);
 
+void read(FILE* file, glm::mat3 & v);
+void read(FILE* file, glm::mat4 & v);
 void read(FILE* file, glm::vec3 & v);
 void read(FILE* file, glm::vec4 & v);
 void read(FILE* file, glm::quat & v);
-void read(FILE* file, double & f);
+void read(FILE* file, float & f);
 
 
 template <typename T> class Array {

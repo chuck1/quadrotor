@@ -1,7 +1,7 @@
 #ifndef __PRINT__
 #define __PRINT__
 
-void print_arr(double* arr, int len);
+void print_arr(float* arr, int len);
 
 #endif
 

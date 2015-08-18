@@ -1,13 +1,15 @@
 #include <deque>
 
 #include <drone/array.h>
-#include <drone/attitude.h>
-#include <drone/command.h>
-#include <drone/position.h>
-#include <drone/ControlLaw/ControlLaw.h>
-#include <drone/ControlLaw/Jounce.h>
-#include <drone/ControlLaw/Jerk.h>
-#include <drone/ControlLaw/Alpha.h>
+//#include <drone/attitude.h>
+//#include <drone/position.h>
+#include <drone/command/command.h>
+#include <drone/cl/ControlLaw.h>
+#include <drone/cl/Alpha.hpp>
+#include <drone/cl/Jerk.hpp>
+#include <drone/cl/Snap.hpp>
+
+#include <drone/Brain.hpp>
 
 Brain::Brain(Quadrotor* quad):
 	mode_(Brain::Mode::e::JOUNCE),
@@ -20,10 +22,19 @@ Brain::Brain(Quadrotor* quad):
 
 	obj_ = NULL;
 
-	cl_x_ = new Jounce::X(quad_);
-	cl_v_ = new Jounce::V(quad_);
-	cl_q_ = new Alpha1::Q(quad_);
+	
 
+	cl_x_ = new Jounce::X();
+	cl_v_ = new Jounce::V();
+	cl_q_ = new Alpha1::Q();
+
+	cl_x_->r_ = quad_;
+	cl_v_->r_ = quad_;
+	cl_q_->r_ = quad_;
+	
+	cl_x_->init();
+	cl_v_->init();
+	cl_q_->init();
 }
 void Brain::reset() {
 	objs_.clear();
@@ -105,22 +116,22 @@ void Brain::reset() {
 
 }
 */
-void	Brain::CheckCommand(int i) {
+void	Brain::CheckCommand(int i)
+{
 	bool pop = false;
 
 	if (obj_ == NULL) {
-		printf("i=%i obj is NULL\n",i);
 		pop = true;
 	} else {
 		if(obj_->flag_ & Command::Base::Flag::COMPLETE) {
-			printf("i=%i obj is complete\n",i);
+			//printf("i=%i obj is complete\n",i);
 			pop = true;
 		}
 	}
 		
 	if(pop) {
 		if(objs_.empty()) {
-			printf("i=%i empty queue\n",i);
+			//printf("i=%i empty queue\n",i);
 			throw EmptyQueue();
 		}
 
@@ -143,29 +154,30 @@ void	Brain::CheckCommand(int i) {
 				break;
 		}
 		
-		obj_->Start(i);
+		obj_->start(i);
 		
 		if(cl_ != NULL) {
 			cl_->command_ = obj_;
-			cl_->Init(i);
+			cl_->init();
 		}
 	}
 }
-void Brain::step(int i, double h) {
-
+void		Brain::step(int i, double h)
+{
 	//printf("%s\n",__PRETTY_FUNCTION__);
 
 	CheckCommand(i);
 	
 	if(cl_ != NULL) {
-		cl_->Step(i, h);
+		cl_->step(i, h);
 	}
 	
-	obj_->Check(i);
+	obj_->check(i);
 	
 	//cl_->Check(i);
 }
-void Brain::write(int n) {
+void		Brain::write(int n)
+{
 	cl_x_->write(n);
 	//cl_v_->write(n);
 	//cl_q_->write(n);

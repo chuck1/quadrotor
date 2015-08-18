@@ -1,22 +1,25 @@
+#include <typeinfo>
 
-#include <quadrotor/attitude.h>
-#include <quadrotor/brain.h>
-#include <quadrotor/telem.h>
-#include <quadrotor/plant.h>
-#include <quadrotor/quadrotor.h>
-#include <quadrotor/position.h>
+#include <glm/gtc/quaternion.hpp>
+
+//#include <drone/attitude.h>
+//#include <drone/position.h>
+#include <drone/Brain.hpp>
+#include <drone/Telem.hpp>
+#include <drone/Plant.hpp>
+#include <drone/Drone.hpp>
 
 
-Quadrotor::Quadrotor(double dt, int N):
+Quadrotor::Quadrotor(float dt, int N):
 	dt_(dt),
 	N_(N),
 	ti_stop_(N),
 	ti_f_(0)
 {
-	printf("dt %lf\n",dt);
+	//printf("dt %lf\n",dt);
 	
-	t_ = new double[N_];
-	for(int ti = 0; ti < N_; ti++) t_[ti] = dt * (double)ti;
+	t_ = new float[N_];
+	for(int ti = 0; ti < N_; ti++) t_[ti] = dt * (float)ti;
 
 	// physical constants
 	m_	= 1.0;		// mass (kg)
@@ -39,55 +42,57 @@ Quadrotor::Quadrotor(double dt, int N):
 	b_ = 0.5 * pow(R_,3) * rho_ * CD_ * A_;
 	
 	//I_ = ;
-	Iinv_ = I_.GetInverse();
+	Iinv_ = glm::inverse(I_);
 	
 	P_max_		= 340.0;
 	//gamma_max_	= pow(P_max_ * sqrt(2.0 * rho_ * Asw_) / pow(k_, 3.0/2.0), 2.0/3.0);
 	gamma_max_ = 1e10;
 	
 
-	printf("gamma max %e\n", gamma_max_);
+	//printf("gamma max %e\n", gamma_max_);
 
 	//printf("I Iinv\n");
 	//I_.print();
 	//Iinv_.print();
 
 	// matrices
-	A4_ = math::mat44(
+	A4_ = glm::mat4(
 			L_ * k_,	0,		-L_ * k_,	0,
 			0,		L_ * k_,	0,		-L_ * k_,
 			b_,		-b_,		b_,		-b_,
 			1.0,		1.0,		1.0,		1.0);
 	
 	
-	A4_.Transpose();
+	A4_ = glm::transpose(A4_);
 	
-	A4inv_ = A4_.GetInverse();
+	A4inv_ = glm::inverse(A4_);
 
-	gravity_ = math::vec3(0,0,-9.81);
+	gravity_ = glm::vec3(0,0,-9.81);
 
 	telem_ = new Telem(this);
 	plant_ = new Plant(this);
 	brain_ = new Brain(this);
 }
-math::vec3&	Quadrotor::x(int i) { return telem_->x_[i]; }
-math::vec3&	Quadrotor::v(int i) { return telem_->v_[i]; }
-math::vec3&	Quadrotor::a(int i) { return telem_->a_[i]; }
-math::vec3&	Quadrotor::jerk(int i) { return telem_->jerk_[i]; }
-//math::vec3&	Quadrotor::jounce(int i) { return telem_->jounce_[i]; }
-math::quat&	Quadrotor::q(int i) { return telem_->q_[i]; }
-math::vec3&	Quadrotor::omega(int i) { return telem_->omega_[i]; }
-math::vec3&	Quadrotor::alpha(int i) { return telem_->alpha_[i]; }
-void Quadrotor::reset() {
+glm::vec3&		Quadrotor::x(int i) { return telem_->x_[i]; }
+glm::vec3&		Quadrotor::v(int i) { return telem_->v_[i]; }
+glm::vec3&		Quadrotor::a(int i) { return telem_->a_[i]; }
+glm::vec3&		Quadrotor::jerk(int i) { return telem_->jerk_[i]; }
+//glm::vec3&		Quadrotor::jounce(int i) { return telem_->jounce_[i]; }
+glm::quat&		Quadrotor::q(int i) { return telem_->q_[i]; }
+glm::vec3&		Quadrotor::omega(int i) { return telem_->omega_[i]; }
+glm::vec3&		Quadrotor::alpha(int i) { return telem_->alpha_[i]; }
+void			Quadrotor::reset()
+{
 	ti_f_ = 0;
 
 	brain_->reset();
 }
-void Quadrotor::run() {
+void			Quadrotor::run()
+{
 
 	//printf("dt %f\n", dt_);
 
-	printf("command queue %i\n", (int)brain_->objs_.size());
+	//printf("command queue %i\n", (int)brain_->objs_.size());
 
 	for(int ti = 1; ti < ti_stop_; ti++) {
 
@@ -99,54 +104,67 @@ void Quadrotor::run() {
 			brain_->step(ti-1, dt_);
 			plant_->step(ti-1);
 			telem_->step(ti, dt_);
-		}
-		catch(EmptyQueue &e) {
-			printf("empty queue ti\n");
+		} catch(EmptyQueue &e) {
+			//printf("empty queue ti\n");
+			ti_f_ = ti;
+			break;
+		} catch(StopCond &e) {
+			//printf("stop cond occured\n");
+			printf("%s\n", e.what());
+			printf("%s\n", typeid(e).name());
 			ti_f_ = ti;
 			break;
 		}
-		catch(StopCond &e) {
-			//printf("%s\n", e.what());
-			ti_f_ = ti;
-			break;
-		}
-		catch(...) {
+		/*		
+		} catch(...) {
 			ti_f_ = ti;
 			printf("unknown error\n");
+			throw 0;
 			break;
-		}
+		}*/
 	}
 }
-math::vec3 Quadrotor::angular_accel_to_torque(int ti, math::vec3 od) {
+glm::vec3 Quadrotor::angular_accel_to_torque(int ti, glm::vec3 alpha)
+{
+	glm::vec3 & o = omega(ti);
+	glm::vec3 torque = 
+		I_ * alpha + 
+		glm::cross(o, I_ * o);
 
-	math::vec3 torque = 
-		I_ * od + 
-		omega(ti).cross(I_ * omega(ti));
+	printf("angular accel to torque\n");
+	printf("  alpha  %16e%16e%16e\n", alpha.x, alpha.y, alpha.z);
+	printf("  omega  %16e%16e%16e\n", o.x, o.y, o.z);
+	printf("  torque %16e%16e%16e\n", torque.x, torque.y, torque.z);
 
 	return torque;
 }
-math::vec4	Quadrotor::thrust_torque_to_motor_speed(int i, double const & thrust, math::vec3 const & torque) {
+glm::vec4		Quadrotor::thrust_torque_to_motor_speed(
+		int i,
+		float const & thrust,
+		glm::vec3 const & torque)
+{
 
-	math::vec4 temp(torque);
+	glm::vec4 temp(0,torque);
 
 	plant_->gamma1_[i] = A4inv_ * temp;
 
 	// thrust
 	plant_->gamma0_[i] = thrust / (k_ * 4.0);
 
-	if(!plant_->gamma1_[i].isSane()) {
+	if(glm::any(glm::isnan(plant_->gamma1_[i])) || glm::any(glm::isinf(plant_->gamma1_[i]))) {
 		printf("gamma1\n");
-		plant_->gamma1_[i].print();
+		//::print(plant_->gamma1_[i]);
 		printf("A4\n");
-		A4inv_.print();
+		//A4inv_.print();
 		printf("temp\n");
-		temp.print();
+		//temp.print();
 		throw;
 	}
 
 	return (plant_->gamma1_[i] + plant_->gamma0_[i]);
 }	
-void Quadrotor::write() {
+void			Quadrotor::write()
+{
 	int n = (ti_f_ > 0) ? ti_f_ : N_;
 	
 	brain_->write(n);
@@ -157,12 +175,13 @@ void Quadrotor::write() {
 
 	write_param();
 }
-void Quadrotor::write_param() {
+void			Quadrotor::write_param()
+{
 	//brain_->att_->write_param();
 	//brain_->pos_->write_param();
 }
-
-void product(int choices, int repeat, int*& arr, int level) {
+void			product(int choices, int repeat, int*& arr, int level)
+{
 
 	int len = pow(choices, repeat);
 

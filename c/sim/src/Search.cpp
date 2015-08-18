@@ -1,22 +1,24 @@
 
-#include <drone/quadrotor.h>
-#include <drone/ControlLaw/Jounce.h>
-#include <drone/brain.h>
-#include <drone/command.h>
+#include <string.h>
+
+#include <drone/Drone.hpp>
+#include <drone/cl/Snap.hpp>
+#include <drone/Brain.hpp>
+#include <drone/command/command.h>
 #include <drone/command/Stop.hpp>
-#include <drone/Input.hpp>
+#include <drone/command/Input.hpp>
 
 #include <Search.hpp>
 
 #include <InputFunc.hpp>
 #include <Print.hpp>
 
-search::search(int* i, double* v, int nv):
-	v_(new double[nv]),
+search::search(int* i, float* v, int nv):
+	v_(new float[nv]),
 	nv_(nv),
 	ts_(1e10),
 	current_(0),
-	n_(10000),
+	n_(100000),
 	count_(0)
 {
 	i_ = new int[5];
@@ -24,13 +26,13 @@ search::search(int* i, double* v, int nv):
 
 	r_ = new Quadrotor(0.01, n_);
 	
-	memcpy(v_, v, nv_*sizeof(double));
+	memcpy(v_, v, nv_*sizeof(float));
 }
 void search::step() {
 	
-	double low  = v_[current_] / 1.1;
-	double val  = v_[current_];
-	double high = v_[current_] * 1.1;
+	float low  = v_[current_] / 1.1;
+	float val  = v_[current_];
+	float high = v_[current_] * 1.1;
 	
 	v_[current_] = low;
 	if(test()) {
@@ -66,7 +68,7 @@ void search::exec(int m) {
 				break;
 			}
 		}
-		print_arr(v_,nv_);
+		//print_arr(v_,nv_);
 
 		n_ += 100;
 		test();
@@ -75,7 +77,8 @@ void search::exec(int m) {
 		printf("failed\n");
 	}
 }
-void search::reset() {
+void search::reset()
+{
 	Jounce::X* x = dynamic_cast<Jounce::X*>(r_->brain_->cl_x_);	
 	
 	x->set_poles(i_, v_, nv_);
@@ -85,9 +88,9 @@ bool search::test() {
 
 	reset();
 	
-	auto comm_x = new Command::X(r_, new Input::Vec3::Const(math::vec3(1,0,0)));
+	auto comm_x = new Command::X(r_, new Input::Vec3::Const(glm::vec3(1,0,0)));
 
-	auto stop_x = new Command::Stop::XSettle(comm_x, math::vec3(0.01,0.01,0.01));
+	auto stop_x = new Command::Stop::XSettle(comm_x, glm::vec3(0.01,0.01,0.01));
 	
 	comm_x->stop_.push_back(stop_x);
 	
@@ -97,15 +100,18 @@ bool search::test() {
 	r_->run();
 
 	Command::X* move = (Command::X*)(r_->brain_->obj_);
-	
-	
-	
+
 	if(move->flag_ & Command::Base::Flag::COMPLETE) {
-		//if(move->ts_ < ts_) {
-		//	ts_ = move->ts_;
-		//	n_ = move->ti_s_;
-		//	return true;
-		//}
+		if(move->stop_.empty()) {
+			printf("%s:%i\n", __FILE__, __LINE__);
+			throw 0;
+		}
+		auto stop = move->stop_[0];
+		if(stop->stats_.t_ < ts_) {
+			ts_ = stop->stats_.t_;
+			n_ = stop->stats_.i_;
+			return true;
+		}
 	}
 	return false;
 }

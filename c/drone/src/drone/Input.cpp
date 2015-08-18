@@ -1,5 +1,5 @@
 
-#include <drone/Input.hpp>
+#include <drone/command/Input.hpp>
 
 double fourier_square(double t, double phase, double L, int n) {
 	double y = 0;

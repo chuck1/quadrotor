@@ -1,3 +1,4 @@
+#include <iostream>
 #include <stdio.h>
 #include <cstdlib>
 #include <cstring>
@@ -5,22 +6,25 @@
 
 #define _DEBUG 0
 
-#include <math/vec3.h>
+#include <glm/glm.hpp>
 
-#include <quadrotor/attitude.h>
-#include <quadrotor/brain.h>
-#include <quadrotor/Input.hpp>
-#include <quadrotor/position.h>
-#include <quadrotor/quadrotor.h>
-#include <quadrotor/command/Stop.hpp>
-#include <quadrotor/ControlLaw/ControlLaw.h>
-#include <quadrotor/ControlLaw/Jounce.h>
-#include <quadrotor/ControlLaw/Alpha.h>
+#include <boost/program_options.hpp>
+
+//#include <drone/attitude.h>
+//#include <drone/position.h>
+#include <drone/Brain.hpp>
+#include <drone/command/Input.hpp>
+#include <drone/command/Stop.hpp>
+#include <drone/Drone.hpp>
+#include <drone/cl/ControlLaw.h>
+#include <drone/cl/Snap.hpp>
+#include <drone/cl/Alpha.hpp>
 
 #include <Search.hpp>
-
 #include <InputFunc.hpp>
 #include <Print.hpp>
+
+namespace po = boost::program_options;
 
 int* range(int s, int e) {
 	int* r = new int[e-s];
@@ -29,22 +33,26 @@ int* range(int s, int e) {
 	}
 	return r;
 }
-
-void VQPoles(Quadrotor* r) {
+/**
+ * set control coefficients for v and q conrollers
+ */
+void VQPoles(Quadrotor* r)
+{
 
 	Jounce::V* v = dynamic_cast<Jounce::V*>(r->brain_->cl_v_);
 	Alpha1::Q* q = dynamic_cast<Alpha1::Q*>(r->brain_->cl_q_);
 	
-	double poles_v[] = {
+	float poles_v[] = {
 		-19.0,
 		-19.0,
 		-19.0,
 		-00.0};
 	
 	int i_v[] = {0,1,2,3};
+	
 	v->set_poles(i_v, poles_v, 4);
-
-	double poles_q[] = {
+	
+	float poles_q[] = {
 		-02.0,
 		-02.0,
 		-00.0};
@@ -54,38 +62,52 @@ void VQPoles(Quadrotor* r) {
 
 }
 
-void CommandScheme1(Quadrotor* r) {
-
-	auto cmd_v = new Command::V(r, new Input::Vec3::Const(math::vec3(0,0,10)));
-	auto stop_v = new Command::Stop::VSettle(cmd_v, math::vec3(0.01,0.01,0.01));
+void CommandScheme1(Quadrotor* r)
+{
+/*
+	auto cmd_v = new Command::V(r, new Input::Vec3::Const(glm::vec3(0,0,10)));
+	auto stop_v = new Command::Stop::VSettle(cmd_v, glm::vec3(0.01,0.01,0.01));
 	cmd_v->stop_.push_back(stop_v);
 	
-	auto cmd_q = new Command::Q(r, new Input::QuatConst(math::quat(0.5 * M_PI,math::vec3(1,0,0))));
-	auto stop_q = new Command::Stop::VCross(cmd_q, math::plane(math::vec3(0,0,1), 0));
+	auto cmd_q = new Command::Q(r, new Input::QuatConst(glm::quat(0.5 * M_PI,glm::vec3(1,0,0))));
+	auto stop_q = new Command::Stop::VCross(cmd_q, math::Plane(glm::vec3(0,0,1), 0));
 	cmd_q->stop_.push_back(stop_q);
 	
 	
 	auto cmd_freeze = new Command::Freeze(r);
-	//auto cmd_freeze = new Command::V(r, new Input::Vec3::Const(math::vec3(0,0,0)));
+	//auto cmd_freeze = new Command::V(r, new Input::Vec3::Const(glm::vec3(0,0,0)));
 	
 
 	r->brain_->objs_.push_back(cmd_v);
 	r->brain_->objs_.push_back(cmd_q);
 	r->brain_->objs_.push_back(cmd_freeze);
 
+*/
+
+
+
+	auto cmd_x = new Command::X(r, new Input::Vec3::Const(glm::vec3(1,0,0)));
+	auto stop_x = new Command::Stop::VSettle(cmd_x, glm::vec3(0.01,0.01,0.01));
+	cmd_x->stop_.push_back(stop_x);
+	r->brain_->objs_.push_back(cmd_x);
+
+
+
 }
 
 
-void set_coeff(double* center, double* length, int choices, int repeat, double* coeff) {
-	
+void set_coeff(float* center, float* length, int choices, int repeat, float* coeff)
+{
 	for(int r = 0; r < repeat; r++) {
 		for(int c = 0; c < choices; c++) {
-			coeff[r*choices + c] = center[r] + length[r] * (c * 2.0 / (choices - 1.0) - 1.0);
+			coeff[r*choices + c] = center[r] + length[r] 
+				* (c * 2.0 / (choices - 1.0) - 1.0);
 		}
 	}
 }
 
-void reset_quadrotor(Quadrotor* r, double* C) {
+void			reset_quadrotor(Quadrotor* r, float* C)
+{
 	r->reset();
 
 	/*
@@ -106,8 +128,8 @@ void reset_quadrotor(Quadrotor* r, double* C) {
 	CommandScheme1(r);
 
 }
-
-void sub2(Quadrotor* r, double* C, double& ts, int& N, int a, int& b) {
+void sub2(Quadrotor* r, float* C, float& ts, int& N, int a, int& b)
+{
 	//
 
 	//Quadrotor* r = new Quadrotor(0.01, N);
@@ -118,9 +140,12 @@ void sub2(Quadrotor* r, double* C, double& ts, int& N, int a, int& b) {
 
 	r->run();
 
-	Command::X* move = (Command::X*)(r->brain_->obj_);
-
-	auto stop_x = dynamic_cast<Command::Stop::XSettle*>(move->stop_[0]);
+	Command::X* move = dynamic_cast<Command::X*>(r->brain_->obj_);
+	assert(move);
+	
+	//auto stop_x = dynamic_cast<Command::Stop::XSettle*>(move->stop_[0]);
+	auto stop_x = move->stop_[0];
+	assert(stop_x);
 
 	if(move->flag_ & Command::Base::Flag::COMPLETE) {
 		if(stop_x->stats_.t_ < ts) {
@@ -135,28 +160,44 @@ void sub2(Quadrotor* r, double* C, double& ts, int& N, int a, int& b) {
 		}
 	}
 }
-
-void set_C(double* coeff, int* arr, int choices, int repeat, int a, double* C) {
+void set_C(
+		float* coeff,
+		int* arr,
+		int choices,
+		int repeat,
+		int a,
+		float* C)
+{
 	for(int c = 0; c < repeat; c++) {
 		C[c] = coeff[c*choices + arr[a*repeat + c]];
 	}
 }
-
-int sub1(Quadrotor* r, int* arr, double* coeff, int choices, int repeat) {
-
+void	print(const char * s, float* t, int n)
+{
+	printf("%s", s);
+	for(int i = 0; i < n; ++i) {
+	printf("%16f", t[i]);
+	}
+	printf("\n");
+}
+int sub1(Quadrotor* r, int* arr, float* coeff, int choices, int repeat)
+{
 	int len = pow(choices, repeat);
 
-	double C[repeat];
+	float* C = new float[repeat];
 
 	int N = 10000;
 
 	//Quadrotor* r = new Quadrotor(0.01, N);
 
 	int b = -1;
-	double ts = 1e10;
+	float ts = 1e10;
 
 	// previous winner
 	set_C(coeff, arr, choices, repeat, (len-1)/2, C);
+	
+	print("C = ", C, repeat);
+	
 	sub2(r, C, ts, N, (len-1)/2, b);
 
 	for(int a = 0; a < len; a++) {
@@ -169,14 +210,11 @@ int sub1(Quadrotor* r, int* arr, double* coeff, int choices, int repeat) {
 
 	return b;
 }
-
-
-
-void map() {
+void map()
+{
 	int* arr;
 
-
-	double dt = 0.01;
+	float dt = 0.01;
 	int N = 100000;
 	Quadrotor* r = new Quadrotor(dt, N);
 
@@ -188,13 +226,16 @@ void map() {
 
 	product(choices, repeat, arr);
 
-	//double center[] = {10.0,  3.0,  7.0,  3.0};
-	//double length[] = { 9.9,  2.9,  6.9,  2.9};
+	//float center[] = {10.0,  3.0,  7.0,  3.0};
+	//float length[] = { 9.9,  2.9,  6.9,  2.9};
+	// -6.878380       -2.419344
+	// -14.544241       -3.550302
+	// -14.194829       -3.487132	
 
-	double center[] = {-10.0, -10.0, -00.0};
-	double length[] = {  5.0,   5.0,   0.0};
+	float center[] = {-14.2,  -3.5, -00.0};
+	float length[] = { 10.0,   3.0,   0.0};
 
-	double* coeff = new double[choices * repeat];
+	float* coeff = new float[choices * repeat];
 
 	printf("map start\n");
 
@@ -217,8 +258,8 @@ void map() {
 
 
 		printf("center length\n");
-		print_arr(center, repeat);
-		print_arr(length, repeat);
+		//print_arr(center, repeat);
+		//print_arr(length, repeat);
 
 		//printf("a %i\n",a);
 	}
@@ -226,23 +267,35 @@ void map() {
 
 
 }
-
-
-void normal(int N, double dt) {
-
+void			normal(int N, float dt)
+{
 	Quadrotor* r = new Quadrotor(dt, N);
 
 	Jounce::X* x = dynamic_cast<Jounce::X*>(r->brain_->cl_x_);
 	
-	double poles[] = {
+	/*float poles[] = {
+		-3.0,
+		-3.0,
+		-1.1,
+		-1.1,
+		-0.0
+	};*/
+	float poles[] = {
+		-3.0,
+		-1.1,
+		0
+	};
+	/*
+	float poles[] = {
 		-6.0,
 		-6.0,
 		-4.0,
 		-4.0,
 		-0.0};
-	
-	int i[] = {0,1,2,3,4};
-	x->set_poles(i, poles, 5);
+	*/
+	//int i[] = {0,1,2,3,4};
+	int i[] = {0,0,1,1,2};
+	x->set_poles(i, poles, 3);
 	
 	VQPoles(r);
 	
@@ -250,16 +303,18 @@ void normal(int N, double dt) {
 	
 	/*
 	auto cmd_x = new Command::X(r, new Input::Vec3::Circle(1.0, 4.0));
-	auto stop_x = new Command::Stop::VSettle(cmd_x, math::vec3(0.01,0.01,0.01));
+	auto stop_x = new Command::Stop::VSettle(cmd_x, glm::vec3(0.01,0.01,0.01));
 	cmd_x->stop_.push_back(stop_x);
 	r->brain_->objs_.push_back(cmd_x);
 	*/
 	
-	auto cmd_x = new Command::X(r, new Input::Vec3::Const(math::vec3(1,0,0)));
+	auto cmd_x = new Command::X(r, new Input::Vec3::Const(glm::vec3(1,0,0)));
+	auto stop_x = new Command::Stop::VSettle(cmd_x, glm::vec3(0.01,0.01,0.01));
+	cmd_x->stop_.push_back(stop_x);
 	r->brain_->objs_.push_back(cmd_x);
 	
 	//r->brain_->objs_.push_back(new Command::X(r, constant, ));
-	//r->brain_->objs_.push_back(new Command::Move(math::vec3(1,1,0), math::vec3(0.01,0.01,0.01)));
+	//r->brain_->objs_.push_back(new Command::Move(glm::vec3(1,1,0), glm::vec3(0.01,0.01,0.01)));
 	//r->brain_->objs_.push_back(new Command::X(r, circle));
 	//r->brain_->objs_.push_back(new Command::X(r, sinewave));
 
@@ -267,37 +322,54 @@ void normal(int N, double dt) {
 
 	r->write();
 }
-void srch() {
-	//double c[] = {-10};
-	double p[] = {-10,-10};
-	int i[] = {0,0,0,1,1};
+void srch()
+{
+	//float c[] = {-10};
+	float poles[] = {-3,-1.1,-0};
+	int i[] = {0,0,1,1,2};
 	
-	search s(i,p,2);
+	search s(i,poles,3);
 	
 	s.exec(200);
-
 }
-int main(int argc, const char ** argv) {
-	
-	double dt = 0.01;
-	
-	//int N = atoi(argv[1]);
-	
-	printf("%i\n",(int)sizeof(math::vec3));
+int main(int ac, char ** av)
+{
+	// Declare the supported options.
+	po::options_description desc("Allowed options");
+	desc.add_options()
+		("help", "produce help message")
+		("mode", po::value<std::string>(), "mode")
+		;
 
-	if(argc != 2) {
-		printf("usage: %s <mode>\n",argv[0]);
-		exit(0);
+	po::variables_map vm;
+	po::store(po::parse_command_line(ac, av, desc), vm);
+	po::notify(vm);    
+
+	if (vm.count("help")) {
+		std::cout << desc << "\n";
+		return 1;
+	}
+	
+	std::string mode;
+	if (vm.count("mode")) {
+		mode = vm["mode"].as<std::string>();
+	} else {
+		std::cout << "mode not set" << std::endl;
+		return 1;
 	}
 
-	if(strcmp(argv[1],"n")==0) {
-		normal(5000, dt);
-	} else if(strcmp(argv[1],"m")==0) {
+	// actual program
+
+	float dt = 0.01;
+
+	if(strcmp(mode.c_str(),"normal")==0) {
+		normal(10000, dt);
+	} else if(strcmp(mode.c_str(),"map")==0) {
 		map();
-	} else if(strcmp(argv[1],"s")==0) {
+	} else if(strcmp(mode.c_str(),"search")==0) {
 		srch();
 	} else {
-		printf("invalid mode\n");
+		printf("invalid mode \"%s\"\n", mode.c_str());
 	}
 
 	//b->att_->write();

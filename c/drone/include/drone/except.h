@@ -30,7 +30,8 @@ class InvalidOp: public StopCond {
 			return "invalid operation";
 		}
 };
-class Inf: public StopCond {
+class Inf: public StopCond
+{
 	public:
 		virtual const char * what() const  throw () {
 			return "inf";

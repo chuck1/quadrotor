@@ -1,20 +1,15 @@
-/*
-#include <math/vec3.h>
-#include <math/vec4.h>
-#include <math/quat.h>
-#include <math/mat33.h>
-#include <math/mat44.h>
-*/
-
-
 
 #include <stdio.h>
 
 #include <algorithm>
 
-#include <quadrotor/quadrotor.h>
-#include <quadrotor/telem.h>
-#include <quadrotor/plant.h>
+#include <glm/gtc/quaternion.hpp>
+
+#include <math/math.hpp>
+
+#include <drone/Drone.hpp>
+#include <drone/Telem.hpp>
+#include <drone/Plant.hpp>
 
 Plant::Plant(Quadrotor* quad):
 	quad_(quad)
@@ -35,37 +30,40 @@ Plant::Plant(Quadrotor* quad):
 	f_RB_.alloc(n);
 
 }
-math::vec3 Plant::get_tau_body(int ti) {
-	math::vec3 tau = tau_RB_[ti];
+glm::vec3 Plant::get_tau_body(int ti)
+{
+	glm::vec3 tau = tau_RB_[ti];
 	return tau;
 }
-void Plant::step_rotor_body(int ti) {
-	math::vec4 gamma1 = gamma1_[ti];
-	double gamma0 = gamma0_[ti];
+void Plant::step_rotor_body(int ti)
+{
+	float		gamma0 = gamma0_[ti];
+	glm::vec4	gamma1 = gamma1_[ti];
 
-	//if (gamma.isNan()) throw;
+	if(isnan(gamma0) || isinf(gamma0)) throw 0;
+	if(math::is_nan_or_inf(gamma1)) throw 0;
 	//raise ValueError('gamma nan')
 	
-	math::vec4 gamma = gamma1 + gamma0;
+	glm::vec4 gamma = gamma1 + gamma0;
 
-	double g_max = std::max(
+	float g_max = std::max(
 			std::max(fabs(gamma.x), fabs(gamma.y)),
 			std::max(fabs(gamma.z), fabs(gamma.w)));
 	
-	double g1_max = std::max(
+	float g1_max = std::max(
 			std::max(gamma1.x, gamma1.y),
 			std::max(gamma1.z, gamma1.w));
-	double g1_min = std::min(
+	float g1_min = std::min(
 			std::min(gamma1.x, gamma1.y),
 			std::min(gamma1.z, gamma1.w));
 	
-	double g1_abs_max = std::max(fabs(g1_min), fabs(g1_max));
+	float g1_abs_max = std::max(fabs(g1_min), fabs(g1_max));
 	
 	// in the event that the reference gamma is too high
 	// torque is a priority, followed by thrust
 	if(g_max > quad_->gamma_max_) {
 		if(g1_abs_max < quad_->gamma_max_) { // torque can be satisfied if thrust is reduced
-			double g0;
+			float g0;
 
 			// product as must thrust as allowed
 			if(gamma0 > 0.0) { // g1_max is the limiter
@@ -88,50 +86,52 @@ void Plant::step_rotor_body(int ti) {
 	gamma1_act_[ti] = gamma1;
 
 	
-	math::vec4 temp = quad_->A4_ * gamma1;
+	glm::vec4 temp = quad_->A4_ * gamma1;
 
 	// torque
-	math::vec3 tau(temp.x, temp.y, temp.z);
+	glm::vec3 tau(temp.x, temp.y, temp.z);
 	tau_RB_[ti] = tau;
 	
 	// force
-	double thrust = 4.0 * quad_->k_ * gamma0;
-	math::vec3 T(0.0, 0.0, thrust);
+	float thrust = 4.0 * quad_->k_ * gamma0;
+	glm::vec3 T(0.0, 0.0, thrust);
 
 	f_RB_[ti] = T;
 	
 	//printf("f_RB\n");
 	//f_RB_[ti].print();
-/*
-	if(tau.isNan()) {
+	
+	if(math::is_nan_or_inf(tau)) {
 		printf("A4\n");
-		quad_->A4_.print();
+		//quad_->A4_.print();
 		printf("gamma\n");
-		gamma1.print();
-		throw;
+		//gamma1.print();
+		throw 0;
 	}
-	if(!f_RB_[ti].isSane()) {
+	if(math::is_nan_or_inf(f_RB_[ti])) {
 		printf("gamma0 %f\n", gamma0);
 		printf("f_RB\n");
-		f_RB_[ti].print();
-		throw;
-	}*/
+		//f_RB_[ti].print();
+		throw 0;
+	}
 }
-math::vec3 Plant::get_force_drag_body(int ti) {
-	return math::vec3();
+glm::vec3 Plant::get_force_drag_body(int ti)
+{
+	return glm::vec3();
 }
-math::vec3 Plant::get_force_drag(int ti) {
-	return quad_->telem_->q_[ti].getConjugate().rotate(get_force_drag_body(ti));
+glm::vec3 Plant::get_force_drag(int ti)
+{
+	return glm::conjugate(quad_->telem_->q_[ti]) * get_force_drag_body(ti);
 }
-math::vec3 Plant::get_force(int ti) {
+glm::vec3 Plant::get_force(int ti)
+{
+	glm::vec3 f_B = f_RB_[ti] + get_force_drag_body(ti);
 	
-	math::vec3 f_B = f_RB_[ti] + get_force_drag_body(ti);
-	
-	//if (f_B.isNan()) raise ValueError("f_B nan");
+	if(math::is_nan_or_inf(f_B)) {
+		throw 0;
+	}
 
-	math::vec3 f = quad_->telem_->q_[ti].getConjugate().rotate(f_B);
-	
-	
+	glm::vec3 f = glm::conjugate(quad_->telem_->q_[ti]) * f_B;
 
 	/*
 	   ver = False
@@ -143,18 +143,32 @@ math::vec3 Plant::get_force(int ti) {
 	   */
 	return f;
 }
-void Plant::step(int i) {
-	//double dt = t_[ti] - t_[ti-1];
+void Plant::step(int i)
+{
+	//float dt = t_[ti] - t_[ti-1];
 	
 	step_rotor_body(i);
 	
 	// rotation
-	math::vec3 tau = tau_RB_[i];
+	glm::vec3 & t = tau_RB_[i];
 	
-	quad_->alpha(i) = quad_->Iinv_ * (tau - quad_->omega(i-1).cross(quad_->I_ * quad_->omega(i-1)));
+	// really need to formalize when to use what time step values
+	glm::vec3 & o = quad_->omega(i);
+	//glm::vec3 & o = quad_->omega(i-1);
+
+	glm::mat3 & I = quad_->I_;
 	
+	glm::vec3 a = quad_->Iinv_ * (t - glm::cross(o, I * o));
+
+	quad_->alpha(i) = a;
+
+	printf("plant\n");
+	printf("  torque(i) %16e%16e%16e\n", t.x, t.y, t.z);
+	printf("  omega(i)  %16e%16e%16e\n", o.x, o.y, o.z);
+	printf("  alpha(i)  %16e%16e%16e\n", a.x, a.y, a.z);
+
 	// translation
-	math::vec3 f = get_force(i);
+	glm::vec3 f = get_force(i);
 	
 	quad_->a(i) = quad_->gravity_ + f / quad_->m_;
 }

@@ -1,15 +1,16 @@
+#if 0
 
 
-#include <math/vec3.h>
-#include <math/quat.h>
-#include <math/mat33.h>
+#include <glm/glm.hpp>
+#include <glm/gtc/quaternion.hpp>
 
-#include <quadrotor/attitude.h>
-#include <quadrotor/command.h>
-#include <quadrotor/fda.h>
-#include <quadrotor/quadrotor.h>
-#include <quadrotor/telem.h>
-#include <quadrotor/plant.h>
+#include <drone/attitude.h>
+#include <drone/command.h>
+#include <drone/fda.h>
+#include <drone/quadrotor.h>
+#include <drone/telem.h>
+#include <drone/plant.h>
+
 
 Attitude::Attitude(Quadrotor* quad):
 	mode_(Attitude::Mode::e::VEL),
@@ -19,12 +20,12 @@ Attitude::Attitude(Quadrotor* quad):
 	double C1 = 15.88;
 	double C2 =  5.2;
 	
-	C1_ = math::mat33(
+	C1_ = glm::mat3(
 		C1,0.0,0.0,
 		0.0,C1,0.0,
 		0.0,0.0,C1);
 
-	C2_ = math::mat33(
+	C2_ = glm::mat3(
 		C2,0.0,0.0,
 		0.0,C2,0.0,
 		0.0,0.0,C2);
@@ -55,17 +56,17 @@ Attitude::Attitude(Quadrotor* quad):
 void Attitude::reset() {
 	
 }
-void Attitude::set_q_reference(int ti, math::quat q) {
+void Attitude::set_q_reference(int ti, glm::quat q) {
 	q_ref_[ti] = q;
 }
-void Attitude::set_o_reference(int ti, math::vec3 o) {
+void Attitude::set_o_reference(int ti, glm::vec3 o) {
 	o_ref_[ti] = o;
 }
-void Attitude::set_o_reference(int ti, double x, double y, double z) {
-	o_ref_[ti].x() = x;
-	o_ref_[ti].y() = y;
-	o_ref_[ti].z() = z;
-
+void Attitude::set_o_reference(int ti, double x, double y, double z)
+{
+	o_ref_[ti].x = x;
+	o_ref_[ti].y = y;
+	o_ref_[ti].z = z;
 }
 /*
 void Attitude::set_obj(int ti1, Command::Q* att) {
@@ -76,9 +77,9 @@ void Attitude::set_obj(int ti1, Command::Q* att) {
 void Attitude::step(double dt, int ti, int ti_0) {
 }
 void Attitude::step_torque_rotor_body_att(int ti, int ti_0) {
-
-	math::vec3 od = 
-		C1_ * e1_[ti].getImaginaryPart() + 
+	glm::vec3 v(e1_[ti].x,e1_[ti].y,e1_[ti].z);
+	glm::vec3 od = 
+		C1_ * v + 
 		C2_ * e2_[ti] + 
 		q_ref_dd_[ti];
 	
@@ -110,7 +111,7 @@ void Attitude::step_torque_rotor_body(int ti, int ti_0) {
 			break;
 	}
 }
-void Attitude::step_torque_rotor_body(int ti, math::vec3 od) {
+void Attitude::step_torque_rotor_body(int ti, glm::vec3 od) {
 
 	tau_RB_[ti] = quad_->angular_accel_to_torque(ti, od);
 }
@@ -119,9 +120,9 @@ void Attitude::write(int n) {
 
 	n = (n > 0) ? (n) : (quad_->N_);
 /*
-	math::vec3* e1 = new math::vec3[n];
-	math::vec3* q = new math::vec3[n];
-	math::vec3* q_ref = new math::vec3[n];
+	glm::vec3* e1 = new glm::vec3[n];
+	glm::vec3* q = new glm::vec3[n];
+	glm::vec3* q_ref = new glm::vec3[n];
 
 	for(int ti = 0; ti < n; ti++) {
 		e1[ti] = e1_[ti].getImaginaryPart();
@@ -146,8 +147,8 @@ void Attitude::write_param() {
 	FILE* file = fopen(name,"w");
 
 	if(file != NULL) {
-		C1_.write(file);
-		C2_.write(file);
+		::write(file, C1_);
+		::write(file, C2_);
 
 		printf("write file %s\n",name);
 	}
@@ -159,8 +160,8 @@ void Attitude::read_param() {
 	FILE* file = fopen(name,"r");
 
 	if(file != NULL) {
-		C1_.read(file);
-		C2_.read(file);
+		::read(file, C1_);
+		::read(file, C2_);
 
 		fclose(file);
 
@@ -171,5 +172,5 @@ void Attitude::read_param() {
 	
 }
 
-
+#endif
 

@@ -1,14 +1,16 @@
 
 
-#include <math/mat33.h>
+#include <glm/glm.hpp>
 
-#include <quadrotor/brain.h>
-#include <quadrotor/command.h>
-#include <quadrotor/fda.h>
-#include <quadrotor/quadrotor.h>
-#include <quadrotor/telem.h>
-#include <quadrotor/plant.h>
-#include <quadrotor/position.h>
+#include <drone/brain.h>
+#if 0
+
+#include <drone/command.h>
+#include <drone/fda.h>
+#include <drone/quadrotor.h>
+#include <drone/telem.h>
+#include <drone/plant.h>
+#include <drone/position.h>
 
 Position::Position(Quadrotor* quad):
 	quad_(quad),
@@ -29,23 +31,23 @@ Position::Position(Quadrotor* quad):
 	double C5 =  1.0;
 */
 
-	C1_ = math::mat33(
+	C1_ = glm::mat3(
 			C1,0,0,
 			0,C1,0,
 			0,0,C1);
-	C2_ = math::mat33(
+	C2_ = glm::mat3(
 			C2,0,0,
 			0,C2,0,
 			0,0,C2);
-	C3_ = math::mat33(
+	C3_ = glm::mat3(
 			C3,0,0,
 			0,C3,0,
 			0,0,C3);
-	C4_ = math::mat33(
+	C4_ = glm::mat3(
 			C4,0,0,
 			0,C4,0,
 			0,0,C4);
-	C5_ = math::mat33(
+	C5_ = glm::mat3(
 			C5,0,0,
 			0,C5,0,
 			0,0,C5);
@@ -152,6 +154,6 @@ void Position::write(int ti) {
 
 
 
-
+#endif
 
 

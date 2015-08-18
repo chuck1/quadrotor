@@ -5,7 +5,7 @@ class Quadrotor;
 
 class search {
 	public:
-		search(int*, double*, int);
+		search(int*, float*, int);
 		void		reset();
 		void		step();
 		void		exec(int);
@@ -13,9 +13,9 @@ class search {
 
 		Quadrotor*	r_;
 		int*		i_;
-		double*		v_;
+		float*		v_;
 		int		nv_;
-		double		ts_;
+		float		ts_;
 		int		current_;
 		int		n_;
 		int		count_;

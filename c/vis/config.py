@@ -1,6 +1,6 @@
 import pbs.classes.Executable
 
-e = pbs.classes.Executable.Executable("sim", self)
+e = pbs.classes.Executable.Executable("vis", self)
 
 """
 e.require("galaxy_std")
@@ -19,6 +19,7 @@ e.require("python27")
 """
 
 e.require("boost_program_options")
+e.require("glfw")
 e.require("math")
 e.require("drone")
 

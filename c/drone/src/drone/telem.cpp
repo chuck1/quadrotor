@@ -1,15 +1,15 @@
 
 #include <stdio.h>
 
-#include <math/vec3.h>
-#include <math/vec4.h>
-#include <math/quat.h>
-#include <math/mat33.h>
-#include <math/mat44.h>
+#include <glm/glm.hpp>
+#include <glm/gtc/quaternion.hpp>
 
-#include "drone/telem.h"
-#include "drone/plant.h"
-#include "drone/quadrotor.h"
+#include <math/math.hpp>
+
+#include <drone/util/print.hpp>
+#include <drone/Telem.hpp>
+#include <drone/Plant.hpp>
+#include <drone/Drone.hpp>
 
 
 Telem::Telem(Quadrotor* quad):
@@ -28,44 +28,70 @@ Telem::Telem(Quadrotor* quad):
 	a_.alloc(n);
 	jerk_.alloc(n);
 	s_.alloc(n);
-
 }
+void			Telem::step(int ti, float dt)
+{
+	//float dt = quad_->t_[ti] - quad_->t_[ti-1];
 
-void Telem::step(int ti, double dt) {
-	//double dt = quad_->t_[ti] - quad_->t_[ti-1];
 
 	// rotation
 	omega_[ti] = omega_[ti-1] + alpha_[ti-1] * dt;
 	
-	
-	if(omega_[ti].IsNan()) {
-		
-		printf("o  "); omega_[ti].print();
-		throw;
+
+	printf("telemetry\n");
+	printf("  alpha(i-1)  %16e%16e%16e\n", alpha_[ti-1].x, alpha_[ti-1].y, alpha_[ti-1].z);
+	printf("  omega(i-1)  %16e%16e%16e\n", omega_[ti-1].x, omega_[ti-1].y, omega_[ti-1].z);
+	printf("  omega(i)    %16e%16e%16e\n", omega_[ti].x, omega_[ti].y, omega_[ti].z);
+
+	if(math::is_nan_or_inf(omega_[ti])) {
+		//printf("o  "); omega_[ti].print();
+		throw 0;
 	}
 	
-	double o_magn = omega_[ti].magnitude();
+	float o_magn = glm::length(omega_[ti]);
 	
 	if(o_magn > 1e6) {
 		//throw OmegaHigh(ti);
+		throw 0;
 	}
 
-	math::quat r;
+	// construct a quaternion rotation based on rotational velocity
+	glm::quat r;
 	
 	if (o_magn < 1e-6) {
-		r = math::quat();
+		r = glm::quat();
 	} else {
-		r = math::quat(o_magn * dt, omega_[ti]);
+		float angle = o_magn * dt;
+
+		r = glm::quat(cos(angle/2.f), (float)sin(angle/2.f) * glm::normalize(omega_[ti]));
 	}
 	
-	if(!r.isSane()) {
-		printf("o_ "); omega_[ti].print();
-		printf("o_magn %f\n", o_magn);
-		throw;
+	if(math::is_nan_or_inf(r)) {
+		//printf("o_ "); omega_[ti].print();
+		//printf("o_magn %f\n", o_magn);
+		throw 0;
 	}
 	
-	q_[ti] = r * q_[ti-1];
-	
+	//q_[ti] = q_[ti-1] * r;
+	q_[ti] = glm::normalize(r * q_[ti-1]);
+	//q_[ti] = glm::cross(r, q_[ti-1]);
+
+#if 0
+	if(0){
+	printf("apply omega\n");
+	print(q_[ti-1]);
+	print(q_[ti]);
+	print(r);
+	}
+	if(0) {
+	printf("quat mul 0\n");
+	print(r * q_[ti-1]);
+	print(glm::length(r * q_[ti-1]));
+	print(glm::cross(r, q_[ti-1]));
+	print(glm::dot(r, q_[ti-1]));
+	printf("quat mul 1\n");
+	}
+#endif
 	// translation
 	
 	v_[ti] = v_[ti-1] + a_[ti-1] * dt;
@@ -74,14 +100,15 @@ void Telem::step(int ti, double dt) {
 	jerk_[ti-1] = (a_[ti-1] - a_[ti-2]) / dt;
 	s_[ti-1] = (jerk_[ti-1] - jerk_[ti-2]) / dt;
 }
-void Telem::write(int n) {
+void			Telem::write(int n)
+{
 	FILE* file = fopen("data/telem.txt","w");
 
 	n = (n > 0) ? (n) : (quad_->N_);
 /*
-:math::vec3* e1 = new math::vec3[n];
-	math::vec3* q = new math::vec3[n];
-	math::vec3* q_ref = new math::vec3[n];
+:glm::vec3* e1 = new glm::vec3[n];
+	glm::vec3* q = new glm::vec3[n];
+	glm::vec3* q_ref = new glm::vec3[n];
 
 	for(int ti = 0; ti < n; ti++) {
 		e1[ti] = e1_[ti].getImaginaryPart();
