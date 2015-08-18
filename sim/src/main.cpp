@@ -108,20 +108,9 @@ void			reset_quadrotor(Quadrotor* r, float* C)
 {
 	r->reset();
 
-	/*
-	   r->brain_->pos_->C1_.SetDiagonal(C[4], C[4], C[4]);
-	   r->brain_->pos_->C2_.SetDiagonal(C[0], C[0], C[0]);
-	   r->brain_->pos_->C3_.SetDiagonal(C[1], C[1], C[1]);
-	   r->brain_->pos_->C4_.SetDiagonal(C[2], C[2], C[2]);
-	   r->brain_->pos_->C5_.SetDiagonal(C[3], C[3], C[3]);
-	   */
 	Jounce::X* x = dynamic_cast<Jounce::X*>(r->brain_->cl_x_);
-	//int i[] = {0,1,2,3,4};
 	int i[] = {0,0,1,1,2};
 	x->set_poles(i, C, 3);
-	
-	//r->brain_->att_->C1_.SetDiagonal(C[3], C[3], C[3]);
-	//r->brain_->att_->C2_.SetDiagonal(C[4], C[4], C[4]);
 	
 	CommandScheme1(r);
 
