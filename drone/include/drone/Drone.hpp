@@ -10,8 +10,20 @@ class Brain;
 void product(int choices, int repeat, int*& arr, int level = 0);
 
 
-class Quadrotor {
+class Quadrotor
+{
 	public:
+		enum StopCause
+		{
+			INF = 0,
+			OBJ = 1,
+			TIME_STEP = 2
+		};
+		enum Flag: unsigned long
+		{
+			DEBUG = 1<<0
+		};
+
 		Quadrotor(float dt, int N);
 		void		reset();
 		void		run();
@@ -36,6 +48,8 @@ class Quadrotor {
 		
 		float		t(int i) const { return dt_ * (double)i; }
 	public:
+		unsigned long	_M_flag;	
+		int		_M_stop_cause;	
 		// physical constants
 		float		m_, L_, R_, Asw_, rho_, CD_, A_;
 		float		Kv_, Kt_, Ktau_;
@@ -50,7 +64,6 @@ class Quadrotor {
 		glm::mat4	A4_;
 		glm::mat4	A4inv_;
 
-		
 
 		float		dt_;
 		int		N_;

@@ -38,10 +38,12 @@ void	Jounce::V::step(int i, float h)
 	forward(v_ref_[1], v_ref_[2], h, i);
 	forward(v_ref_[2], v_ref_[3], h, i);
 
+
 	e_[1][i] = v_ref_[0][i] - r_->v(i);
 	e_[2][i] = v_ref_[1][i] - r_->a(i);
 	e_[3][i] = v_ref_[2][i] - r_->jerk(i);
 
+	// integral
 	e_[0][i] = e_[0][i-1] + e_[1][i] * h;
 
 	//c_[1].print();

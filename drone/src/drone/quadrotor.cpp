@@ -11,6 +11,8 @@
 
 
 Quadrotor::Quadrotor(float dt, int N):
+	_M_flag(0),
+	_M_stop_cause(Quadrotor::StopCause::TIME_STEP),
 	dt_(dt),
 	N_(N),
 	ti_stop_(N),
@@ -93,6 +95,8 @@ void			Quadrotor::run()
 	//printf("dt %f\n", dt_);
 
 	//printf("command queue %i\n", (int)brain_->objs_.size());
+	
+	_M_stop_cause = Quadrotor::StopCause::TIME_STEP;
 
 	for(int ti = 1; ti < ti_stop_; ti++) {
 
@@ -107,12 +111,18 @@ void			Quadrotor::run()
 		} catch(EmptyQueue &e) {
 			//printf("empty queue ti\n");
 			ti_f_ = ti;
+
+			_M_stop_cause = Quadrotor::StopCause::OBJ;
+
 			break;
 		} catch(StopCond &e) {
 			//printf("stop cond occured\n");
-			printf("%s\n", e.what());
-			printf("%s\n", typeid(e).name());
+			//printf("%s\n", e.what());
+			//printf("%s\n", typeid(e).name());
 			ti_f_ = ti;
+
+			_M_stop_cause = Quadrotor::StopCause::INF;
+
 			break;
 		}
 		/*		
@@ -216,7 +226,9 @@ void			product(int choices, int repeat, int*& arr, int level)
 }
 bool	Quadrotor::isset_debug() const
 {
-	return false;
+	unsigned long ret = _M_flag & Quadrotor::Flag::DEBUG;
+	//printf("%lu\n", ret);
+	return (ret);
 }
 
 

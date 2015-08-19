@@ -25,9 +25,19 @@ void	Jounce::Base::step(int i, float h)
 
 	thrust_[i] = temp / (1.0 / h / h - o.x * o.x - o.y * o.y);
 
+	// limit thrust
+	float thrust_limit = 1e6;
+	if(thrust_[i] > thrust_limit) {
+		thrust_[i] = thrust_limit;
+	} else if(thrust_[i] < -thrust_limit) {
+		thrust_[i] = -thrust_limit;
+	}
+
 	// estimate first derivative of thrust
 	//float thrust_d = (thrust_[i] - thrust_[i-1]) / h;
 	float thrust_d = (3*thrust_[i] - 4*thrust_[i-1] + thrust_[i-2]) / (2*h);
+
+	
 	
 	DRONE_CHECK4(thrust_[i], tmp, h, o);
 	

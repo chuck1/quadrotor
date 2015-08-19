@@ -18,7 +18,7 @@ void	CL::Thrust::step(int i, float h)
 	
 	auto g = thrust_[i] / (r_->k_ * 4.0);
 
-	DRONE_CHECK3(g, thrust_[i], r_->k_);
+	drone::util::check(r_, __FILE__, __LINE__, g, thrust_[i], r_->k_);
 
 	r_->plant_->gamma0_[i] = g;
 }
@@ -34,7 +34,7 @@ void	CL::Alpha::step(int i, float h)
 	
 	auto g = r_->A4inv_ * temp;
 	
-	DRONE_CHECK3(g, r_->A4inv_, temp);
+	drone::util::check(r_, __FILE__, __LINE__, g, r_->A4inv_, temp);
 
 	r_->plant_->gamma1_[i] = g;
 }

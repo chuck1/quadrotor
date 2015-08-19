@@ -39,14 +39,14 @@ def read(f, N, c):
 
 	return v
 
-def plots(x,Y,xl,yl,L = None,S = None):
+def plots(name, x,Y,xl,yl,L = None,S = None):
 	
 	if L is None:
 		L = ['']
 	if S is None:
 		S = ['b']
 	
-	fig = pl.figure()
+	fig = pl.figure(name)
 	ax = fig.add_subplot(111)
 	
 	leg = []
@@ -62,13 +62,13 @@ def plots(x,Y,xl,yl,L = None,S = None):
 
 	ax.legend(leg)
 
-def plotv(x,Y,xl,yl,L = None,S = None):
+def plotv(name, x,Y,xl,yl,L = None,S = None):
 	
 	if L is None:
 		L = ['']
 		S = ['-']
 	
-	fig = pl.figure()
+	fig = pl.figure(name)
 	ax = fig.add_subplot(111)
 
 	leg = []
@@ -137,39 +137,38 @@ def read_cl_x():
 
         print "data/cl_x.txt", np.shape(e_x)
 
-        return e_x
+        return e_x, x_ref
 
-e_x = read_cl_x()
+e_x, x_ref = read_cl_x()
 
-"""
-with open("data/cl_v.txt","rb") as f:
-	types = (float_type_size)*3
-	N = size(f)/(float_type_size * types)
-	print N,"data/cl_v.txt"
+def read_cl_v():
+    with open("data/cl_v.txt","rb") as f:
 	
 	v_ref = []
 	for i in range(4):
-		v_ref.append(read(f ,N, 3))
+		v_ref.append(read_array(f, 3))
 	e_v = []
 	for i in range(4):
-		e_v.append(read(f ,N, 3))
-"""
+		e_v.append(read_array(f, 3))
+
+        print "data/cl_v.txt", np.shape(e_v)
+
+        return e_v, v_ref
+
+
 
 with open("data/jounce.txt","rb") as f:
-	types = (1)*3
-	N = size(f)/(float_type_size * types)
-	print N,"data/jounce.txt"
-	
-	jounce = read(f, N, 3)
+    jounce = read_array(f, 3)
+    print "data/jounce.txt", np.shape(jounce)
+
 with open("data/thrust.txt","rb") as f:
-	#types = (1)*1
-	#N = size(f)/(float_type_size * types)
-	thrust = read_array(f, 1)
-	print "data/thrust.txt",np.size(thrust)
+    thrust = read_array(f, 1)
+    print "data/thrust.txt",np.shape(thrust)
 
 with open("data/alpha.txt","rb") as f:
-	alpha = read_array(f, 3)
-	print "data/alpha.txt", np.size(alpha)
+    alpha = read_array(f, 3)
+    print "data/alpha.txt", np.shape(alpha)
+
 """
 with open("data/att.txt","rb") as f:
 	types = 3*3 + (2)*4
@@ -223,13 +222,16 @@ with open("data/telem.txt","rb") as f:
 
 t = np.arange(N) * 0.01
 
+try:
+    e_v, v_ref = read_cl_v()
+    plotv('ev1', t, [e_v[1]], 't', 'ev1')
+except:
+    pass
 
-#plotv(t,[e_v[1]],'t','e1')
-
-#plotv(t,[e_x[0]],'t','ex0')
-plotv(t,[e_x[1]],'t','ex1')
-plotv(t,[e_x[2]],'t','ex2')
-plotv(t,[e_x[3]],'t','ex3')
+plotv('ex0',t,[e_x[0]],'t','ex0')
+plotv('ex1',t,[e_x[1]],'t','ex1')
+plotv('ex2',t,[e_x[2]],'t','ex2')
+plotv('ex3',t,[e_x[3]],'t','ex3')
 
 
 #plotv(t,[e2],'t','e2')
@@ -238,18 +240,18 @@ plotv(t,[e_x[3]],'t','ex3')
 
 #plotv(t,[x],'t','x')
 
-#plotv(t,[x_ref[0]],'t','x',)
+plotv('x_ref[0]',t,[x_ref[0]],'t','x_ref0')
 
 #plotv(t,[x_ref_d],'t','x_ref_d')
 
-plotv(t,[a],'t','a')
-plotv(t,[jounce,s], 't', 'jounce',['des','act'],['-','--'])
-plotv(t,[alpha], 't', 'alpha')
-plots(t,[thrust],'t','thrust')
+plotv('accel',t,[a],'t','a')
+plotv('snap',t,[jounce,s], 't', 'jounce',['des','act'],['-','--'])
+plotv('rot accel',t,[alpha], 't', 'alpha')
+plots('thrust',t,[thrust],'t','thrust')
 
-plotv(t,[q],'t','q')
+plotv('q',t,[q],'t','q')
 
-plotv(t,[o],'t','o')
+plotv('o',t,[o],'t','o')
 
 """
 
@@ -282,18 +284,20 @@ plotv(t,[q_ref_dd],'t','q_ref_dd')
 #plotv(t,[pl_f_RB],'t','plant f_RB')
 
 def plotpath():
-	r = np.max(x,0) - np.min(x,0)
-	R = max(r) / 2.0
-	c = (np.max(x,0) + np.min(x,0)) / 2.0
+    # calculate axis
+    r = np.max(x,0) - np.min(x,0)
+    R = max(r) / 2.0
+    c = (np.max(x,0) + np.min(x,0)) / 2.0
 
 
-	fig = pl.figure()
-	ax = fig.add_subplot(111, projection='3d')
-	ax.plot(x[:,0],x[:,1],x[:,2],'o')
+    fig = pl.figure("path")
+    ax = fig.add_subplot(111, projection='3d')
+    ax.plot(x[:,0],x[:,1],x[:,2],'o')
+    ax.plot(x_ref[0][:,0],x_ref[0][:,1],x_ref[0][:,2],'o')
 
-	ax.set_xlim3d([c[0]-R,c[0]+R])
-	ax.set_ylim3d([c[1]-R,c[1]+R])
-	ax.set_zlim3d([c[2]-R,c[2]+R])
+    ax.set_xlim3d([c[0]-R,c[0]+R])
+    ax.set_ylim3d([c[1]-R,c[1]+R])
+    ax.set_zlim3d([c[2]-R,c[2]+R])
 
 plotpath()
 

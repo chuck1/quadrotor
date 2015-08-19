@@ -22,8 +22,6 @@ Brain::Brain(Quadrotor* quad):
 
 	obj_ = NULL;
 
-	
-
 	cl_x_ = new Jounce::X();
 	cl_v_ = new Jounce::V();
 	cl_q_ = new Alpha1::Q();
@@ -179,8 +177,8 @@ void		Brain::step(int i, double h)
 void		Brain::write(int n)
 {
 	cl_x_->write(n);
-	//cl_v_->write(n);
-	//cl_q_->write(n);
+	cl_v_->write(n);
+	cl_q_->write(n);
 }
 
 
