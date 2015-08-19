@@ -28,5 +28,3 @@ void	Command::Base::check(int i)
 
 
 
-
-

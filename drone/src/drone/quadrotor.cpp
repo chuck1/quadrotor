@@ -10,18 +10,22 @@
 #include <drone/Drone.hpp>
 
 
-Quadrotor::Quadrotor(float dt, int N):
+Quadrotor::Quadrotor(/*float dt,*/ int N):
 	_M_flag(0),
 	_M_stop_cause(Quadrotor::StopCause::TIME_STEP),
-	dt_(dt),
+	//dt_(dt),
 	N_(N),
+	_M_i(1),
 	ti_stop_(N),
 	ti_f_(0)
 {
 	//printf("dt %lf\n",dt);
 	
-	t_ = new float[N_];
-	for(int ti = 0; ti < N_; ti++) t_[ti] = dt * (float)ti;
+	//t_ = new float[N_];
+	//for(int ti = 0; ti < N_; ti++) t_[ti] = dt * (float)ti;
+	
+	t_.alloc(N);
+	t_.fill(0);
 
 	// physical constants
 	m_	= 1.0;		// mass (kg)
@@ -89,49 +93,59 @@ void			Quadrotor::reset()
 
 	brain_->reset();
 }
-void			Quadrotor::run()
+void			Quadrotor::step(float dt)
 {
+	// advance time
+	t_[_M_i] = t_[_M_i-1] + dt;
 
+	try {
+		brain_->step(_M_i-1, dt);
+		plant_->step(_M_i-1);
+		telem_->step(_M_i, dt);
+	} catch(EmptyQueue &e) {
+		//printf("empty queue ti\n");
+		ti_f_ = _M_i;
+
+		_M_stop_cause = Quadrotor::StopCause::OBJ;
+
+		throw 0;
+	} catch(StopCond &e) {
+		//printf("stop cond occured\n");
+		//printf("%s\n", e.what());
+		//printf("%s\n", typeid(e).name());
+		ti_f_ = _M_i;
+
+		_M_stop_cause = Quadrotor::StopCause::INF;
+
+		throw 0;
+	}
+	/*		
+	} catch(...) {
+	ti_f_ = ti;
+	printf("unknown error\n");
+	throw 0;
+	break;
+	}*/
+
+	_M_i++;
+}
+void			Quadrotor::run(float dt)
+{
 	//printf("dt %f\n", dt_);
 
 	//printf("command queue %i\n", (int)brain_->objs_.size());
-	
+
 	_M_stop_cause = Quadrotor::StopCause::TIME_STEP;
 
-	for(int ti = 1; ti < ti_stop_; ti++) {
-
-		if ((ti % (N_ / 100)) == 0) {
+	while(_M_i < ti_stop_) {
+		if ((_M_i % (N_ / 100)) == 0) {
 			//printf("%i %f\n",ti,t[ti]);
 		}
-
 		try {
-			brain_->step(ti-1, dt_);
-			plant_->step(ti-1);
-			telem_->step(ti, dt_);
-		} catch(EmptyQueue &e) {
-			//printf("empty queue ti\n");
-			ti_f_ = ti;
-
-			_M_stop_cause = Quadrotor::StopCause::OBJ;
-
-			break;
-		} catch(StopCond &e) {
-			//printf("stop cond occured\n");
-			//printf("%s\n", e.what());
-			//printf("%s\n", typeid(e).name());
-			ti_f_ = ti;
-
-			_M_stop_cause = Quadrotor::StopCause::INF;
-
+			step(dt);
+		} catch(...) {
 			break;
 		}
-		/*		
-		} catch(...) {
-			ti_f_ = ti;
-			printf("unknown error\n");
-			throw 0;
-			break;
-		}*/
 	}
 }
 glm::vec3 Quadrotor::angular_accel_to_torque(int ti, glm::vec3 alpha)
@@ -142,10 +156,10 @@ glm::vec3 Quadrotor::angular_accel_to_torque(int ti, glm::vec3 alpha)
 		glm::cross(o, I_ * o);
 
 	if(isset_debug()) {
-	printf("angular accel to torque\n");
-	printf("  alpha  %16e%16e%16e\n", alpha.x, alpha.y, alpha.z);
-	printf("  omega  %16e%16e%16e\n", o.x, o.y, o.z);
-	printf("  torque %16e%16e%16e\n", torque.x, torque.y, torque.z);
+		printf("angular accel to torque\n");
+		printf("  alpha  %16e%16e%16e\n", alpha.x, alpha.y, alpha.z);
+		printf("  omega  %16e%16e%16e\n", o.x, o.y, o.z);
+		printf("  torque %16e%16e%16e\n", torque.x, torque.y, torque.z);
 	}
 	return torque;
 }
@@ -177,7 +191,7 @@ glm::vec4		Quadrotor::thrust_torque_to_motor_speed(
 void			Quadrotor::write()
 {
 	int n = (ti_f_ > 0) ? ti_f_ : N_;
-	
+
 	brain_->write(n);
 	//brain_->pos_->write(ti_f_);
 	//brain_->att_->write(ti_f_);

@@ -11,7 +11,9 @@ namespace Input {
 	 */
 	namespace Vec3 {
 		class Base;
+		class Const;
 	}
+	class Quat;
 }
 
 namespace Command {

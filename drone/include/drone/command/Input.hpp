@@ -21,7 +21,10 @@ namespace Input {
 			public:
 				Const(glm::vec3 v): v_(v) {}
 				virtual glm::vec3	f(float) { return v_; }
-
+				void		set(glm::vec3 v)
+				{
+					v_=v;
+				}
 				glm::vec3	v_;
 		};
 		class Circle: public Input::Vec3::Base
@@ -67,7 +70,7 @@ namespace Input {
 				float segment_frac = 4*t/T_ - floor(4*t/T_);
 
 
-
+				if(0) {
 				printf("%12s %12s %12s %12s %12s %12s\n",
 						"t","T","index","frac","seg index",
 						"seg frac");
@@ -78,7 +81,7 @@ namespace Input {
 						frac,
 						segment_index,
 						segment_frac);
-
+				}
 
 
 				float x;	

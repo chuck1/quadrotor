@@ -24,7 +24,7 @@ search::search(int* i, float* v, int nv):
 	i_ = new int[5];
 	memcpy(i_, i, 5*sizeof(int));
 
-	r_ = new Quadrotor(0.01, n_);
+	r_ = new Quadrotor(/*0.01,*/ n_);
 	
 	memcpy(v_, v, nv_*sizeof(float));
 }
@@ -97,7 +97,7 @@ bool search::test() {
 	r_->brain_->objs_.push_back(comm_x);
 
 	r_->ti_stop_ = n_;
-	r_->run();
+	r_->run(0.01);
 
 	Command::X* move = (Command::X*)(r_->brain_->obj_);
 

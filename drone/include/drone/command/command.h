@@ -8,14 +8,10 @@
 
 #include <glm/glm.hpp>
 
+#include <drone/util/decl.hpp>
+
 class Quadrotor;
 
-namespace Input {
-	namespace Vec3 {
-		class Base;
-	}
-	class Quat;
-}
 namespace Command {
 	namespace Stop {
 		class Base;
@@ -66,7 +62,7 @@ namespace Command {
 	class X: public Base {
 		public:
 			X(Quadrotor*,  Input::Vec3::Base*);
-
+			Input::Vec3::Const*	get_input_is_const();
 		public:
 			Input::Vec3::Base*	in_;
 	};

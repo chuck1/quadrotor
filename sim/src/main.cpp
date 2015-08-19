@@ -45,15 +45,15 @@ void VQPoles(Quadrotor* r)
 	Alpha1::Q* q = dynamic_cast<Alpha1::Q*>(r->brain_->cl_q_);
 	
 	//float poles_v[] = {-19.0, -19.0, -19.0, -00.0};
-	float poles_v[] = {-00.1, -00.1, -00.1, -00.0};
+	float poles_v[] = {-02.1, -02.1, -01.1, -01.1};
 	
 	int i_v[] = {0,1,2,3};
 	
 	v->set_poles(i_v, poles_v, 4);
 	
 	float poles_q[] = {
-		-02.0,
-		-02.0,
+		-10.0,
+		-05.0,
 		-00.0};
 	
 	int i_q[] = {0,1,2,3};
@@ -69,7 +69,7 @@ void CommandScheme1(Quadrotor* r)
 }
 void CommandScheme2(Quadrotor* r)
 {
-	auto cmd_v = new Command::V(r, new Input::Vec3::Const(glm::vec3(0,0,10)));
+	auto cmd_v = new Command::V(r, new Input::Vec3::Const(glm::vec3(10,0,0)));
 	auto stop_v = new Command::Stop::VSettle(cmd_v, glm::vec3(0.01,0.01,0.01));
 	cmd_v->stop_.push_back(stop_v);
 	
@@ -184,7 +184,7 @@ void sub2(Quadrotor* r, float* C, float& score, int& N, int a, int& b)
 
 	r->ti_stop_ = N;
 
-	r->run();
+	r->run(0.01);
 
 
 
@@ -256,10 +256,9 @@ void map()
 
 	int* arr;
 
-	float dt = 0.01;
 	int N = 100000;
 
-	Quadrotor* r = new Quadrotor(dt, N);
+	Quadrotor* r = new Quadrotor(N);
 	if(vm.count("debug")) {
 		r->_M_flag |= Quadrotor::Flag::DEBUG;
 		printf("debug set %lu\n", r->_M_flag);
@@ -311,24 +310,24 @@ void map()
 }
 void			normal(int N, float dt)
 {
-	Quadrotor* r = new Quadrotor(dt, N);
+	Quadrotor* r = new Quadrotor(N);
 
 	Jounce::X* x = dynamic_cast<Jounce::X*>(r->brain_->cl_x_);
 
 	//float poles[] = {-6.0, -4.0, -0.0};
 	//float poles[] = {-3.0, -1.1, -0.0};
 	//float poles[] = {-22.0,  -9.0,   0};
-	float poles[] = {-6.0,  -2.0,   0};
+	float poles[] = {-14.0,  -6.0,   0};
 	int i[] = {0,0,1,1,2};
 	x->set_poles(i, poles, 3);
 
 	VQPoles(r);
 
-	CommandScheme4(r);
+	CommandScheme2(r);
 
 	//r->brain_->objs_.push_back(new Command::X(r, sinewave));
 
-	r->run();
+	r->run(dt);
 
 	r->write();
 }

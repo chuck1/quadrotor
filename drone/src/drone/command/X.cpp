@@ -32,6 +32,10 @@ Command::X::X(Quadrotor* r, Input::Vec3::Base* in):
 {
 	if (in_ == NULL) throw;
 }
+Input::Vec3::Const*	Command::X::get_input_is_const()
+{
+	return dynamic_cast<Input::Vec3::Const*>(in_);
+}
 
 
 

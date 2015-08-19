@@ -57,11 +57,17 @@ glm::quat diff(glm::quat const & a, glm::quat const & b)
 }
 glm::vec3		get_omega(glm::quat q, float h)
 {
+	q = glm::normalize(q);
+
 	float theta = 2.f * acos(q.w);
 
 	glm::vec3 a = glm::vec3(q.x,q.y,q.z) / (float)sin(theta/2.f);
 
 	printf("get omega\n");
+	printf("h = %f\n", h);
+	printf("theta = %f\n", theta);
+	printf("q =\n");
+	drone::print(q);
 	printf("a =\n");
 	drone::print(a);
 
