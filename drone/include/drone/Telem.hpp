@@ -1,6 +1,7 @@
 #ifndef __TELEM__
 #define __TELEM__
 
+#include <memory>
 #include <stdio.h>
 
 #include <glm/glm.hpp>
@@ -14,7 +15,7 @@ class Telem {
 	public:
 
 	public:
-		Telem(Quadrotor*);
+		Telem(std::shared_ptr<Quadrotor>);
 
 		void		step(int, float);
 

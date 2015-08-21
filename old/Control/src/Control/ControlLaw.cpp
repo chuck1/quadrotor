@@ -56,32 +56,4 @@ void	CL::Thrust::write(int n) {
 	fclose(file);
 }
 
-double coeff(double* r, int n, int i, int k) {
-	// coeff -- coefficiencts to a polynomial with n roots stored in r
-	// i must start at 0
-	// k is the power of x associated with this coeff
-	// c[k] == 1
-	// do not call this function with k==n
-	
-	//int i__ = i;
 
-	double c = 0;
-
-	//printf("%i\n",i);
-
-	for(; i <= k; i++) {
-		//printf("%i %i\n",i,k);
-		if((k+1) < n) {
-			//printf("descend\n");
-			c += r[i] * coeff(r, n, i+1, k+1);
-		} else {
-			//printf("stop\n");
-			c += r[i];
-			//printf("%e %e %i\n",c,r[i],i);
-		}
-	}
-
-	//if(i__==0) printf("%e\n",-c);
-
-	return -c;
-}

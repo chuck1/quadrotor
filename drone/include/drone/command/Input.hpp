@@ -16,6 +16,7 @@ namespace Input {
 		class Base {
 			public:
 				virtual glm::vec3	f(float) = 0;
+				int			_M_countdown_zero_derivative;
 		};
 		class Const: public Input::Vec3::Base {
 			public:

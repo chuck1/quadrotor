@@ -30,5 +30,43 @@ bool	math::is_nan_or_inf(glm::quat const & v)
 	if(isinf(v.w)) return true;
 	return false;
 }
+float			math::coeff(
+		float* roots,
+		int n,
+		int k)
+{
+	return math::coeff2(roots, n, 0, k);
+}
+float			math::coeff2(
+		float* roots,
+		int n,
+		int i,
+		int k)
+{
+	// i must start at 0
+
+	float c = 0;
+
+	//printf("%i\n",i);
+
+	for(; i <= k; i++) {
+		//printf("%i %i\n",i,k);
+		if((k+1) < n) {
+			//printf("descend\n");
+			c += roots[i] * coeff2(roots, n, i+1, k+1);
+		} else {
+			//printf("stop\n");
+			c += roots[i];
+			//printf("%e %e %i\n",c,r[i],i);
+		}
+	}
+
+	return -c;
+}
+
+
+
+
+
 
 

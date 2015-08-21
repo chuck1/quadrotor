@@ -9,7 +9,7 @@ class Quadrotor;
 
 class Plant {
 	public:
-		Plant(Quadrotor* quad);
+		Plant(std::shared_ptr<Quadrotor> quad);
 
 		glm::vec3	get_tau_body(int ti);
 		void		step_rotor_body(int ti);

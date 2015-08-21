@@ -1,17 +1,21 @@
 #ifndef __CONTROL_LAW_JOUNCE__
 #define __CONTROL_LAW_JOUNCE__
 
+#include <string>
+
 #include <drone/fda.h>
 #include <drone/cl/ControlLaw.h>
 
 namespace Jounce {
-	class Base: virtual public CL::Thrust, virtual public CL::Alpha {
+	class Base:
+		virtual public CL::Thrust, virtual public CL::Alpha
+	{
 		public:
 			virtual void	step(int, float) = 0;
 			//virtual bool	Check(int, glm::quat) {}
 			virtual bool	check(int, glm::vec3) = 0;
 			virtual void	alloc(int);
-			virtual void	write(int);
+			virtual void	write(std::string, int);
 		public:
 			Array<glm::vec3>	jounce_;
 	};

@@ -8,15 +8,16 @@
 //, CL::Alpha(r) {}
 void	Jerk::X::step(int i, float h)
 {
+	auto drone = get_drone();
 
 	forward(x_ref_[0], x_ref_[1], h, i);
 	forward(x_ref_[1], x_ref_[2], h, i);
 	forward(x_ref_[2], x_ref_[3], h, i);
 
 
-	CL::X<4>::e_[1][i] = r_->x(i) - x_ref_[0][i];
-	CL::X<4>::e_[2][i] = r_->v(i) - x_ref_[1][i];
-	CL::X<4>::e_[3][i] = r_->a(i) - x_ref_[2][i];
+	CL::X<4>::e_[1][i] = drone->x(i) - x_ref_[0][i];
+	CL::X<4>::e_[2][i] = drone->v(i) - x_ref_[1][i];
+	CL::X<4>::e_[3][i] = drone->a(i) - x_ref_[2][i];
 
 	CL::X<4>::e_[0][i] = CL::X<4>::e_[0][i-1] + CL::X<4>::e_[1][i] * h;
 
@@ -29,7 +30,7 @@ void	Jerk::X::step(int i, float h)
 		CL::X<4>::c_[3] * CL::X<4>::e_[3][i] +
 		x_ref_[3][i];
 	
-	glm::vec3 tmp = r_->q(i) * (jerk_[i] * r_->m_);
+	glm::vec3 tmp = drone->q(i) * (jerk_[i] * drone->m_);
 	
 	thrust_[i] = thrust_[i-1] + tmp.z * h;
 

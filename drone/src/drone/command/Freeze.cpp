@@ -19,7 +19,8 @@ void	Command::Freeze::Start(int i) {
 	glm::vec3& x = r_->x(i);
 	//x.print();
 	
-	auto cmd_x = new Command::X(r_, new Input::Vec3::Const(x));
+	std::shared_ptr<Command::X> cmd_x(new Command::X(r_, new Input::Vec3::Const(x)));
+
 	auto stop_x = new Command::Stop::XSettle(cmd_x, glm::vec3(0.01,0.01,0.01));
 	cmd_x->stop_.push_back(stop_x);
 	

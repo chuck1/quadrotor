@@ -79,16 +79,18 @@ void search::exec(int m) {
 }
 void search::reset()
 {
-	Jounce::X* x = dynamic_cast<Jounce::X*>(r_->brain_->cl_x_);	
+	auto x = std::dynamic_pointer_cast<Jounce::X>(r_->brain_->cl_x_);	
 	
 	x->set_poles(i_, v_, nv_);
 }
-bool search::test() {
+bool search::test()
+{
 	r_->reset();
 
 	reset();
 	
-	auto comm_x = new Command::X(r_, new Input::Vec3::Const(glm::vec3(1,0,0)));
+	std::shared_ptr<Command::X> comm_x(
+			new Command::X(r_, new Input::Vec3::Const(glm::vec3(1,0,0))));
 
 	auto stop_x = new Command::Stop::XSettle(comm_x, glm::vec3(0.01,0.01,0.01));
 	
@@ -99,7 +101,7 @@ bool search::test() {
 	r_->ti_stop_ = n_;
 	r_->run(0.01);
 
-	Command::X* move = (Command::X*)(r_->brain_->obj_);
+	auto move = std::dynamic_pointer_cast<Command::X>(r_->brain_->get_obj());
 
 	if(move->flag_ & Command::Base::Flag::COMPLETE) {
 		if(move->stop_.empty()) {

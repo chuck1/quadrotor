@@ -17,24 +17,26 @@ void	Alpha1::Base::alloc(int n)
 void	Alpha1::Base::write(int n)
 {
 	//printf("%s\n",__PRETTY_FUNCTION__);
-	CL::Alpha::write(n);
+	CL::Alpha::write("", n);
 }
 void	Alpha1::Base::step(int i, float h)
 {
 	CL::Alpha::step(i,h);
 }
-void	Alpha1::Q::step(int i, float h) {
-	
-	Command::Q* q = dynamic_cast<Command::Q*>(command_);
+void	Alpha1::Q::step(int i, float h)
+{
+	auto drone = get_drone();
 
-	if(i == 0) {	
+	auto q = std::dynamic_pointer_cast<Command::Q>(get_command());
+	
+	if(i == 0) {
 		// back fill
-		q_ref_[-1] = q->in_->f(r_->t(-1));
-		q_ref_[-2] = q->in_->f(r_->t(-2));
-		q_ref_[-3] = q->in_->f(r_->t(-3));
+		q_ref_[-1] = q->in_->f(drone->t(-1));
+		q_ref_[-2] = q->in_->f(drone->t(-2));
+		q_ref_[-3] = q->in_->f(drone->t(-3));
 	}
 
-	q_ref_[i] = q->in_->f(r_->t(i));
+	q_ref_[i] = q->in_->f(drone->t(i));
 
 	// reference derivative
 	
@@ -44,15 +46,13 @@ void	Alpha1::Q::step(int i, float h) {
 
 	// error
 	
-	glm::quat temp = q_ref_[i] * glm::conjugate(r_->q(i));
-	
+	glm::quat temp = q_ref_[i] * glm::conjugate(drone->q(i));
 
 	e_[1][i] = glm::vec3(temp.x, temp.y, temp.z);
 
-	e_[2][i] = q_ref__[0][i] - r_->omega(i);
+	e_[2][i] = q_ref__[0][i] - drone->omega(i);
 	
 	e_[0][i] = e_[0][i-1] + e_[1][i] * h;
-
 
 	// control
 

@@ -18,9 +18,9 @@ void draw_shapes()
 	glLoadIdentity();
 
 	gluLookAt(
-			0,10,10,
+			0,-10,10,
 			0,0,0,
-			0,1,0);
+			0,0,1);
 
 	/*glRotatef((float) glfwGetTime() * 50.f, 0.f, 0.f, 1.f);
 	glBegin(GL_TRIANGLES);
@@ -74,6 +74,7 @@ static void key_callback(GLFWwindow* window, int key, int scancode, int action, 
 			auto i = gcmd->get_input_is_const();
 			assert(i);
 			i->set(i->f(0) + glm::vec3(1,0,0));
+			i->_M_countdown_zero_derivative = 1;
 		};
 		break;
 	}
@@ -91,12 +92,13 @@ void		setup()
 	gdrone.reset(new Quadrotor(1000));
 
 	// command
-	gcmd = new Command::X(gdrone.get(), new Input::Vec3::Const(glm::vec3(1,0,0)));
+	std::shared_ptr<Command::X> gcmd(
+			new Command::X(gdrone.get(), new Input::Vec3::Const(glm::vec3(1,0,0))));
 
 	gdrone->brain_->objs_.push_back(gcmd);
 	
 	// control parameters
-	Jounce::X* x = dynamic_cast<Jounce::X*>(gdrone->brain_->cl_x_);
+	auto x = std::dynamic_pointer_cast<Jounce::X>(gdrone->brain_->cl_x_);
 	assert(x);
 
 	float poles[] = {-06.0,  -1.0,   0};
@@ -136,6 +138,8 @@ void		loop()
 		}
 
 	}
+
+	gdrone->write();
 }
 int		main(int ac, char ** av)
 {

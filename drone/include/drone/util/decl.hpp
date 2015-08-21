@@ -3,6 +3,14 @@
 
 class Quadrotor;
 
+namespace drone {
+	namespace hardware {
+		class Motor;
+		class Prop;
+		class MotorProp;
+	}
+}
+
 /** \brief Classes providing reference values to the controller
  *
  */
@@ -24,7 +32,9 @@ namespace Command {
 /** \brief Control equation
  */
 namespace CL {
-	
+
+	class Base;
+
 	/** \brief Abstract classes indicating controller input
 	 */
 	namespace Input {

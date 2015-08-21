@@ -2,6 +2,7 @@
 #define __BRAIN__
 
 #include <deque>
+#include <memory>
 
 #include <glm/glm.hpp>
 
@@ -35,7 +36,7 @@ class Brain {
 		};
 
 	public:
-		Brain(Quadrotor*);
+		Brain(std::shared_ptr<Quadrotor>);
 
 		void		reset();
 		
@@ -44,17 +45,20 @@ class Brain {
 	
 		void		write(int ti);
 
-	public:
-		int		mode_;
+		std::shared_ptr<Command::Base>		get_obj();
 
-		Quadrotor*	quad_;
+		std::shared_ptr<CL::Base>		get_cl();
+	public:
+		int					mode_;
+
+		std::weak_ptr<Quadrotor>		_M_drone;
 
 		// where the magic happends
-		CL::Base*	cl_;
+		//std::shared_ptr<CL::Base>	cl_;
 		
-		CL::Base*	cl_x_;
-		CL::Base*	cl_v_;
-		CL::Base*	cl_q_;
+		std::shared_ptr<CL::Base>		cl_x_;
+		std::shared_ptr<CL::Base>		cl_v_;
+		std::shared_ptr<CL::Base>		cl_q_;
 
 		//Position*	pos_;
 		//Attitude*	att_;
@@ -70,11 +74,9 @@ class Brain {
 		
 		double		heading_;
 
-		std::deque<Command::Base*>	objs_;
-		
-		
+		std::deque< std::shared_ptr<Command::Base> >	objs_;
 
-		Command::Base*	obj_;
+		//std::shared_ptr<Command::Base>			obj_;
 };
 
 

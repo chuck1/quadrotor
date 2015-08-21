@@ -19,17 +19,21 @@ Jounce::V::V(Quadrotor* r): CL::Base(r), CL::V<4>(r), CL::Thrust(r), CL::Alpha(r
 void	Jounce::V::step(int i, float h)
 {
 	//printf("%s\n",__PRETTY_FUNCTION__);
+	
+	auto drone = get_drone();
 
-	Command::V* v = dynamic_cast<Command::V*>(command_);
-
-	if(i == 0) {	
+	//assert(command_);
+	auto v = std::dynamic_pointer_cast<Command::V>(get_command());
+	assert(v);
+	
+	if(i == 0) {
 		// back fill
-		v_ref_[0][-1] = v->in_->f(r_->t(-1));
-		v_ref_[0][-2] = v->in_->f(r_->t(-2));
-		v_ref_[0][-3] = v->in_->f(r_->t(-3));
+		v_ref_[0][-1] = v->in_->f(drone->t(-1));
+		v_ref_[0][-2] = v->in_->f(drone->t(-2));
+		v_ref_[0][-3] = v->in_->f(drone->t(-3));
 	}
 
-	v_ref_[0][i] = v->in_->f(r_->t(i));
+	v_ref_[0][i] = v->in_->f(drone->t(i));
 	//v_ref_[0][i].print();
 
 	// reference derivatives
@@ -39,9 +43,9 @@ void	Jounce::V::step(int i, float h)
 	forward(v_ref_[2], v_ref_[3], h, i);
 
 
-	e_[1][i] = v_ref_[0][i] - r_->v(i);
-	e_[2][i] = v_ref_[1][i] - r_->a(i);
-	e_[3][i] = v_ref_[2][i] - r_->jerk(i);
+	e_[1][i] = v_ref_[0][i] - drone->v(i);
+	e_[2][i] = v_ref_[1][i] - drone->a(i);
+	e_[3][i] = v_ref_[2][i] - drone->jerk(i);
 
 	// integral
 	e_[0][i] = e_[0][i-1] + e_[1][i] * h;
@@ -87,7 +91,7 @@ void	Jounce::V::alloc(int n)
 }
 void	Jounce::V::write(int n)
 {
-	Jounce::Base::write(n);
+	Jounce::Base::write("snap_v", n);
 	CL::V<4>::write(n);
 }
 

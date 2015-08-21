@@ -11,8 +11,8 @@
 #include <drone/Telem.hpp>
 #include <drone/Plant.hpp>
 
-Plant::Plant(Quadrotor* quad):
-	quad_(quad)
+Plant::Plant(std::shared_ptr<Quadrotor> drone):
+	quad_(drone.get())
 {
 	int n = quad_->N_;
 		

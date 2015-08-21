@@ -37,27 +37,39 @@ void	Jounce::X::step(int i, float h)
 	//printf("%s\n",__PRETTY_FUNCTION__);
 	//printf("%f\n",h);
 
-	Command::X* x = dynamic_cast<Command::X*>(command_);
+	auto x = std::dynamic_pointer_cast<Command::X>(get_command());
 	assert(x);
+
+	auto drone = get_drone();
 
 	if(i == 0) {	
 		// back fill
-		x_ref_[0][-1] = x->in_->f(r_->t(-1));
-		x_ref_[0][-2] = x->in_->f(r_->t(-2));
-		x_ref_[0][-3] = x->in_->f(r_->t(-3));
+		x_ref_[0][-1] = x->in_->f(drone->t(-1));
+		x_ref_[0][-2] = x->in_->f(drone->t(-2));
+		x_ref_[0][-3] = x->in_->f(drone->t(-3));
 	}
 
-	x_ref_[0][i] = x->in_->f(r_->t(i));
+	x_ref_[0][i] = x->in_->f(drone->t(i));
 
-	forward(x_ref_[0], x_ref_[1], h, i);
-	forward(x_ref_[1], x_ref_[2], h, i);
-	forward(x_ref_[2], x_ref_[3], h, i);
-	forward(x_ref_[3], x_ref_[4], h, i);
+	// used to manually ignore abrupt changes in x_ref_0
+	if(x->in_->_M_countdown_zero_derivative > 0) {
+		--x->in_->_M_countdown_zero_derivative;
 
-	e_[1][i] = x_ref_[0][i] - r_->x(i);
-	e_[2][i] = x_ref_[1][i] - r_->v(i);
-	e_[3][i] = x_ref_[2][i] - r_->a(i-1);
-	e_[4][i] = x_ref_[3][i] - r_->jerk(i-1);
+		x_ref_[1][i] = glm::vec3(0);
+		x_ref_[2][i] = glm::vec3(0);
+		x_ref_[3][i] = glm::vec3(0);
+		x_ref_[4][i] = glm::vec3(0);
+	} else {
+		forward(x_ref_[0], x_ref_[1], h, i);
+		forward(x_ref_[1], x_ref_[2], h, i);
+		forward(x_ref_[2], x_ref_[3], h, i);
+		forward(x_ref_[3], x_ref_[4], h, i);
+	}
+
+	e_[1][i] = x_ref_[0][i] - drone->x(i);
+	e_[2][i] = x_ref_[1][i] - drone->v(i);
+	e_[3][i] = x_ref_[2][i] - drone->a(i-1);
+	e_[4][i] = x_ref_[3][i] - drone->jerk(i-1);
 
 	//printf("e1\n");
 	//print(e_[1][i]);
@@ -95,7 +107,7 @@ void	Jounce::X::alloc(int n)
 	CL::X<5>::alloc(n);
 }
 void	Jounce::X::write(int n) {
-	Jounce::Base::write(n);
+	Jounce::Base::write("snap_x",n);
 	CL::X<5>::write(n);
 }
 

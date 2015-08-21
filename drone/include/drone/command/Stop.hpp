@@ -1,12 +1,14 @@
 #ifndef __COMMAND_STOP__
 #define __COMMAND_STOP__
 
+#include <memory>
+
 #include <math/Plane.hpp>
 
 namespace Command { namespace Stop {
 		class Base {
 			public:
-				Base(Command::Base* cmd): cmd_(cmd) {}
+				Base(std::weak_ptr<Command::Base> cmd): cmd_(cmd) {}
 
 				virtual void		check(int) = 0;
 
@@ -16,11 +18,11 @@ namespace Command { namespace Stop {
 					int		i_;
 				};
 				Stats		stats_;
-				Command::Base*	cmd_;
+				std::weak_ptr<Command::Base>	cmd_;
 		};
 		class XSettle: public Command::Stop::Base {
 			public:
-				XSettle(Command::Base* cmd, glm::vec3 e):
+				XSettle(std::weak_ptr<Command::Base> cmd, glm::vec3 e):
 					Command::Stop::Base(cmd), e_(e) {}
 
 				glm::vec3	e_;
@@ -29,7 +31,7 @@ namespace Command { namespace Stop {
 		};
 		class VSettle: public Command::Stop::Base {
 			public:
-				VSettle(Command::Base* cmd, glm::vec3 e):
+				VSettle(std::weak_ptr<Command::Base> cmd, glm::vec3 e):
 					Command::Stop::Base(cmd), e_(e) {}
 
 				glm::vec3	e_;
@@ -37,7 +39,7 @@ namespace Command { namespace Stop {
 		};
 		class QSettle: public Command::Stop::Base {
 			public:
-				QSettle(Command::Base* cmd, float e):
+				QSettle(std::weak_ptr<Command::Base> cmd, float e):
 					Command::Stop::Base(cmd), e_(e) {}
 
 				float		e_;
@@ -47,7 +49,7 @@ namespace Command { namespace Stop {
 		class XCross: public Command::Stop::Base
 		{
 			public:
-				XCross(Command::Base* cmd, math::Plane p):
+				XCross(std::weak_ptr<Command::Base> cmd, math::Plane p):
 					Command::Stop::Base(cmd), p_(p), d_(0) {}
 
 				math::Plane	p_;
@@ -58,7 +60,7 @@ namespace Command { namespace Stop {
 		class VCross: public Command::Stop::Base
 		{
 			public:
-				VCross(Command::Base* cmd, math::Plane p):
+				VCross(std::weak_ptr<Command::Base> cmd, math::Plane p):
 					Command::Stop::Base(cmd), p_(p), d_(0) {}
 
 				math::Plane	p_;
@@ -68,7 +70,7 @@ namespace Command { namespace Stop {
 		};
 		class Time: public Command::Stop::Base {
 			public:
-				Time(Command::Base* cmd, float t): Command::Stop::Base(cmd), t_(t) {}
+				Time(std::weak_ptr<Command::Base> cmd, float t): Command::Stop::Base(cmd), t_(t) {}
 
 				float		t_;
 

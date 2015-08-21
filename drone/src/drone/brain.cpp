@@ -11,24 +11,24 @@
 
 #include <drone/Brain.hpp>
 
-Brain::Brain(Quadrotor* quad):
+Brain::Brain(std::shared_ptr<Quadrotor> drone):
 	mode_(Brain::Mode::e::JOUNCE),
-	quad_(quad)
+	_M_drone(drone)
 {
 	//pos_ = new Position(quad);
 	//att_ = new Attitude(quad);
 
 	heading_ = 0.0;//M_PI * 0.5;
 
-	obj_ = NULL;
+	//obj_ = NULL;
 
-	cl_x_ = new Jounce::X();
-	cl_v_ = new Jounce::V();
-	cl_q_ = new Alpha1::Q();
+	cl_x_.reset(new Jounce::X());
+	cl_v_.reset(new Jounce::V());
+	cl_q_.reset(new Alpha1::Q());
 
-	cl_x_->r_ = quad_;
-	cl_v_->r_ = quad_;
-	cl_q_->r_ = quad_;
+	cl_x_->_M_drone = _M_drone;
+	cl_v_->_M_drone = _M_drone;
+	cl_q_->_M_drone = _M_drone;
 	
 	cl_x_->init();
 	cl_v_->init();
@@ -36,7 +36,7 @@ Brain::Brain(Quadrotor* quad):
 }
 void Brain::reset() {
 	objs_.clear();
-	obj_ = NULL;
+	//obj_ = NULL;
 
 	//pos_->reset();
 	//att_->reset();
@@ -114,30 +114,65 @@ void Brain::reset() {
 
 }
 */
+std::shared_ptr<Command::Base>	Brain::get_obj()
+{
+	if(objs_.empty()) {
+		//printf("i=%i empty queue\n",i);
+		throw EmptyQueue();
+	}
+	return objs_.front();
+}
+std::shared_ptr<CL::Base>	Brain::get_cl()
+{
+	auto o = get_obj();
+
+	switch(o->type_) {
+		case Command::Base::Type::X:
+			return cl_x_;
+			break;
+		case Command::Base::Type::V:
+			return cl_v_;
+			break;
+		case Command::Base::Type::Q:
+			return cl_q_;
+			break;
+		default:
+			assert(0);
+			break;
+	}
+	
+	return std::shared_ptr<CL::Base>();
+}
 void	Brain::CheckCommand(int i)
 {
 	bool pop = false;
 
-	if (obj_ == NULL) {
+	auto o = get_obj();
+
+	//if (obj_ == NULL) {
+	//	pop = true;
+	//} else {
+	if(o->flag_ & Command::Base::Flag::COMPLETE) {
+		//printf("i=%i obj is complete\n",i);
 		pop = true;
-	} else {
-		if(obj_->flag_ & Command::Base::Flag::COMPLETE) {
-			//printf("i=%i obj is complete\n",i);
-			pop = true;
-		}
 	}
-		
+	//}
+
 	if(pop) {
 		if(objs_.empty()) {
 			//printf("i=%i empty queue\n",i);
 			throw EmptyQueue();
 		}
 
-		//print 'new move'
-		obj_ = objs_.front();
+		//obj_ = objs_.front();
+		printf("pop command\n");
+
 		objs_.pop_front();
 
-		switch(obj_->type_) {
+		o = get_obj();
+
+		/*
+		switch(o->type_) {
 			case Command::Base::Type::X:
 				cl_ = cl_x_;
 				break;
@@ -151,13 +186,15 @@ void	Brain::CheckCommand(int i)
 				cl_ = NULL;
 				break;
 		}
-		
-		obj_->start(i);
-		
-		if(cl_ != NULL) {
-			cl_->command_ = obj_;
-			cl_->init();
-		}
+		*/
+
+		o->start(i);
+
+		//if(cl_ != NULL) {
+		auto cl = get_cl();
+		//cl->command_ = o;
+		cl->init();
+		//}
 	}
 }
 void		Brain::step(int i, double h)
@@ -165,13 +202,17 @@ void		Brain::step(int i, double h)
 	//printf("%s\n",__PRETTY_FUNCTION__);
 
 	CheckCommand(i);
-	
-	if(cl_ != NULL) {
-		cl_->step(i, h);
-	}
-	
-	obj_->check(i);
-	
+
+	//if(cl_ != NULL) {
+	auto cl = get_cl();
+
+	//printf("%p\n", cl.get());
+
+	cl->step(i, h);
+	//}
+
+	get_obj()->check(i);
+
 	//cl_->Check(i);
 }
 void		Brain::write(int n)

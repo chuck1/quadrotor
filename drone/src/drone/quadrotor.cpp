@@ -1,3 +1,4 @@
+#include <cmath>
 #include <typeinfo>
 
 #include <glm/gtc/quaternion.hpp>
@@ -8,7 +9,8 @@
 #include <drone/Telem.hpp>
 #include <drone/Plant.hpp>
 #include <drone/Drone.hpp>
-
+#include <drone/command/command.h>
+#include <drone/command/Stop.hpp>
 
 Quadrotor::Quadrotor(/*float dt,*/ int N):
 	_M_flag(0),
@@ -37,7 +39,7 @@ Quadrotor::Quadrotor(/*float dt,*/ int N):
 	CD_ 	= 1.0;	// dimensionless const
 	A_	= 0.05 * 0.01;	// prop cross-sectional area (m2)
 
-
+	// where do these come from???
 	Kv_	= 1450;	// back EMF (RPM / V)
 	Kv_ = 1.0 / Kv_ * 0.1047;
 
@@ -51,8 +53,10 @@ Quadrotor::Quadrotor(/*float dt,*/ int N):
 	Iinv_ = glm::inverse(I_);
 	
 	P_max_		= 340.0;
-	//gamma_max_	= pow(P_max_ * sqrt(2.0 * rho_ * Asw_) / pow(k_, 3.0/2.0), 2.0/3.0);
-	gamma_max_ = 1e10;
+
+	// where does this come from???
+	gamma_max_	= pow(P_max_ * sqrt(2.0 * rho_ * Asw_) / pow(k_, 3.0/2.0), 2.0/3.0);
+	//gamma_max_ = 1e10;
 	
 
 	//printf("gamma max %e\n", gamma_max_);
@@ -74,10 +78,17 @@ Quadrotor::Quadrotor(/*float dt,*/ int N):
 	A4inv_ = glm::inverse(A4_);
 
 	gravity_ = glm::vec3(0,0,-9.81);
-
-	telem_ = new Telem(this);
-	plant_ = new Plant(this);
-	brain_ = new Brain(this);
+}
+std::shared_ptr<Command::Base>		Quadrotor::get_command()
+{
+	assert(brain_);
+	return brain_->get_obj();
+}
+void			Quadrotor::init()
+{
+	telem_ = new Telem(shared_from_this());
+	plant_ = new Plant(shared_from_this());
+	brain_ = new Brain(shared_from_this());
 }
 glm::vec3&		Quadrotor::x(int i) { return telem_->x_[i]; }
 glm::vec3&		Quadrotor::v(int i) { return telem_->v_[i]; }
@@ -163,19 +174,41 @@ glm::vec3 Quadrotor::angular_accel_to_torque(int ti, glm::vec3 alpha)
 	}
 	return torque;
 }
+int	index_abs_max(glm::vec4 const & x)
+{
+	auto y = glm::abs(x);
+
+	int i = 0;
+	int v = y[0];
+
+	for(int j = 1; j < 4; ++j) {
+		if(y[j] > v) {
+			i = j;
+			v = y[j];
+		}
+	}
+
+	return i;
+}
+float		sign(float f)
+{
+	if(f >= 0) return 1;
+	return -1;
+}
 glm::vec4		Quadrotor::thrust_torque_to_motor_speed(
 		int i,
 		float const & thrust,
 		glm::vec3 const & torque)
 {
+	// thrust
+	float g0 = thrust / (k_ * 4.0);
 
+	// torque
 	glm::vec4 temp(0,torque);
 
-	plant_->gamma1_[i] = A4inv_ * temp;
+	auto g1 = A4inv_ * temp;
 
-	// thrust
-	plant_->gamma0_[i] = thrust / (k_ * 4.0);
-
+	// check
 	if(glm::any(glm::isnan(plant_->gamma1_[i])) || glm::any(glm::isinf(plant_->gamma1_[i]))) {
 		printf("gamma1\n");
 		//::print(plant_->gamma1_[i]);
@@ -186,7 +219,46 @@ glm::vec4		Quadrotor::thrust_torque_to_motor_speed(
 		throw;
 	}
 
-	return (plant_->gamma1_[i] + plant_->gamma0_[i]);
+	// TODO figure out how to scale intermediate variable (snap) instead
+
+	auto g = g0 + g1;
+
+	// scale
+	
+	auto g_abs = glm::abs(g);
+
+	// if g0 exceeds gamma max
+	if(abs(g0) > gamma_max_) {
+		// eliminate torque
+		g1 = glm::vec4(0);
+		// scale thrust
+		g0 = sign(g0) * gamma_max_;
+	} else {
+
+		int i = index_abs_max(g);
+
+		float x = g[i];
+
+		if(abs(x) > gamma_max_) {
+
+			float xs = sign(x) * gamma_max_ - g0;
+
+			float scale = xs / x;
+
+			assert(scale>0);
+
+			g1 = g1 * scale;
+		}
+	}
+
+	// after scaling
+	g = g0 + g1;
+
+	plant_->gamma0_[i] = g0;
+
+	plant_->gamma1_[i] = g1;
+
+	return g;
 }	
 void			Quadrotor::write()
 {
@@ -244,5 +316,68 @@ bool	Quadrotor::isset_debug() const
 	//printf("%lu\n", ret);
 	return (ret);
 }
+float	Quadrotor::get_score(
+		std::shared_ptr<Command::Base> cmd,
+		std::function<float(Quadrotor*)> metric,
+		float score,
+		int & N)
+{
+	printf("brain_->objs_.length() = %lu\n", brain_->objs_.size());
+
+	assert(cmd);
+	
+	//assert(brain_->obj_);
+	auto move = std::dynamic_pointer_cast<Command::X>(cmd);
+	assert(move);
+	
+	//auto stop_x = dynamic_cast<Command::Stop::XSettle*>(move->stop_[0]);
+	
+	//printf("stop cause %i\n", drone->_M_stop_cause);
+	
+	float temp_score;
+	
+	if(!move->stop_.empty()) {
+		// a stop object exists
+		auto stop_x = move->stop_[0];
+		assert(stop_x);
+		
+		if(move->flag_ & Command::Base::Flag::COMPLETE) {
+			// objective complete
+			
+			temp_score = stop_x->stats_.t_;
+
+			if(temp_score < score) {
+				// new maximum simulation steps
+				N = stop_x->stats_.i_;
+			}
+
+			return temp_score;
+		}
+	}
+
+	if(_M_stop_cause == Quadrotor::StopCause::TIME_STEP) {
+		float m = metric(this);
+		printf("r->t(%i) = %f\n", N, t(N));
+		printf("metric   = %f\n", m);
+		return t(N) + m;
+	}
+
+	if (_M_stop_cause == Quadrotor::StopCause::INF) {
+		return score + 1;
+	}
+
+	assert(0);
+	return 0;
+}
+std::shared_ptr<CL::Base>	Quadrotor::get_cl()
+{
+	assert(brain_);
+
+	return brain_->get_cl();
+}
+
+
+
+
 
 

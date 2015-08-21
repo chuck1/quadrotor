@@ -1,8 +1,11 @@
 #ifndef __QUADROTOR__
 #define __QUADROTOR__
 
+#include <memory>
+
 #include <glm/glm.hpp>
 
+#include <drone/util/decl.hpp>
 #include <drone/array.h>
 
 class Telem;
@@ -12,7 +15,8 @@ class Brain;
 void product(int choices, int repeat, int*& arr, int level = 0);
 
 
-class Quadrotor
+class Quadrotor:
+	public std::enable_shared_from_this<Quadrotor>
 {
 	public:
 		enum StopCause
@@ -28,6 +32,7 @@ class Quadrotor
 
 		Quadrotor(/*float dt,*/ int N);
 		void			reset();
+		void			init();
 		void			run(float dt);
 		void			step(float dt);
 		bool			isset_debug() const;
@@ -53,9 +58,20 @@ class Quadrotor
 			//return dt_ * (float)i;
 			return t_[i];
 		}
+
+		float			get_score(
+				std::shared_ptr<Command::Base> cmd,
+				std::function<float(Quadrotor*)> metric,
+				float score,
+				int & N);
+
+		std::shared_ptr<CL::Base>		get_cl();
+		std::shared_ptr<Command::Base>		get_command();
 	public:
 		unsigned long		_M_flag;	
 		int			_M_stop_cause;	
+		// hardware
+		std::shared_ptr<drone::hardware::MotorProp>	_M_motorprop;
 		// physical constants
 		float			m_, L_, R_, Asw_, rho_, CD_, A_;
 		float			Kv_, Kt_, Ktau_;
@@ -86,7 +102,6 @@ class Quadrotor
 		Telem*		telem_;
 		Plant*		plant_;
 		Brain*		brain_;
-
 };
 
 

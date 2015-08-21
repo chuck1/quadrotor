@@ -155,32 +155,26 @@ def read_cl_v():
 
         return e_v, v_ref
 
+def read_file(filename, n):
+    with open(filename,"rb") as f:
+        y = read_array(f, n)
+        print filename, np.shape(y)
+        return y
 
+snap_x = read_file("data/snap_x.txt", 3)
+thrust_x = read_file("data/thrust_x.txt", 1)
+alpha_x  = read_file("data/alpha_x.txt", 3)
 
-with open("data/jounce.txt","rb") as f:
-    jounce = read_array(f, 3)
-    print "data/jounce.txt", np.shape(jounce)
-
-with open("data/thrust.txt","rb") as f:
-    thrust = read_array(f, 1)
-    print "data/thrust.txt",np.shape(thrust)
-
-with open("data/alpha.txt","rb") as f:
-    alpha = read_array(f, 3)
-    print "data/alpha.txt", np.shape(alpha)
 
 """
 with open("data/att.txt","rb") as f:
 	types = 3*3 + (2)*4
 	N = size(f)/(float_type_size * types)
 	print N
-	
 	att_e3		= read(f ,N, 4)
-	
 	q_ref		= read(f ,N, 4)
 	q_ref_d		= read(f ,N, 3)
 	q_ref_dd	= read(f ,N, 3)
-	
 	tau_RB		= read(f ,N, 3)
 """
 with open("data/plant.txt","rb") as f:
@@ -241,13 +235,16 @@ plotv('ex3',t,[e_x[3]],'t','ex3')
 #plotv(t,[x],'t','x')
 
 plotv('x_ref[0]',t,[x_ref[0]],'t','x_ref0')
+plotv('x_ref[1]',t,[x_ref[1]],'t','x_ref0')
+plotv('x_ref[2]',t,[x_ref[2]],'t','x_ref0')
+plotv('x_ref[3]',t,[x_ref[3]],'t','x_ref0')
 
 #plotv(t,[x_ref_d],'t','x_ref_d')
 
-plotv('accel',t,[a],'t','a')
-plotv('snap',t,[jounce,s], 't', 'jounce',['des','act'],['-','--'])
-plotv('rot accel',t,[alpha], 't', 'alpha')
-plots('thrust',t,[thrust],'t','thrust')
+plotv('accel',      t,[a],          't','a')
+plotv('snap_x',     t,[snap_x,s],   't','snap_x',['des','act'],['-','--'])
+plotv('alpha_x',    t,[alpha_x],    't','alpha_x')
+plots('thrust_x',   t,[thrust_x],   't','thrust_x')
 
 plotv('q',t,[q],'t','q')
 

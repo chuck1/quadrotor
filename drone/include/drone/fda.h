@@ -18,7 +18,12 @@ glm::quat diff(glm::quat const & a, glm::quat const & b);
 
 // a low pass filter???
 template<typename T>
-void		low_pass(Array<T> x, Array<T> y, int ti, double dt, double tc)
+void			low_pass(
+		Array<T> & x,
+		Array<T> & y,
+		int ti,
+		double dt,
+		double tc)
 {
 	if(ti > 3) {
 		//v[ti] = v[ti-2] * 0.25 + v[ti-1] * 0.5 + v[ti] * 0.25;
@@ -29,9 +34,17 @@ void		low_pass(Array<T> x, Array<T> y, int ti, double dt, double tc)
 	}
 }
 
-
+/**
+ * use forward differencing to calculate the derivative
+ * of v at time step i
+ * h = t(i) - t(i-1)
+ */
 template<typename T>
-void	forward(Array<T> v, Array<T> vd, float h, int i)
+void			forward(
+		Array<T> & v,
+		Array<T> & vd,
+		float h,
+		int i)
 {
 	// instead of checking to see if previous steps are
 	// available, time series data will be back-filled on initialization

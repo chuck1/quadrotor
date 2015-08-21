@@ -1,6 +1,7 @@
 
 #include <drone/util/check.hpp>
 #include <drone/Plant.hpp>
+#include <drone/Brain.hpp>
 #include <drone/Drone.hpp>
 #include <drone/cl/ControlLaw.h>
 
@@ -9,43 +10,60 @@ CL::Base::Base()
 }
 void	CL::Base::init()
 {
-	assert(r_);
-	alloc(r_->N_);
+	alloc(get_drone()->N_);
+}
+std::shared_ptr<Quadrotor>	CL::Base::get_drone()
+{
+	auto drone = _M_drone.lock();
+	assert(drone);
+	return drone;
+}
+std::shared_ptr<Command::Base>	CL::Base::get_command()
+{
+	auto b = get_drone()->brain_;
+	assert(b);
+
+	return b->get_obj();
 }
 void	CL::Thrust::step(int i, float h)
 {
 	//printf("%s\n",__PRETTY_FUNCTION__);
-	
-	auto g = thrust_[i] / (r_->k_ * 4.0);
 
-	drone::util::check(r_, __FILE__, __LINE__, g, thrust_[i], r_->k_);
+	auto drone = get_drone();
 
-	r_->plant_->gamma0_[i] = g;
+	auto g = thrust_[i] / (drone->k_ * 4.0);
+
+	drone::util::check(drone.get(), __FILE__, __LINE__, g, thrust_[i], drone->k_);
+
+	drone->plant_->gamma0_[i] = g;
 }
 void	CL::Alpha::step(int i, float h)
 {
 	//printf("%s\n",__PRETTY_FUNCTION__);
 
-	glm::vec3 torque = r_->angular_accel_to_torque(i, alpha_[i]);
+	auto drone = get_drone();
+
+	glm::vec3 torque = drone->angular_accel_to_torque(i, alpha_[i]);
 	
 	// TODO
 	//glm::vec4 temp(0,torque);
 	glm::vec4 temp(torque,0);
 	
-	auto g = r_->A4inv_ * temp;
+	auto g = drone->A4inv_ * temp;
 	
-	drone::util::check(r_, __FILE__, __LINE__, g, r_->A4inv_, temp);
+	drone::util::check(drone.get(), __FILE__, __LINE__, g, drone->A4inv_, temp);
 
-	r_->plant_->gamma1_[i] = g;
+	drone->plant_->gamma1_[i] = g;
 }
 void	CL::Alpha::alloc(int n)
 {
 	//printf("%s\n",__PRETTY_FUNCTION__);
 	alpha_.alloc(n);
 }
-void	CL::Alpha::write(int n)
+void	CL::Alpha::write(std::string s, int n)
 {
-	FILE* file = fopen("data/alpha.txt","w");
+	std::string f = "data/"+s+".txt";
+	FILE* file = fopen(f.c_str(),"w");
 	alpha_.write(file,n);
 	fclose(file);
 }
@@ -53,13 +71,16 @@ void	CL::Thrust::alloc(int n)
 {
 	thrust_.alloc(n);
 
-	float t = r_->m_ * -r_->gravity_.z;
+	auto drone = get_drone();
+
+	float t = drone->m_ * -drone->gravity_.z;
 	thrust_[-1] = t;
 	thrust_[-2] = t;
 }
-void	CL::Thrust::write(int n)
+void	CL::Thrust::write(std::string s, int n)
 {
-	FILE* file = fopen("data/thrust.txt","w");
+	std::string f = "data/"+s+".txt";
+	FILE* file = fopen(f.c_str(),"w");
 	thrust_.write(file,n);
 	fclose(file);
 }

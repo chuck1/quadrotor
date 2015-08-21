@@ -1,17 +1,17 @@
 #ifndef __CONTROL_LAW__
 #define __CONTROL_LAW__
 
+#include <string>
+
 #include <glm/glm.hpp>
+
+#include <math/math.hpp>
 
 #include <drone/util/decl.hpp>
 #include <drone/command/Input.hpp>
 #include <drone/Drone.hpp>
 #include <drone/array.h>
 #include <drone/command/command.h>
-
-float coeff(float* r, int n, int i, int k);
-/*
-*/
 
 namespace CL {
 	class Base
@@ -26,86 +26,96 @@ namespace CL {
 			virtual bool	check(int, glm::vec3) = 0;
 			virtual void	alloc(int) = 0;
 			virtual void	write(int) = 0;
+			
+			std::shared_ptr<Quadrotor>	get_drone();
+			std::shared_ptr<Command::Base>	get_command();
 		public:
-			Quadrotor*	r_;
-
-			Command::Base*	command_;
+			std::weak_ptr<Quadrotor>	_M_drone;
 	};
-	template <int N> class Terms {
-		public:
-			virtual	~Terms() {}
-			void		set_poles(int* i, float* p, int n)
-			{
-				for(int j = 0; j < N; ++j) {
-					p_[j] = p[i[j]];
-				}
-				
-				set_coeff();
+	template <int N>
+	class Terms
+	{
+	public:
+		virtual	~Terms() {}
+		void			set_poles(int* i, float* p, int n)
+		{
+			for(int j = 0; j < N; ++j) {
+				p_[j] = p[i[j]];
 			}
-			void	set_coeff() {
+			
+			set_coeff();
+		}
+		void			set_coeff()
+		{
+			float c[N];
+			for(int i = 0; i < N; ++i) {
+				c[i] = math::coeff(p_, N, i);
+
+				c_[i][0][0] = c[i];
+				c_[i][1][1] = c[i];
+				c_[i][2][2] = c[i];
 				
-				float c[N];
-				
+				//printf("c[%i] = %lf\n",i,c[i]);
+			}
+			//printf("poles % e % e % e % e % e\n",p[0],p[1],p[2],p[3],p[4]);
+			//printf("coeff % e % e % e % e % e\n",C1,C2,C3,C4,C5);
+		}
+		void			write(int n, FILE* file)
+		{
+			for(int i = 0; i < N; ++i) {
+				e_[i].write(file,n);
+			}
+		}
+		void		write_param()
+		{
+			const char * name = "param/terms.txt";
+			FILE* file = fopen(name,"w");
+			if(file != NULL) {
 				for(int i = 0; i < N; ++i) {
-					c[i] = coeff(p_, N, 0, i);
-					
-					c_[i][0][0] = c[i];
-					c_[i][1][1] = c[i];
-					c_[i][2][2] = c[i];
-					//.SetDiagonal(c[i], c[i], c[i]);
-					
-					//printf("c[%i] = %lf\n",i,c[i]);
+					c_[i].write(file);
 				}
-				
-				
+				fwrite(p_, sizeof(float), N, file);
 
-				//	printf("poles % e % e % e % e % e\n",p[0],p[1],p[2],p[3],p[4]);
-				//	printf("coeff % e % e % e % e % e\n",C1,C2,C3,C4,C5);
+				printf("write file %s\n",name);
+
+				fclose(file);
 			}
-			void	write(int n, FILE* file) {
+		}
+		void	read_param() {
+			const char * name = "param/terms.txt";
+			FILE* file = fopen(name,"r");
+			if(file != NULL) {
 				for(int i = 0; i < N; ++i) {
-					e_[i].write(file,n);
+					c_[i].read(file);
 				}
+				fwrite(p_, sizeof(float), N, file);
+
+				printf("read file %s\n",name);
+
+				fclose(file);
+			} else {
+				printf("no file %s\n", name);
 			}
-			void	write_param() {
-				const char * name = "param/terms.txt";
-				FILE* file = fopen(name,"w");
-				if(file != NULL) {
-					for(int i = 0; i < N; ++i) {
-						c_[i].write(file);
-					}
-					fwrite(p_, sizeof(float), N, file);
-
-					printf("write file %s\n",name);
-
-					fclose(file);
-				}
+		}
+		virtual void	alloc(int n) {
+			for(int i = 0; i < N; ++i) {
+				e_[i].alloc(n);
 			}
-			void	read_param() {
-				const char * name = "param/terms.txt";
-				FILE* file = fopen(name,"r");
-				if(file != NULL) {
-					for(int i = 0; i < N; ++i) {
-						c_[i].read(file);
-					}
-					fwrite(p_, sizeof(float), N, file);
-
-					printf("read file %s\n",name);
-
-					fclose(file);
-				} else {
-					printf("no file %s\n", name);
-				}
-			}
-			virtual void	alloc(int n) {
-				for(int i = 0; i < N; ++i) {
-					e_[i].alloc(n);
-				}
-			}
-
-			glm::mat3		c_[N];
-			Array<glm::vec3>	e_[N];
-			float			p_[N];
+		}
+		/** coefficient matricies
+		 * c_[i] where i is the error index
+		 *
+		 * error index 0 is the integral of error
+		 * each subsequent index is the derivative of the previous
+		 */
+		glm::mat3		c_[N];
+		/** error terms
+		 * index described above
+		 */
+		Array<glm::vec3>	e_[N];
+		/** ????? TODO
+		 */
+		float			p_[N];
 	};
 	template <int N>
 	class X:
@@ -142,21 +152,33 @@ namespace CL {
 
 
 			}
+			std::shared_ptr<Quadrotor>	get_drone()
+			{
+				auto d = _M_drone.lock();
+				assert(d);
+				return d;
+			}
 			virtual void	init(int i)
 			{
 				//printf("%s i=%i\n",__PRETTY_FUNCTION__,i);
-				Command::X* x = dynamic_cast<Command::X*>(command_);
+				auto x = std::dynamic_pointer_cast<Command::X>(get_command());
+
+				auto drone = get_drone();
 
 				// back fill
-				x_ref_[0][i] = x->in_->f(r_->t(i));
-				x_ref_[0][i-1] = x->in_->f(r_->t(i-1));
-				x_ref_[0][i-2] = x->in_->f(r_->t(i-2));
-				x_ref_[0][i-3] = x->in_->f(r_->t(i-3));
+				x_ref_[0][i-0] = x->in_->f(drone->t(i));
+				x_ref_[0][i-1] = x->in_->f(drone->t(i-1));
+				x_ref_[0][i-2] = x->in_->f(drone->t(i-2));
+				x_ref_[0][i-3] = x->in_->f(drone->t(i-3));
 			}
 		public:
 			Array<glm::vec3>	x_ref_[N];
 	};
-	template <int N> class V: virtual public Base, public Terms<N> {
+	template <int N>
+	class V:
+		virtual public Base,
+		public Terms<N>
+	{
 		public:
 			V()
 			{
@@ -189,7 +211,11 @@ namespace CL {
 		public:
 			Array<glm::vec3>	v_ref_[N];
 	};
-	template <int N> class Q: virtual public Base, public Terms<N+1> {
+	template <int N>
+	class Q:
+		virtual public Base,
+		public Terms<N+1>
+	{
 		public:
 			Q()
 			{
@@ -233,8 +259,8 @@ namespace CL {
 			//Omega(): r_(0) {}
 			void	init()
 			{
-				assert(r_);
-				alloc(r_->N_);
+				//assert(r_);
+				alloc(get_drone()->N_);
 			}
 			virtual void	alloc(int n)
 			{
@@ -270,7 +296,7 @@ namespace CL {
 		public:
 			virtual void		step(int, float);
 			virtual void		alloc(int);
-			virtual void		write(int);
+			virtual void		write(std::string, int);
 		public:
 			Array<float>		thrust_;
 	};
@@ -278,7 +304,7 @@ namespace CL {
 		public:
 			virtual void		step(int, float);
 			virtual void		alloc(int);
-			virtual void		write(int);
+			virtual void		write(std::string, int);
 		public:
 			Array<glm::vec3>	alpha_;
 	};
