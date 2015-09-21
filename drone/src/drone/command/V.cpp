@@ -12,7 +12,7 @@
 //#include <drone/position.h>
 #include <drone/cl/ControlLaw.h>
 
-Command::V::V(Quadrotor* r, Input::Vec3::Base* in):
+Command::V::V(Drone* r, Input::Vec3::Base* in):
 	Base(r, Command::Base::Type::V),
 	in_(in)
 {

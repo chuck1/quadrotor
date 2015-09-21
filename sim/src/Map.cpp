@@ -90,7 +90,7 @@ void		Map::reset_quadrotor(float* C)
 	_M_command_scheme_function(_M_drone.get());
 
 }
-void		Map::run(std::shared_ptr<Quadrotor> drone)
+void		Map::run(std::shared_ptr<Drone> drone)
 {
 	_M_drone = drone;
 

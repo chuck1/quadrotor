@@ -26,7 +26,7 @@ void Command::X::Settle(int i, double t) {
 
 }
 */
-Command::X::X(Quadrotor* r, Input::Vec3::Base* in):
+Command::X::X(Drone* r, Input::Vec3::Base* in):
 	Base(r, Command::Base::Type::X),
 	in_(in)
 {

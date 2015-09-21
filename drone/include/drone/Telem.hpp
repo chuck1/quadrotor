@@ -8,21 +8,20 @@
 
 #include <drone/array.h>
 #include <drone/except.h>
-
-class Quadrotor;
+#include <drone/util/decl.hpp>
 
 class Telem {
 	public:
 
 	public:
-		Telem(std::shared_ptr<Quadrotor>);
+		Telem(std::shared_ptr<Drone>);
 
 		void		step(int, float);
 
 		void		write(int ti);
 		void		read();
 	public:
-		Quadrotor*	quad_;
+		Drone*	quad_;
 
 		// state variables
 		Array<glm::quat>	q_;

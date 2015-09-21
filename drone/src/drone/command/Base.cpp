@@ -12,7 +12,7 @@
 //#include <drone/position.h>
 #include <drone/cl/ControlLaw.h>
 
-Command::Base::Base(Quadrotor* r, Command::Base::Type::e type):
+Command::Base::Base(Drone* r, Command::Base::Type::e type):
 	r_(r),
 	flag_(0),
 	type_(type)

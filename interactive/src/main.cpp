@@ -10,7 +10,7 @@
 #include <drone/Brain.hpp>
 #include <drone/cl/Snap.hpp>
 
-std::shared_ptr<Quadrotor> gdrone;
+std::shared_ptr<Drone> gdrone;
 Command::X* gcmd;
 
 void draw_shapes()
@@ -89,7 +89,7 @@ double t_0;
 
 void		setup()
 {
-	gdrone.reset(new Quadrotor(1000));
+	gdrone.reset(new Drone(1000));
 
 	// command
 	std::shared_ptr<Command::X> gcmd(

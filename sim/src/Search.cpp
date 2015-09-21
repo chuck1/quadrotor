@@ -24,7 +24,7 @@ search::search(int* i, float* v, int nv):
 	i_ = new int[5];
 	memcpy(i_, i, 5*sizeof(int));
 
-	r_ = new Quadrotor(/*0.01,*/ n_);
+	r_ = new Drone(/*0.01,*/ n_);
 	
 	memcpy(v_, v, nv_*sizeof(float));
 }

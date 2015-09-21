@@ -1,8 +1,6 @@
 #ifndef __SEARCH__
 #define __SEARCH__
 
-class Quadrotor;
-
 class search {
 	public:
 		search(int*, float*, int);
@@ -11,7 +9,7 @@ class search {
 		void		exec(int);
 		bool		test();
 
-		Quadrotor*	r_;
+		Drone*	r_;
 		int*		i_;
 		float*		v_;
 		int		nv_;

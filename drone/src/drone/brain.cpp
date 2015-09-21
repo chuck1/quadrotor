@@ -11,7 +11,7 @@
 
 #include <drone/Brain.hpp>
 
-Brain::Brain(std::shared_ptr<Quadrotor> drone):
+Brain::Brain(std::shared_ptr<Drone> drone):
 	mode_(Brain::Mode::e::JOUNCE),
 	_M_drone(drone)
 {

@@ -39,7 +39,7 @@ int* range(int s, int e) {
 /**
  * set control coefficients for v and q conrollers
  */
-void VQPoles(Quadrotor* r)
+void VQPoles(Drone* r)
 {
 
 	auto v = std::dynamic_pointer_cast<Jounce::V>(r->brain_->cl_v_);
@@ -61,7 +61,7 @@ void VQPoles(Quadrotor* r)
 	q->set_poles(i_q, poles_q, 4);
 
 }
-void CommandScheme1(Quadrotor* r)
+void CommandScheme1(Drone* r)
 {
 	printf("%s\n", __PRETTY_FUNCTION__);
 	
@@ -75,7 +75,7 @@ void CommandScheme1(Quadrotor* r)
 	cmd_x->stop_.push_back(stop_x);
 	r->brain_->objs_.push_back(cmd_x);
 }
-void CommandScheme2(Quadrotor* r)
+void CommandScheme2(Drone* r)
 {
 	std::shared_ptr<Command::V> cmd_v(
 			new Command::V(r, new Input::Vec3::Const(glm::vec3(10,0,0))));
@@ -102,7 +102,7 @@ void CommandScheme2(Quadrotor* r)
 	r->brain_->objs_.push_back(cmd_q);
 	r->brain_->objs_.push_back(cmd_freeze);
 }
-void CommandScheme3(Quadrotor* r)
+void CommandScheme3(Drone* r)
 {
 	std::shared_ptr<Command::X> cmd_x(
 			new Command::X(r, new Input::Vec3::Circle(1.0, 4.0)));
@@ -112,7 +112,7 @@ void CommandScheme3(Quadrotor* r)
 	
 	r->brain_->objs_.push_back(cmd_x);
 }
-void CommandScheme4(Quadrotor* r)
+void CommandScheme4(Drone* r)
 {
 	std::shared_ptr<Command::X> cmd_x(
 			new Command::X(r, new Input::Vec3::Square(1.0, 4.0)));
@@ -122,7 +122,7 @@ void CommandScheme4(Quadrotor* r)
 	
 	r->brain_->objs_.push_back(cmd_x);
 }
-float		metric_1(Quadrotor * drone)
+float		metric_1(Drone * drone)
 {
 	auto x = std::dynamic_pointer_cast<Jounce::X>(drone->brain_->cl_x_);
 	assert(x);
@@ -131,7 +131,7 @@ float		metric_1(Quadrotor * drone)
 }
 void			normal(int N, float dt)
 {
-	std::shared_ptr<Quadrotor> drone(new Quadrotor(N));
+	std::shared_ptr<Drone> drone(new Drone(N));
 	drone->init();
 
 	auto x = std::dynamic_pointer_cast<Jounce::X>(drone->brain_->cl_x_);
@@ -195,11 +195,11 @@ int main(int ac, char ** av)
 
 	int N = 10000;
 
-	std::shared_ptr<Quadrotor> drone(new Quadrotor(N));
+	std::shared_ptr<Drone> drone(new Drone(N));
 	drone->init();
 
 	if(vm.count("debug")) {
-		drone->_M_flag |= Quadrotor::Flag::DEBUG;
+		drone->_M_flag |= Drone::Flag::DEBUG;
 		printf("debug set %lu\n", drone->_M_flag);
 	}
 

@@ -8,16 +8,16 @@
 class Map
 {
 public:
-	void	run(std::shared_ptr<Quadrotor>);
+	void	run(std::shared_ptr<Drone>);
 	int	sub1(
 			int* arr, float* coeff, int choices, int repeat);
 	void	sub2(
 			float* C, float& score, int& N, int a, int& b);
 	void	reset_quadrotor(float* C);
 	
-	std::shared_ptr<Quadrotor>		_M_drone;
-	std::function<float(Quadrotor*)>	_M_metric;
-	std::function<void(Quadrotor*)>		_M_command_scheme_function;
+	std::shared_ptr<Drone>		_M_drone;
+	std::function<float(Drone*)>	_M_metric;
+	std::function<void(Drone*)>		_M_command_scheme_function;
 
 };
 

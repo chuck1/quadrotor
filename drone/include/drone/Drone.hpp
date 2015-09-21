@@ -15,8 +15,8 @@ class Brain;
 void product(int choices, int repeat, int*& arr, int level = 0);
 
 
-class Quadrotor:
-	public std::enable_shared_from_this<Quadrotor>
+class Drone:
+	public std::enable_shared_from_this<Drone>
 {
 	public:
 		enum StopCause
@@ -30,7 +30,7 @@ class Quadrotor:
 			DEBUG = 1<<0
 		};
 
-		Quadrotor(/*float dt,*/ int N);
+		Drone(/*float dt,*/ int N);
 		void			reset();
 		void			init();
 		void			run(float dt);
@@ -61,7 +61,7 @@ class Quadrotor:
 
 		float			get_score(
 				std::shared_ptr<Command::Base> cmd,
-				std::function<float(Quadrotor*)> metric,
+				std::function<float(Drone*)> metric,
 				float score,
 				int & N);
 
@@ -99,9 +99,14 @@ class Quadrotor:
 		
 		int		ti_f_;
 		
+		// key components
 		Telem*		telem_;
-		Plant*		plant_;
+		//Plant*		plant_;
 		Brain*		brain_;
+
+		// motor speeds
+		Array<float>		gamma0_;
+		Array<glm::vec4>	gamma1_;
 };
 
 

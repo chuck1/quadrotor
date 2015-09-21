@@ -12,9 +12,9 @@
 #include <drone/command/command.h>
 #include <drone/command/Stop.hpp>
 
-Quadrotor::Quadrotor(/*float dt,*/ int N):
+Drone::Drone(/*float dt,*/ int N):
 	_M_flag(0),
-	_M_stop_cause(Quadrotor::StopCause::TIME_STEP),
+	_M_stop_cause(Drone::StopCause::TIME_STEP),
 	//dt_(dt),
 	N_(N),
 	_M_i(1),
@@ -79,45 +79,49 @@ Quadrotor::Quadrotor(/*float dt,*/ int N):
 
 	gravity_ = glm::vec3(0,0,-9.81);
 }
-std::shared_ptr<Command::Base>		Quadrotor::get_command()
+std::shared_ptr<Command::Base>		Drone::get_command()
 {
 	assert(brain_);
 	return brain_->get_obj();
 }
-void			Quadrotor::init()
+void			Drone::init()
 {
 	telem_ = new Telem(shared_from_this());
-	plant_ = new Plant(shared_from_this());
+	//plant_ = new Plant(shared_from_this());
 	brain_ = new Brain(shared_from_this());
+
+	gamma0_.alloc(10);
+	gamma1_.alloc(10);
+
 }
-glm::vec3&		Quadrotor::x(int i) { return telem_->x_[i]; }
-glm::vec3&		Quadrotor::v(int i) { return telem_->v_[i]; }
-glm::vec3&		Quadrotor::a(int i) { return telem_->a_[i]; }
-glm::vec3&		Quadrotor::jerk(int i) { return telem_->jerk_[i]; }
-//glm::vec3&		Quadrotor::jounce(int i) { return telem_->jounce_[i]; }
-glm::quat&		Quadrotor::q(int i) { return telem_->q_[i]; }
-glm::vec3&		Quadrotor::omega(int i) { return telem_->omega_[i]; }
-glm::vec3&		Quadrotor::alpha(int i) { return telem_->alpha_[i]; }
-void			Quadrotor::reset()
+glm::vec3&		Drone::x(int i) { return telem_->x_[i]; }
+glm::vec3&		Drone::v(int i) { return telem_->v_[i]; }
+glm::vec3&		Drone::a(int i) { return telem_->a_[i]; }
+glm::vec3&		Drone::jerk(int i) { return telem_->jerk_[i]; }
+//glm::vec3&		Drone::jounce(int i) { return telem_->jounce_[i]; }
+glm::quat&		Drone::q(int i) { return telem_->q_[i]; }
+glm::vec3&		Drone::omega(int i) { return telem_->omega_[i]; }
+glm::vec3&		Drone::alpha(int i) { return telem_->alpha_[i]; }
+void			Drone::reset()
 {
 	ti_f_ = 0;
 
 	brain_->reset();
 }
-void			Quadrotor::step(float dt)
+void			Drone::step(float dt)
 {
 	// advance time
 	t_[_M_i] = t_[_M_i-1] + dt;
 
 	try {
 		brain_->step(_M_i-1, dt);
-		plant_->step(_M_i-1);
+		//plant_->step(_M_i-1);
 		telem_->step(_M_i, dt);
 	} catch(EmptyQueue &e) {
 		//printf("empty queue ti\n");
 		ti_f_ = _M_i;
 
-		_M_stop_cause = Quadrotor::StopCause::OBJ;
+		_M_stop_cause = Drone::StopCause::OBJ;
 
 		throw 0;
 	} catch(StopCond &e) {
@@ -126,7 +130,7 @@ void			Quadrotor::step(float dt)
 		//printf("%s\n", typeid(e).name());
 		ti_f_ = _M_i;
 
-		_M_stop_cause = Quadrotor::StopCause::INF;
+		_M_stop_cause = Drone::StopCause::INF;
 
 		throw 0;
 	}
@@ -140,13 +144,13 @@ void			Quadrotor::step(float dt)
 
 	_M_i++;
 }
-void			Quadrotor::run(float dt)
+void			Drone::run(float dt)
 {
 	//printf("dt %f\n", dt_);
 
 	//printf("command queue %i\n", (int)brain_->objs_.size());
 
-	_M_stop_cause = Quadrotor::StopCause::TIME_STEP;
+	_M_stop_cause = Drone::StopCause::TIME_STEP;
 
 	while(_M_i < ti_stop_) {
 		if ((_M_i % (N_ / 100)) == 0) {
@@ -159,7 +163,7 @@ void			Quadrotor::run(float dt)
 		}
 	}
 }
-glm::vec3 Quadrotor::angular_accel_to_torque(int ti, glm::vec3 alpha)
+glm::vec3 Drone::angular_accel_to_torque(int ti, glm::vec3 alpha)
 {
 	glm::vec3 & o = omega(ti);
 	glm::vec3 torque = 
@@ -195,7 +199,7 @@ float		sign(float f)
 	if(f >= 0) return 1;
 	return -1;
 }
-glm::vec4		Quadrotor::thrust_torque_to_motor_speed(
+glm::vec4		Drone::thrust_torque_to_motor_speed(
 		int i,
 		float const & thrust,
 		glm::vec3 const & torque)
@@ -209,7 +213,11 @@ glm::vec4		Quadrotor::thrust_torque_to_motor_speed(
 	auto g1 = A4inv_ * temp;
 
 	// check
-	if(glm::any(glm::isnan(plant_->gamma1_[i])) || glm::any(glm::isinf(plant_->gamma1_[i]))) {
+	//bool c0 = glm::any(glm::isnan(plant_->gamma1_[i]));
+	//bool c1 = glm::any(glm::isinf(plant_->gamma1_[i]));
+	bool c0 = glm::any(glm::isnan(gamma1_[i]));
+	bool c1 = glm::any(glm::isinf(gamma1_[i]));
+	if(c0 || c1) {
 		printf("gamma1\n");
 		//::print(plant_->gamma1_[i]);
 		printf("A4\n");
@@ -254,25 +262,26 @@ glm::vec4		Quadrotor::thrust_torque_to_motor_speed(
 	// after scaling
 	g = g0 + g1;
 
-	plant_->gamma0_[i] = g0;
-
-	plant_->gamma1_[i] = g1;
+	//plant_->gamma0_[i] = g0;
+	//plant_->gamma1_[i] = g1;
+	gamma0_[i] = g0;
+	gamma1_[i] = g1;
 
 	return g;
 }	
-void			Quadrotor::write()
+void			Drone::write()
 {
 	int n = (ti_f_ > 0) ? ti_f_ : N_;
 
 	brain_->write(n);
 	//brain_->pos_->write(ti_f_);
 	//brain_->att_->write(ti_f_);
-	plant_->write(n);
+	//plant_->write(n);
 	telem_->write(n);
 
 	write_param();
 }
-void			Quadrotor::write_param()
+void			Drone::write_param()
 {
 	//brain_->att_->write_param();
 	//brain_->pos_->write_param();
@@ -310,15 +319,15 @@ void			product(int choices, int repeat, int*& arr, int level)
 	   }
 	   */
 }
-bool	Quadrotor::isset_debug() const
+bool	Drone::isset_debug() const
 {
-	unsigned long ret = _M_flag & Quadrotor::Flag::DEBUG;
+	unsigned long ret = _M_flag & Drone::Flag::DEBUG;
 	//printf("%lu\n", ret);
 	return (ret);
 }
-float	Quadrotor::get_score(
+float	Drone::get_score(
 		std::shared_ptr<Command::Base> cmd,
-		std::function<float(Quadrotor*)> metric,
+		std::function<float(Drone*)> metric,
 		float score,
 		int & N)
 {
@@ -355,21 +364,21 @@ float	Quadrotor::get_score(
 		}
 	}
 
-	if(_M_stop_cause == Quadrotor::StopCause::TIME_STEP) {
+	if(_M_stop_cause == Drone::StopCause::TIME_STEP) {
 		float m = metric(this);
 		printf("r->t(%i) = %f\n", N, t(N));
 		printf("metric   = %f\n", m);
 		return t(N) + m;
 	}
 
-	if (_M_stop_cause == Quadrotor::StopCause::INF) {
+	if (_M_stop_cause == Drone::StopCause::INF) {
 		return score + 1;
 	}
 
 	assert(0);
 	return 0;
 }
-std::shared_ptr<CL::Base>	Quadrotor::get_cl()
+std::shared_ptr<CL::Base>	Drone::get_cl()
 {
 	assert(brain_);
 

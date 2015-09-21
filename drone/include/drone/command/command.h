@@ -10,8 +10,6 @@
 
 #include <drone/util/decl.hpp>
 
-class Quadrotor;
-
 namespace Command {
 	namespace Stop {
 		class Base;
@@ -35,13 +33,13 @@ namespace Command {
 				};
 			};
 		public:
-			Base(Quadrotor*, Type::e);
+			Base(Drone*, Type::e);
 			virtual ~Base() {}
 
 			virtual void	check(int);
 			virtual void	start(int) {}
 		public:
-			Quadrotor*	r_;
+			Drone*	r_;
 
 			unsigned int	flag_;
 			unsigned int	mode_;
@@ -53,7 +51,7 @@ namespace Command {
 
 	class V: public Base {
 		public:
-			V(Quadrotor*,  Input::Vec3::Base*);
+			V(Drone*,  Input::Vec3::Base*);
 
 		public:
 			Input::Vec3::Base*	in_;
@@ -61,7 +59,7 @@ namespace Command {
 	};
 	class X: public Base {
 		public:
-			X(Quadrotor*,  Input::Vec3::Base*);
+			X(Drone*,  Input::Vec3::Base*);
 			Input::Vec3::Const*	get_input_is_const();
 		public:
 			Input::Vec3::Base*	in_;
@@ -70,14 +68,14 @@ namespace Command {
 
 	class Q: public Base {
 		public:
-			Q(Quadrotor*, Input::Quat*);
+			Q(Drone*, Input::Quat*);
 
 			Input::Quat*	in_;
 	};	
 	
 	class Freeze: public Base {
 		public:
-			Freeze(Quadrotor* r): Command::Base(r, Command::Base::Type::e::FREEZE) {}
+			Freeze(Drone* r): Command::Base(r, Command::Base::Type::e::FREEZE) {}
 			
 			virtual void	Start(int);
 	};

@@ -12,7 +12,7 @@ void	CL::Base::init()
 {
 	alloc(get_drone()->N_);
 }
-std::shared_ptr<Quadrotor>	CL::Base::get_drone()
+std::shared_ptr<Drone>	CL::Base::get_drone()
 {
 	auto drone = _M_drone.lock();
 	assert(drone);
@@ -35,7 +35,8 @@ void	CL::Thrust::step(int i, float h)
 
 	drone::util::check(drone.get(), __FILE__, __LINE__, g, thrust_[i], drone->k_);
 
-	drone->plant_->gamma0_[i] = g;
+	//drone->plant_->gamma0_[i] = g;
+	drone->gamma0_[i] = g;
 }
 void	CL::Alpha::step(int i, float h)
 {
@@ -53,7 +54,8 @@ void	CL::Alpha::step(int i, float h)
 	
 	drone::util::check(drone.get(), __FILE__, __LINE__, g, drone->A4inv_, temp);
 
-	drone->plant_->gamma1_[i] = g;
+	//drone->plant_->gamma1_[i] = g;
+	drone->gamma1_[i] = g;
 }
 void	CL::Alpha::alloc(int n)
 {

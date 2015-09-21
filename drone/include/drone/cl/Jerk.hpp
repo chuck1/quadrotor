@@ -11,7 +11,7 @@ namespace Jerk {
 		virtual public CL::Thrust, virtual public Alpha1::Omega
 	{
 		public:
-			Base(Quadrotor*);
+			Base(Drone*);
 
 			virtual void	step(int, float) = 0;
 			virtual void	alloc(int) = 0;
@@ -23,7 +23,7 @@ namespace Jerk {
 		virtual public CL::X<4>, virtual public Jerk::Base
 	{
 		public:
-			X(Quadrotor*);
+			X(Drone*);
 
 			void		step(int, float);
 			virtual bool	check(int, glm::vec3);

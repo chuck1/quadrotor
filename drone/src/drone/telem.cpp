@@ -12,7 +12,7 @@
 #include <drone/Drone.hpp>
 
 
-Telem::Telem(std::shared_ptr<Quadrotor> quad):
+Telem::Telem(std::shared_ptr<Drone> quad):
 	quad_(quad.get())
 {
 	if(quad) {

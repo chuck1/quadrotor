@@ -27,10 +27,10 @@ namespace CL {
 			virtual void	alloc(int) = 0;
 			virtual void	write(int) = 0;
 			
-			std::shared_ptr<Quadrotor>	get_drone();
+			std::shared_ptr<Drone>	get_drone();
 			std::shared_ptr<Command::Base>	get_command();
 		public:
-			std::weak_ptr<Quadrotor>	_M_drone;
+			std::weak_ptr<Drone>	_M_drone;
 	};
 	template <int N>
 	class Terms
@@ -152,7 +152,7 @@ namespace CL {
 
 
 			}
-			std::shared_ptr<Quadrotor>	get_drone()
+			std::shared_ptr<Drone>	get_drone()
 			{
 				auto d = _M_drone.lock();
 				assert(d);

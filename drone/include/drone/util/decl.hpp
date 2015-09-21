@@ -1,7 +1,7 @@
 #ifndef __QUADROTOR_CONFIG__
 #define __QUADROTOR_CONFIG__
 
-class Quadrotor;
+class Drone;
 
 namespace drone {
 	namespace hardware {

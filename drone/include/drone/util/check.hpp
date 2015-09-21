@@ -21,7 +21,7 @@ namespace drone { namespace util {
 
 	template<typename A, typename... B>
 	void	check(
-			Quadrotor* drone,
+			Drone* drone,
 			char const * file,
 			int line,
 			A a,

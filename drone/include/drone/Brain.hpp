@@ -11,7 +11,7 @@
 
 class Position;
 class Attitude;
-class Quadrotor;
+class Drone;
 
 namespace CL {
 	class Base;
@@ -36,7 +36,7 @@ class Brain {
 		};
 
 	public:
-		Brain(std::shared_ptr<Quadrotor>);
+		Brain(std::shared_ptr<Drone>);
 
 		void		reset();
 		
@@ -51,7 +51,7 @@ class Brain {
 	public:
 		int					mode_;
 
-		std::weak_ptr<Quadrotor>		_M_drone;
+		std::weak_ptr<Drone>		_M_drone;
 
 		// where the magic happends
 		//std::shared_ptr<CL::Base>	cl_;
