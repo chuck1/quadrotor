@@ -144,7 +144,7 @@ void			Drone::step(float dt)
 
 	_M_i++;
 }
-void			Drone::run(float dt)
+void			Drone::run(AccelGyro* ag, float dt)
 {
 	//printf("dt %f\n", dt_);
 

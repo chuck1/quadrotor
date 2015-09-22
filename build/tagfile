@@ -1,0 +1,1475 @@
+<?xml version='1.0' encoding='UTF-8' standalone='yes' ?>
+<tagfile>
+  <compound kind="file">
+    <name>Alpha.hpp</name>
+    <path>/home/chuck/home/git/quadrotor/c/drone/include/drone/cl/</path>
+    <filename>Alpha_8hpp</filename>
+    <class kind="class">Alpha1::Base</class>
+    <class kind="class">Alpha1::Q</class>
+    <class kind="class">Alpha1::Omega</class>
+    <namespace>Alpha1</namespace>
+  </compound>
+  <compound kind="file">
+    <name>Jerk.hpp</name>
+    <path>/home/chuck/home/git/quadrotor/c/drone/include/drone/cl/</path>
+    <filename>Jerk_8hpp</filename>
+    <includes id="Drone_8hpp" name="Drone.hpp" local="no" imported="no">drone/Drone.hpp</includes>
+    <includes id="Alpha_8hpp" name="Alpha.hpp" local="no" imported="no">drone/cl/Alpha.hpp</includes>
+    <class kind="class">Jerk::Base</class>
+    <class kind="class">Jerk::X</class>
+    <namespace>Jerk</namespace>
+  </compound>
+  <compound kind="file">
+    <name>Snap.hpp</name>
+    <path>/home/chuck/home/git/quadrotor/c/drone/include/drone/cl/</path>
+    <filename>Snap_8hpp</filename>
+    <class kind="class">Jounce::Base</class>
+    <class kind="class">Jounce::X</class>
+    <class kind="class">Jounce::V</class>
+    <namespace>Jounce</namespace>
+  </compound>
+  <compound kind="file">
+    <name>Input.hpp</name>
+    <path>/home/chuck/home/git/quadrotor/c/drone/include/drone/command/</path>
+    <filename>Input_8hpp</filename>
+    <class kind="class">Input::Vec3::Base</class>
+    <class kind="class">Input::Vec3::Const</class>
+    <class kind="class">Input::Vec3::Circle</class>
+    <class kind="class">Input::Quat</class>
+    <class kind="class">Input::QuatConst</class>
+    <namespace>Input</namespace>
+    <namespace>Input::Vec3</namespace>
+    <member kind="function">
+      <type>double</type>
+      <name>fourier_square</name>
+      <anchorfile>Input_8hpp.html</anchorfile>
+      <anchor>a48c4501712965b2d65cdbd61fd84ba2d</anchor>
+      <arglist>(double t, double phase, double L, int n)</arglist>
+    </member>
+  </compound>
+  <compound kind="file">
+    <name>Stop.hpp</name>
+    <path>/home/chuck/home/git/quadrotor/c/drone/include/drone/command/</path>
+    <filename>Stop_8hpp</filename>
+    <includes id="Plane_8hpp" name="Plane.hpp" local="no" imported="no">math/Plane.hpp</includes>
+    <class kind="class">Command::Stop::Base</class>
+    <class kind="struct">Command::Stop::Base::Stats</class>
+    <class kind="class">Command::Stop::XSettle</class>
+    <class kind="class">Command::Stop::VSettle</class>
+    <class kind="class">Command::Stop::QSettle</class>
+    <class kind="class">Command::Stop::XCross</class>
+    <class kind="class">Command::Stop::VCross</class>
+    <class kind="class">Command::Stop::Time</class>
+    <namespace>Command</namespace>
+    <namespace>Command::Stop</namespace>
+  </compound>
+  <compound kind="file">
+    <name>Drone.hpp</name>
+    <path>/home/chuck/home/git/quadrotor/c/drone/include/drone/</path>
+    <filename>Drone_8hpp</filename>
+    <class kind="class">Quadrotor</class>
+    <member kind="function">
+      <type>void</type>
+      <name>product</name>
+      <anchorfile>Drone_8hpp.html</anchorfile>
+      <anchor>a36ce7995eb8af33a733d39a09e7c08ac</anchor>
+      <arglist>(int choices, int repeat, int *&amp;arr, int level=0)</arglist>
+    </member>
+  </compound>
+  <compound kind="file">
+    <name>Plant.hpp</name>
+    <path>/home/chuck/home/git/quadrotor/c/drone/include/drone/</path>
+    <filename>Plant_8hpp</filename>
+    <class kind="class">Plant</class>
+  </compound>
+  <compound kind="file">
+    <name>Telem.hpp</name>
+    <path>/home/chuck/home/git/quadrotor/c/drone/include/drone/</path>
+    <filename>Telem_8hpp</filename>
+    <class kind="class">Telem</class>
+  </compound>
+  <compound kind="file">
+    <name>decl.hpp</name>
+    <path>/home/chuck/home/git/quadrotor/c/drone/include/drone/util/</path>
+    <filename>decl_8hpp</filename>
+    <namespace>Input</namespace>
+    <namespace>Input::Vec3</namespace>
+    <namespace>Command</namespace>
+    <namespace>CL</namespace>
+    <namespace>CL::Input</namespace>
+    <namespace>CL::Output</namespace>
+  </compound>
+  <compound kind="file">
+    <name>print.hpp</name>
+    <path>/home/chuck/home/git/quadrotor/c/drone/include/drone/util/</path>
+    <filename>print_8hpp</filename>
+    <member kind="function">
+      <type>void</type>
+      <name>print</name>
+      <anchorfile>print_8hpp.html</anchorfile>
+      <anchor>a7c0deb32662215fb2a6f2e2cf50d5848</anchor>
+      <arglist>(glm::quat const &amp;a)</arglist>
+    </member>
+    <member kind="function">
+      <type>void</type>
+      <name>print</name>
+      <anchorfile>print_8hpp.html</anchorfile>
+      <anchor>aa9f5164e4ac12c80c81f317c29bddbcc</anchor>
+      <arglist>(glm::vec3 const &amp;a)</arglist>
+    </member>
+    <member kind="function">
+      <type>void</type>
+      <name>print</name>
+      <anchorfile>print_8hpp.html</anchorfile>
+      <anchor>a4ac727ac04e670837623ee2b09ea45a1</anchor>
+      <arglist>(double const &amp;a)</arglist>
+    </member>
+  </compound>
+  <compound kind="file">
+    <name>math.hpp</name>
+    <path>/home/chuck/home/git/quadrotor/c/math/include/math/</path>
+    <filename>math_8hpp</filename>
+    <namespace>math</namespace>
+    <member kind="function">
+      <type>bool</type>
+      <name>is_nan_or_inf</name>
+      <anchorfile>namespacemath.html</anchorfile>
+      <anchor>a605ab4e27905362acc0748b768a35177</anchor>
+      <arglist>(glm::vec3 const &amp;v)</arglist>
+    </member>
+    <member kind="function">
+      <type>bool</type>
+      <name>is_nan_or_inf</name>
+      <anchorfile>namespacemath.html</anchorfile>
+      <anchor>a8a5fe016afbee329f7af992cc90067cd</anchor>
+      <arglist>(glm::vec4 const &amp;v)</arglist>
+    </member>
+    <member kind="function">
+      <type>bool</type>
+      <name>is_nan_or_inf</name>
+      <anchorfile>namespacemath.html</anchorfile>
+      <anchor>a33e8431162facb683155090632d5b5a9</anchor>
+      <arglist>(glm::quat const &amp;v)</arglist>
+    </member>
+  </compound>
+  <compound kind="file">
+    <name>Plane.hpp</name>
+    <path>/home/chuck/home/git/quadrotor/c/math/include/math/</path>
+    <filename>Plane_8hpp</filename>
+    <class kind="class">math::Plane</class>
+    <namespace>math</namespace>
+  </compound>
+  <compound kind="class">
+    <name>Plant</name>
+    <filename>classPlant.html</filename>
+    <member kind="function">
+      <type></type>
+      <name>Plant</name>
+      <anchorfile>classPlant.html</anchorfile>
+      <anchor>a142ca8e3ae860d3b93f5de973be71e39</anchor>
+      <arglist>(Quadrotor *quad)</arglist>
+    </member>
+    <member kind="function">
+      <type>glm::vec3</type>
+      <name>get_tau_body</name>
+      <anchorfile>classPlant.html</anchorfile>
+      <anchor>a5defe18bc170c78ea7114472b54ef47e</anchor>
+      <arglist>(int ti)</arglist>
+    </member>
+    <member kind="function">
+      <type>void</type>
+      <name>step_rotor_body</name>
+      <anchorfile>classPlant.html</anchorfile>
+      <anchor>a0cd2196cba6ec3725c7d3c9146ae2f3c</anchor>
+      <arglist>(int ti)</arglist>
+    </member>
+    <member kind="function">
+      <type>glm::vec3</type>
+      <name>get_force_rotor_body</name>
+      <anchorfile>classPlant.html</anchorfile>
+      <anchor>a1c1734259e05d84e685557d27203f494</anchor>
+      <arglist>(int ti)</arglist>
+    </member>
+    <member kind="function">
+      <type>glm::vec3</type>
+      <name>get_force_drag_body</name>
+      <anchorfile>classPlant.html</anchorfile>
+      <anchor>a3eaa16332bec72a7d8ca2078284da319</anchor>
+      <arglist>(int ti)</arglist>
+    </member>
+    <member kind="function">
+      <type>glm::vec3</type>
+      <name>get_force_drag</name>
+      <anchorfile>classPlant.html</anchorfile>
+      <anchor>a90d91e18d409bc7de02927e17621986b</anchor>
+      <arglist>(int ti)</arglist>
+    </member>
+    <member kind="function">
+      <type>glm::vec3</type>
+      <name>get_force</name>
+      <anchorfile>classPlant.html</anchorfile>
+      <anchor>ae308568ca55f5900827721f85df7438f</anchor>
+      <arglist>(int ti)</arglist>
+    </member>
+    <member kind="function">
+      <type>void</type>
+      <name>step</name>
+      <anchorfile>classPlant.html</anchorfile>
+      <anchor>af5c6f03354c0cf11a968e88381fe89ab</anchor>
+      <arglist>(int ti)</arglist>
+    </member>
+    <member kind="function">
+      <type>void</type>
+      <name>write</name>
+      <anchorfile>classPlant.html</anchorfile>
+      <anchor>a59da9eafd398a9230723c13096a958cb</anchor>
+      <arglist>(int n)</arglist>
+    </member>
+    <member kind="variable">
+      <type>Quadrotor *</type>
+      <name>quad_</name>
+      <anchorfile>classPlant.html</anchorfile>
+      <anchor>ae068d79c30cca8feb18b3c71d9139568</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>Array&lt; float &gt;</type>
+      <name>gamma0_</name>
+      <anchorfile>classPlant.html</anchorfile>
+      <anchor>a80d7be943184c899be651525dd67eb9c</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>Array&lt; glm::vec4 &gt;</type>
+      <name>gamma1_</name>
+      <anchorfile>classPlant.html</anchorfile>
+      <anchor>a372fb5d993158757e2acde007e6c29de</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>Array&lt; float &gt;</type>
+      <name>gamma0_act_</name>
+      <anchorfile>classPlant.html</anchorfile>
+      <anchor>ab3ff3d5f99f92becfb06491ea5a44b1d</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>Array&lt; glm::vec4 &gt;</type>
+      <name>gamma1_act_</name>
+      <anchorfile>classPlant.html</anchorfile>
+      <anchor>a9fc6fe522dfe57102296cd3ac4eef57b</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>Array&lt; glm::vec3 &gt;</type>
+      <name>tau_RB_</name>
+      <anchorfile>classPlant.html</anchorfile>
+      <anchor>aa5e12ea8597e786b4fc310ceb7e11310</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>Array&lt; glm::vec3 &gt;</type>
+      <name>f_RB_</name>
+      <anchorfile>classPlant.html</anchorfile>
+      <anchor>a4735673cf6ba5ecd336608737f8a237b</anchor>
+      <arglist></arglist>
+    </member>
+  </compound>
+  <compound kind="class">
+    <name>Quadrotor</name>
+    <filename>classQuadrotor.html</filename>
+    <member kind="function">
+      <type></type>
+      <name>Quadrotor</name>
+      <anchorfile>classQuadrotor.html</anchorfile>
+      <anchor>a34a38d137ba992be23742496125976b0</anchor>
+      <arglist>(float dt, int N)</arglist>
+    </member>
+    <member kind="function">
+      <type>void</type>
+      <name>reset</name>
+      <anchorfile>classQuadrotor.html</anchorfile>
+      <anchor>a1e883a0d6205ad9af214afe2b6f84d2f</anchor>
+      <arglist>()</arglist>
+    </member>
+    <member kind="function">
+      <type>void</type>
+      <name>run</name>
+      <anchorfile>classQuadrotor.html</anchorfile>
+      <anchor>a86703e4d10af125e7b34ab09711c80f9</anchor>
+      <arglist>()</arglist>
+    </member>
+    <member kind="function">
+      <type>glm::vec3</type>
+      <name>angular_accel_to_torque</name>
+      <anchorfile>classQuadrotor.html</anchorfile>
+      <anchor>a2eeb44f234ce355ca471be1edbc68978</anchor>
+      <arglist>(int, glm::vec3)</arglist>
+    </member>
+    <member kind="function">
+      <type>glm::vec4</type>
+      <name>thrust_torque_to_motor_speed</name>
+      <anchorfile>classQuadrotor.html</anchorfile>
+      <anchor>a80115ab797b4cd013dda61b20b228ff8</anchor>
+      <arglist>(int, float const &amp;, glm::vec3 const &amp;)</arglist>
+    </member>
+    <member kind="function">
+      <type>void</type>
+      <name>write</name>
+      <anchorfile>classQuadrotor.html</anchorfile>
+      <anchor>a1c250bf48c42d7fed0f1ebc74dbc7249</anchor>
+      <arglist>()</arglist>
+    </member>
+    <member kind="function">
+      <type>void</type>
+      <name>write_param</name>
+      <anchorfile>classQuadrotor.html</anchorfile>
+      <anchor>ae35477027bde2e9ad10ef7ac557000a8</anchor>
+      <arglist>()</arglist>
+    </member>
+    <member kind="function">
+      <type>glm::vec3 &amp;</type>
+      <name>x</name>
+      <anchorfile>classQuadrotor.html</anchorfile>
+      <anchor>aea17b62569e48da4aa2c4c53ceba27b0</anchor>
+      <arglist>(int)</arglist>
+    </member>
+    <member kind="function">
+      <type>glm::vec3 &amp;</type>
+      <name>v</name>
+      <anchorfile>classQuadrotor.html</anchorfile>
+      <anchor>a93afc05321d8917f5cfe9abbb90e76f4</anchor>
+      <arglist>(int)</arglist>
+    </member>
+    <member kind="function">
+      <type>glm::vec3 &amp;</type>
+      <name>a</name>
+      <anchorfile>classQuadrotor.html</anchorfile>
+      <anchor>afe9d953a99f823d728d806a460b4541f</anchor>
+      <arglist>(int)</arglist>
+    </member>
+    <member kind="function">
+      <type>glm::vec3 &amp;</type>
+      <name>jerk</name>
+      <anchorfile>classQuadrotor.html</anchorfile>
+      <anchor>a82b256ee25bc2dff38145a9c1c0dc273</anchor>
+      <arglist>(int)</arglist>
+    </member>
+    <member kind="function">
+      <type>glm::quat &amp;</type>
+      <name>q</name>
+      <anchorfile>classQuadrotor.html</anchorfile>
+      <anchor>a8f47ffd25a4bc5df1d514f0407d5bdef</anchor>
+      <arglist>(int)</arglist>
+    </member>
+    <member kind="function">
+      <type>glm::vec3 &amp;</type>
+      <name>omega</name>
+      <anchorfile>classQuadrotor.html</anchorfile>
+      <anchor>a595ed890134e866d99db9402cea39a42</anchor>
+      <arglist>(int)</arglist>
+    </member>
+    <member kind="function">
+      <type>glm::vec3 &amp;</type>
+      <name>alpha</name>
+      <anchorfile>classQuadrotor.html</anchorfile>
+      <anchor>ac57750d973013ec045f8ce7ac8e1e2aa</anchor>
+      <arglist>(int)</arglist>
+    </member>
+    <member kind="function">
+      <type>float</type>
+      <name>t</name>
+      <anchorfile>classQuadrotor.html</anchorfile>
+      <anchor>a33f14b3d6f616e313f6d6eba97487c3b</anchor>
+      <arglist>(int i) const </arglist>
+    </member>
+    <member kind="variable">
+      <type>float</type>
+      <name>m_</name>
+      <anchorfile>classQuadrotor.html</anchorfile>
+      <anchor>a81b8e0d1071a05ab52d00ac987e6cf7f</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>float</type>
+      <name>L_</name>
+      <anchorfile>classQuadrotor.html</anchorfile>
+      <anchor>a73ff727eb2641b0398112c92af7aa91f</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>float</type>
+      <name>R_</name>
+      <anchorfile>classQuadrotor.html</anchorfile>
+      <anchor>aaa0e19825566040b1c6ed18c03d9855e</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>float</type>
+      <name>Asw_</name>
+      <anchorfile>classQuadrotor.html</anchorfile>
+      <anchor>a86dc73b0d35e552597076b5eda16c080</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>float</type>
+      <name>rho_</name>
+      <anchorfile>classQuadrotor.html</anchorfile>
+      <anchor>a1ff5bf81023a6071fea303fa7c9f9056</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>float</type>
+      <name>CD_</name>
+      <anchorfile>classQuadrotor.html</anchorfile>
+      <anchor>a01060e780f730ac333d7ea06e9900055</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>float</type>
+      <name>A_</name>
+      <anchorfile>classQuadrotor.html</anchorfile>
+      <anchor>a761c95fc21a7dae58f469b48ceabf092</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>float</type>
+      <name>Kv_</name>
+      <anchorfile>classQuadrotor.html</anchorfile>
+      <anchor>a269211b7c1f1ba4e8c5d209c4ac32538</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>float</type>
+      <name>Kt_</name>
+      <anchorfile>classQuadrotor.html</anchorfile>
+      <anchor>a9a0b3ac6870d41ea861294e2daf838e4</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>float</type>
+      <name>Ktau_</name>
+      <anchorfile>classQuadrotor.html</anchorfile>
+      <anchor>a9b47c9f30fef21682c53bb86aaeecfa2</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>float</type>
+      <name>k_</name>
+      <anchorfile>classQuadrotor.html</anchorfile>
+      <anchor>ae4d5c4e77f2b12eeea346873e0cacbc8</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>float</type>
+      <name>b_</name>
+      <anchorfile>classQuadrotor.html</anchorfile>
+      <anchor>ac6434396479f9a5678932495f701ea3c</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>float</type>
+      <name>P_max_</name>
+      <anchorfile>classQuadrotor.html</anchorfile>
+      <anchor>a07930bf34000c8f05c8ea83bb24c7f24</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>float</type>
+      <name>gamma_max_</name>
+      <anchorfile>classQuadrotor.html</anchorfile>
+      <anchor>a85cc9a8c6d66bdd1115df5e3f4e7bf2d</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>glm::mat3</type>
+      <name>I_</name>
+      <anchorfile>classQuadrotor.html</anchorfile>
+      <anchor>a0ec0231cb3defdee7412afe3795687e7</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>glm::mat3</type>
+      <name>Iinv_</name>
+      <anchorfile>classQuadrotor.html</anchorfile>
+      <anchor>ad24b5716a8d7f65fceb5cf3190b4aa56</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>glm::vec3</type>
+      <name>gravity_</name>
+      <anchorfile>classQuadrotor.html</anchorfile>
+      <anchor>af0f4e6d43848bc88933a9a20cb893bd9</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>glm::mat4</type>
+      <name>A4_</name>
+      <anchorfile>classQuadrotor.html</anchorfile>
+      <anchor>a6092c9a4432dbaac877ea9680bad5029</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>glm::mat4</type>
+      <name>A4inv_</name>
+      <anchorfile>classQuadrotor.html</anchorfile>
+      <anchor>ab7da3cccc60c79ae011d27c7e5af7f6f</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>float</type>
+      <name>dt_</name>
+      <anchorfile>classQuadrotor.html</anchorfile>
+      <anchor>a3146c841b2f4bc20ca50e9ae1110f5e2</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>int</type>
+      <name>N_</name>
+      <anchorfile>classQuadrotor.html</anchorfile>
+      <anchor>a55aef1d587c0e0e151a217844869fc97</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>float *</type>
+      <name>t_</name>
+      <anchorfile>classQuadrotor.html</anchorfile>
+      <anchor>a2a9744ed2bdcdccc1a52f63616c19f8f</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>int</type>
+      <name>ti_stop_</name>
+      <anchorfile>classQuadrotor.html</anchorfile>
+      <anchor>a290b8871d95f9adb6005c11540375a17</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>int</type>
+      <name>ti_f_</name>
+      <anchorfile>classQuadrotor.html</anchorfile>
+      <anchor>a7eadaf46ba0199a2455274bf4102e68f</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>Telem *</type>
+      <name>telem_</name>
+      <anchorfile>classQuadrotor.html</anchorfile>
+      <anchor>a2ae40aa937f36b17d050d077cf82fa10</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>Plant *</type>
+      <name>plant_</name>
+      <anchorfile>classQuadrotor.html</anchorfile>
+      <anchor>a2d994ec0dfa9b08013cce986b1fe10bd</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>Brain *</type>
+      <name>brain_</name>
+      <anchorfile>classQuadrotor.html</anchorfile>
+      <anchor>ad1dbea34777ea6e3410a94c248ab2455</anchor>
+      <arglist></arglist>
+    </member>
+  </compound>
+  <compound kind="class">
+    <name>Telem</name>
+    <filename>classTelem.html</filename>
+    <member kind="function">
+      <type></type>
+      <name>Telem</name>
+      <anchorfile>classTelem.html</anchorfile>
+      <anchor>adf4c51522fdb2c9e99e4169b0d628f55</anchor>
+      <arglist>(Quadrotor *)</arglist>
+    </member>
+    <member kind="function">
+      <type>void</type>
+      <name>step</name>
+      <anchorfile>classTelem.html</anchorfile>
+      <anchor>a9625e7114435a8380a5b2c088dd9143e</anchor>
+      <arglist>(int, float)</arglist>
+    </member>
+    <member kind="function">
+      <type>void</type>
+      <name>write</name>
+      <anchorfile>classTelem.html</anchorfile>
+      <anchor>a819ab752690e08d72ea26b8f5eda2995</anchor>
+      <arglist>(int ti)</arglist>
+    </member>
+    <member kind="variable">
+      <type>Quadrotor *</type>
+      <name>quad_</name>
+      <anchorfile>classTelem.html</anchorfile>
+      <anchor>a56091fc88e4c6bfe0c9781e2e8be8e44</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>Array&lt; glm::quat &gt;</type>
+      <name>q_</name>
+      <anchorfile>classTelem.html</anchorfile>
+      <anchor>af5fabd57ba456482b9dd30926d769bcb</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>Array&lt; glm::vec3 &gt;</type>
+      <name>omega_</name>
+      <anchorfile>classTelem.html</anchorfile>
+      <anchor>ad3f153aa9163490e4b86a1d04665ac85</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>Array&lt; glm::vec3 &gt;</type>
+      <name>alpha_</name>
+      <anchorfile>classTelem.html</anchorfile>
+      <anchor>a3fec7ee369686116e8dcea7ad3a73bcb</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>Array&lt; glm::vec3 &gt;</type>
+      <name>x_</name>
+      <anchorfile>classTelem.html</anchorfile>
+      <anchor>a7c62301e2b223d45ff45b5d21a868c8d</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>Array&lt; glm::vec3 &gt;</type>
+      <name>v_</name>
+      <anchorfile>classTelem.html</anchorfile>
+      <anchor>a250c5dd7e9ccf6e5f34d82a2e2117c90</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>Array&lt; glm::vec3 &gt;</type>
+      <name>a_</name>
+      <anchorfile>classTelem.html</anchorfile>
+      <anchor>a3f4aeef60119684c70188b9f8bd829ee</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>Array&lt; glm::vec3 &gt;</type>
+      <name>jerk_</name>
+      <anchorfile>classTelem.html</anchorfile>
+      <anchor>a51d6ff55836b866488a16ecdae32691a</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>Array&lt; glm::vec3 &gt;</type>
+      <name>s_</name>
+      <anchorfile>classTelem.html</anchorfile>
+      <anchor>aea3710ca3a8129dbf86e476557e31936</anchor>
+      <arglist></arglist>
+    </member>
+  </compound>
+  <compound kind="namespace">
+    <name>Alpha1</name>
+    <filename>namespaceAlpha1.html</filename>
+    <class kind="class">Alpha1::Base</class>
+    <class kind="class">Alpha1::Q</class>
+    <class kind="class">Alpha1::Omega</class>
+  </compound>
+  <compound kind="class">
+    <name>Alpha1::Base</name>
+    <filename>classAlpha1_1_1Base.html</filename>
+    <member kind="function">
+      <type></type>
+      <name>Base</name>
+      <anchorfile>classAlpha1_1_1Base.html</anchorfile>
+      <anchor>aa817fdd6c8a33490b96348bc7ba7424a</anchor>
+      <arglist>()</arglist>
+    </member>
+    <member kind="function" virtualness="pure">
+      <type>void</type>
+      <name>step</name>
+      <anchorfile>classAlpha1_1_1Base.html</anchorfile>
+      <anchor>a7d6505ab883a4f35c49d2c7d58f51887</anchor>
+      <arglist>(int i, float h)=0</arglist>
+    </member>
+    <member kind="function" virtualness="pure">
+      <type>bool</type>
+      <name>check</name>
+      <anchorfile>classAlpha1_1_1Base.html</anchorfile>
+      <anchor>a806d7a1523277c5c80297800e858acb8</anchor>
+      <arglist>(int, glm::vec3)=0</arglist>
+    </member>
+    <member kind="function" virtualness="pure">
+      <type>virtual void</type>
+      <name>write</name>
+      <anchorfile>classAlpha1_1_1Base.html</anchorfile>
+      <anchor>ab83ee3bbe795b27caa213cbdaa182fa2</anchor>
+      <arglist>(int)=0</arglist>
+    </member>
+    <member kind="function" virtualness="virtual">
+      <type>virtual void</type>
+      <name>alloc</name>
+      <anchorfile>classAlpha1_1_1Base.html</anchorfile>
+      <anchor>a79a14169578f988d901fc3de2c8aeb60</anchor>
+      <arglist>(int)</arglist>
+    </member>
+  </compound>
+  <compound kind="class">
+    <name>Alpha1::Q</name>
+    <filename>classAlpha1_1_1Q.html</filename>
+    <base virtualness="virtual">Alpha1::Base</base>
+    <member kind="function">
+      <type>void</type>
+      <name>step</name>
+      <anchorfile>classAlpha1_1_1Q.html</anchorfile>
+      <anchor>ab8da49e2e26d9f1df36e5c1da67156be</anchor>
+      <arglist>(int i, float h)</arglist>
+    </member>
+    <member kind="function">
+      <type>bool</type>
+      <name>check</name>
+      <anchorfile>classAlpha1_1_1Q.html</anchorfile>
+      <anchor>aec64644fea14a4f7521014b8e6da8412</anchor>
+      <arglist>(int, glm::vec3)</arglist>
+    </member>
+    <member kind="function" virtualness="virtual">
+      <type>virtual void</type>
+      <name>write</name>
+      <anchorfile>classAlpha1_1_1Q.html</anchorfile>
+      <anchor>a73bc53cbfeb1aa16bc48d07f294bdcf9</anchor>
+      <arglist>(int)</arglist>
+    </member>
+    <member kind="function" virtualness="virtual">
+      <type>virtual void</type>
+      <name>alloc</name>
+      <anchorfile>classAlpha1_1_1Q.html</anchorfile>
+      <anchor>ae4b12ccd3f020591413eb8b092e3abf8</anchor>
+      <arglist>(int)</arglist>
+    </member>
+  </compound>
+  <compound kind="class">
+    <name>Alpha1::Omega</name>
+    <filename>classAlpha1_1_1Omega.html</filename>
+    <base virtualness="virtual">Alpha1::Base</base>
+    <member kind="function">
+      <type>void</type>
+      <name>step</name>
+      <anchorfile>classAlpha1_1_1Omega.html</anchorfile>
+      <anchor>aca660d0d37876c0323206780368bbf9f</anchor>
+      <arglist>(int i, float h)</arglist>
+    </member>
+    <member kind="function">
+      <type>bool</type>
+      <name>check</name>
+      <anchorfile>classAlpha1_1_1Omega.html</anchorfile>
+      <anchor>a23d3f5c56492d38398d61b538d3582f0</anchor>
+      <arglist>(int, glm::vec3)</arglist>
+    </member>
+    <member kind="function" virtualness="virtual">
+      <type>virtual void</type>
+      <name>write</name>
+      <anchorfile>classAlpha1_1_1Omega.html</anchorfile>
+      <anchor>a2684b7eb4784d9d7706b7577bba3a085</anchor>
+      <arglist>(int)</arglist>
+    </member>
+    <member kind="function" virtualness="virtual">
+      <type>virtual void</type>
+      <name>alloc</name>
+      <anchorfile>classAlpha1_1_1Omega.html</anchorfile>
+      <anchor>a482e413be1b24a32f788b2d735c34443</anchor>
+      <arglist>(int)</arglist>
+    </member>
+  </compound>
+  <compound kind="namespace">
+    <name>CL</name>
+    <filename>namespaceCL.html</filename>
+    <namespace>CL::Input</namespace>
+    <namespace>CL::Output</namespace>
+  </compound>
+  <compound kind="namespace">
+    <name>CL::Input</name>
+    <filename>namespaceCL_1_1Input.html</filename>
+  </compound>
+  <compound kind="namespace">
+    <name>CL::Output</name>
+    <filename>namespaceCL_1_1Output.html</filename>
+  </compound>
+  <compound kind="namespace">
+    <name>Command</name>
+    <filename>namespaceCommand.html</filename>
+    <namespace>Command::Stop</namespace>
+  </compound>
+  <compound kind="namespace">
+    <name>Command::Stop</name>
+    <filename>namespaceCommand_1_1Stop.html</filename>
+    <class kind="class">Command::Stop::Base</class>
+    <class kind="class">Command::Stop::XSettle</class>
+    <class kind="class">Command::Stop::VSettle</class>
+    <class kind="class">Command::Stop::QSettle</class>
+    <class kind="class">Command::Stop::XCross</class>
+    <class kind="class">Command::Stop::VCross</class>
+    <class kind="class">Command::Stop::Time</class>
+  </compound>
+  <compound kind="class">
+    <name>Command::Stop::Base</name>
+    <filename>classCommand_1_1Stop_1_1Base.html</filename>
+    <class kind="struct">Command::Stop::Base::Stats</class>
+    <member kind="function">
+      <type></type>
+      <name>Base</name>
+      <anchorfile>classCommand_1_1Stop_1_1Base.html</anchorfile>
+      <anchor>a5aad1b25a4bef2187a1901c1522b3fc6</anchor>
+      <arglist>(Command::Base *cmd)</arglist>
+    </member>
+    <member kind="function" virtualness="pure">
+      <type>virtual void</type>
+      <name>check</name>
+      <anchorfile>classCommand_1_1Stop_1_1Base.html</anchorfile>
+      <anchor>a58420dd47fac4fb9645c1728dfc9210d</anchor>
+      <arglist>(int)=0</arglist>
+    </member>
+    <member kind="variable">
+      <type>Stats</type>
+      <name>stats_</name>
+      <anchorfile>classCommand_1_1Stop_1_1Base.html</anchorfile>
+      <anchor>aa6d672c088d5980b8262d220b7546edf</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>Command::Base *</type>
+      <name>cmd_</name>
+      <anchorfile>classCommand_1_1Stop_1_1Base.html</anchorfile>
+      <anchor>a6dc4d26ec6c6fb985e0c5bc649f67870</anchor>
+      <arglist></arglist>
+    </member>
+  </compound>
+  <compound kind="struct">
+    <name>Command::Stop::Base::Stats</name>
+    <filename>structCommand_1_1Stop_1_1Base_1_1Stats.html</filename>
+    <member kind="variable">
+      <type>float</type>
+      <name>t_</name>
+      <anchorfile>structCommand_1_1Stop_1_1Base_1_1Stats.html</anchorfile>
+      <anchor>afd8b8ff41790877e7c7486e3402bc379</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>int</type>
+      <name>i_</name>
+      <anchorfile>structCommand_1_1Stop_1_1Base_1_1Stats.html</anchorfile>
+      <anchor>aa68dc01a244387acad799b4049ada20b</anchor>
+      <arglist></arglist>
+    </member>
+  </compound>
+  <compound kind="class">
+    <name>Command::Stop::XSettle</name>
+    <filename>classCommand_1_1Stop_1_1XSettle.html</filename>
+    <base>Command::Stop::Base</base>
+    <member kind="function">
+      <type></type>
+      <name>XSettle</name>
+      <anchorfile>classCommand_1_1Stop_1_1XSettle.html</anchorfile>
+      <anchor>aad579e79a55a49dd1687e8abcc435c89</anchor>
+      <arglist>(Command::Base *cmd, glm::vec3 e)</arglist>
+    </member>
+    <member kind="function" virtualness="virtual">
+      <type>virtual void</type>
+      <name>check</name>
+      <anchorfile>classCommand_1_1Stop_1_1XSettle.html</anchorfile>
+      <anchor>aecb487914ec24698d558331375bed3df</anchor>
+      <arglist>(int)</arglist>
+    </member>
+    <member kind="variable">
+      <type>glm::vec3</type>
+      <name>e_</name>
+      <anchorfile>classCommand_1_1Stop_1_1XSettle.html</anchorfile>
+      <anchor>af7ffdb47d1e3dda68fe2f00f0e119c9c</anchor>
+      <arglist></arglist>
+    </member>
+  </compound>
+  <compound kind="class">
+    <name>Command::Stop::VSettle</name>
+    <filename>classCommand_1_1Stop_1_1VSettle.html</filename>
+    <base>Command::Stop::Base</base>
+    <member kind="function">
+      <type></type>
+      <name>VSettle</name>
+      <anchorfile>classCommand_1_1Stop_1_1VSettle.html</anchorfile>
+      <anchor>a5383e3571014c1e90fb673b3b70cc717</anchor>
+      <arglist>(Command::Base *cmd, glm::vec3 e)</arglist>
+    </member>
+    <member kind="function" virtualness="virtual">
+      <type>virtual void</type>
+      <name>check</name>
+      <anchorfile>classCommand_1_1Stop_1_1VSettle.html</anchorfile>
+      <anchor>a142e874a6b08621f36af87a549e991b4</anchor>
+      <arglist>(int)</arglist>
+    </member>
+    <member kind="variable">
+      <type>glm::vec3</type>
+      <name>e_</name>
+      <anchorfile>classCommand_1_1Stop_1_1VSettle.html</anchorfile>
+      <anchor>a2c9a183bd1a065c0f6fc42af88c6b0e8</anchor>
+      <arglist></arglist>
+    </member>
+  </compound>
+  <compound kind="class">
+    <name>Command::Stop::QSettle</name>
+    <filename>classCommand_1_1Stop_1_1QSettle.html</filename>
+    <base>Command::Stop::Base</base>
+    <member kind="function">
+      <type></type>
+      <name>QSettle</name>
+      <anchorfile>classCommand_1_1Stop_1_1QSettle.html</anchorfile>
+      <anchor>a4b1bfe146a46892947fcec48b775cba9</anchor>
+      <arglist>(Command::Base *cmd, float e)</arglist>
+    </member>
+    <member kind="function" virtualness="virtual">
+      <type>virtual void</type>
+      <name>check</name>
+      <anchorfile>classCommand_1_1Stop_1_1QSettle.html</anchorfile>
+      <anchor>a671cc9cb23658b3fbbfa7133d1475d91</anchor>
+      <arglist>(int)</arglist>
+    </member>
+    <member kind="variable">
+      <type>float</type>
+      <name>e_</name>
+      <anchorfile>classCommand_1_1Stop_1_1QSettle.html</anchorfile>
+      <anchor>a4143a313ea236e4e391c0b359698bd49</anchor>
+      <arglist></arglist>
+    </member>
+  </compound>
+  <compound kind="class">
+    <name>Command::Stop::XCross</name>
+    <filename>classCommand_1_1Stop_1_1XCross.html</filename>
+    <base>Command::Stop::Base</base>
+    <member kind="function">
+      <type></type>
+      <name>XCross</name>
+      <anchorfile>classCommand_1_1Stop_1_1XCross.html</anchorfile>
+      <anchor>a344f15731eaa5887e75c713954a8bb86</anchor>
+      <arglist>(Command::Base *cmd, math::Plane p)</arglist>
+    </member>
+    <member kind="function" virtualness="virtual">
+      <type>virtual void</type>
+      <name>check</name>
+      <anchorfile>classCommand_1_1Stop_1_1XCross.html</anchorfile>
+      <anchor>ad3668ab13efdfc4f01e7fe945ba84e4b</anchor>
+      <arglist>(int)</arglist>
+    </member>
+    <member kind="variable">
+      <type>math::Plane</type>
+      <name>p_</name>
+      <anchorfile>classCommand_1_1Stop_1_1XCross.html</anchorfile>
+      <anchor>a058f6665303a17ec58eb21aec7e200df</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>float</type>
+      <name>d_</name>
+      <anchorfile>classCommand_1_1Stop_1_1XCross.html</anchorfile>
+      <anchor>a386edb0d83eccb6e8623a8808326b408</anchor>
+      <arglist></arglist>
+    </member>
+  </compound>
+  <compound kind="class">
+    <name>Command::Stop::VCross</name>
+    <filename>classCommand_1_1Stop_1_1VCross.html</filename>
+    <base>Command::Stop::Base</base>
+    <member kind="function">
+      <type></type>
+      <name>VCross</name>
+      <anchorfile>classCommand_1_1Stop_1_1VCross.html</anchorfile>
+      <anchor>acfb324a0ba436c4a63510bb28a98b4b9</anchor>
+      <arglist>(Command::Base *cmd, math::Plane p)</arglist>
+    </member>
+    <member kind="function" virtualness="virtual">
+      <type>virtual void</type>
+      <name>check</name>
+      <anchorfile>classCommand_1_1Stop_1_1VCross.html</anchorfile>
+      <anchor>a4165daa75d165aa51bdb98f9090c70bc</anchor>
+      <arglist>(int)</arglist>
+    </member>
+    <member kind="variable">
+      <type>math::Plane</type>
+      <name>p_</name>
+      <anchorfile>classCommand_1_1Stop_1_1VCross.html</anchorfile>
+      <anchor>a43eb6e6bee44d39a0f810613ee7a6725</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>float</type>
+      <name>d_</name>
+      <anchorfile>classCommand_1_1Stop_1_1VCross.html</anchorfile>
+      <anchor>af291ec65299c5732dc7e3e796039f2dd</anchor>
+      <arglist></arglist>
+    </member>
+  </compound>
+  <compound kind="class">
+    <name>Command::Stop::Time</name>
+    <filename>classCommand_1_1Stop_1_1Time.html</filename>
+    <base>Command::Stop::Base</base>
+    <member kind="function">
+      <type></type>
+      <name>Time</name>
+      <anchorfile>classCommand_1_1Stop_1_1Time.html</anchorfile>
+      <anchor>a3ee15022a04d995a3152fe81ac639160</anchor>
+      <arglist>(Command::Base *cmd, float t)</arglist>
+    </member>
+    <member kind="function" virtualness="virtual">
+      <type>virtual void</type>
+      <name>Check</name>
+      <anchorfile>classCommand_1_1Stop_1_1Time.html</anchorfile>
+      <anchor>ab90dbacde37291aa0f778019bb8c5f6f</anchor>
+      <arglist>(int)</arglist>
+    </member>
+    <member kind="variable">
+      <type>float</type>
+      <name>t_</name>
+      <anchorfile>classCommand_1_1Stop_1_1Time.html</anchorfile>
+      <anchor>aa804e0a26cfee41db39e26c2bc173ab1</anchor>
+      <arglist></arglist>
+    </member>
+  </compound>
+  <compound kind="namespace">
+    <name>Input</name>
+    <filename>namespaceInput.html</filename>
+    <namespace>Input::Vec3</namespace>
+    <class kind="class">Input::Quat</class>
+    <class kind="class">Input::QuatConst</class>
+  </compound>
+  <compound kind="class">
+    <name>Input::Quat</name>
+    <filename>classInput_1_1Quat.html</filename>
+    <member kind="function" virtualness="pure">
+      <type>virtual glm::quat</type>
+      <name>f</name>
+      <anchorfile>classInput_1_1Quat.html</anchorfile>
+      <anchor>ad96e162743bdb5098ab3921aa1e02242</anchor>
+      <arglist>(double)=0</arglist>
+    </member>
+  </compound>
+  <compound kind="class">
+    <name>Input::QuatConst</name>
+    <filename>classInput_1_1QuatConst.html</filename>
+    <base>Input::Quat</base>
+    <member kind="function">
+      <type></type>
+      <name>QuatConst</name>
+      <anchorfile>classInput_1_1QuatConst.html</anchorfile>
+      <anchor>a25ccecd1e747a0bde394e154d26529a6</anchor>
+      <arglist>(glm::quat q)</arglist>
+    </member>
+    <member kind="function" virtualness="virtual">
+      <type>virtual glm::quat</type>
+      <name>f</name>
+      <anchorfile>classInput_1_1QuatConst.html</anchorfile>
+      <anchor>ad65b532c86aac3fae289be42184be43d</anchor>
+      <arglist>(double)</arglist>
+    </member>
+    <member kind="variable">
+      <type>glm::quat</type>
+      <name>q_</name>
+      <anchorfile>classInput_1_1QuatConst.html</anchorfile>
+      <anchor>a0ae4a13e957242c906dbc2300397a35d</anchor>
+      <arglist></arglist>
+    </member>
+  </compound>
+  <compound kind="namespace">
+    <name>Input::Vec3</name>
+    <filename>namespaceInput_1_1Vec3.html</filename>
+    <class kind="class">Input::Vec3::Base</class>
+    <class kind="class">Input::Vec3::Const</class>
+    <class kind="class">Input::Vec3::Circle</class>
+  </compound>
+  <compound kind="class">
+    <name>Input::Vec3::Base</name>
+    <filename>classInput_1_1Vec3_1_1Base.html</filename>
+    <member kind="function" virtualness="pure">
+      <type>virtual glm::vec3</type>
+      <name>f</name>
+      <anchorfile>classInput_1_1Vec3_1_1Base.html</anchorfile>
+      <anchor>a2c26c95f00ce0d16ac5c5084c96ddade</anchor>
+      <arglist>(double)=0</arglist>
+    </member>
+  </compound>
+  <compound kind="class">
+    <name>Input::Vec3::Const</name>
+    <filename>classInput_1_1Vec3_1_1Const.html</filename>
+    <base>Input::Vec3::Base</base>
+    <member kind="function">
+      <type></type>
+      <name>Const</name>
+      <anchorfile>classInput_1_1Vec3_1_1Const.html</anchorfile>
+      <anchor>acbbccac7954e31cdeeaabe0163820121</anchor>
+      <arglist>(glm::vec3 v)</arglist>
+    </member>
+    <member kind="function" virtualness="virtual">
+      <type>virtual glm::vec3</type>
+      <name>f</name>
+      <anchorfile>classInput_1_1Vec3_1_1Const.html</anchorfile>
+      <anchor>aa32bb47d5e0ca24ce085139aa2ae07dc</anchor>
+      <arglist>(double)</arglist>
+    </member>
+    <member kind="variable">
+      <type>glm::vec3</type>
+      <name>v_</name>
+      <anchorfile>classInput_1_1Vec3_1_1Const.html</anchorfile>
+      <anchor>aeb2e180a21e3688a479cbfd7df0e19bf</anchor>
+      <arglist></arglist>
+    </member>
+  </compound>
+  <compound kind="class">
+    <name>Input::Vec3::Circle</name>
+    <filename>classInput_1_1Vec3_1_1Circle.html</filename>
+    <base>Input::Vec3::Base</base>
+    <member kind="function">
+      <type></type>
+      <name>Circle</name>
+      <anchorfile>classInput_1_1Vec3_1_1Circle.html</anchorfile>
+      <anchor>a37e8e683d26d784fa1cc05934f660384</anchor>
+      <arglist>(double r, double T)</arglist>
+    </member>
+    <member kind="function" virtualness="virtual">
+      <type>virtual glm::vec3</type>
+      <name>f</name>
+      <anchorfile>classInput_1_1Vec3_1_1Circle.html</anchorfile>
+      <anchor>a88bc19b79d1d185e5f6d14eb9b6b393a</anchor>
+      <arglist>(double t)</arglist>
+    </member>
+    <member kind="variable">
+      <type>float</type>
+      <name>r_</name>
+      <anchorfile>classInput_1_1Vec3_1_1Circle.html</anchorfile>
+      <anchor>ac24a8c347407f8002d8d4503efc54922</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>double</type>
+      <name>T_</name>
+      <anchorfile>classInput_1_1Vec3_1_1Circle.html</anchorfile>
+      <anchor>a873c9bcd953193a827cfa9e92ea1740a</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>double</type>
+      <name>omega_</name>
+      <anchorfile>classInput_1_1Vec3_1_1Circle.html</anchorfile>
+      <anchor>a3dc1f92e4adb3f85ed7073d25e287cbc</anchor>
+      <arglist></arglist>
+    </member>
+  </compound>
+  <compound kind="namespace">
+    <name>Jerk</name>
+    <filename>namespaceJerk.html</filename>
+    <class kind="class">Jerk::Base</class>
+    <class kind="class">Jerk::X</class>
+  </compound>
+  <compound kind="class">
+    <name>Jerk::Base</name>
+    <filename>classJerk_1_1Base.html</filename>
+    <base virtualness="virtual">Alpha1::Omega</base>
+    <member kind="function">
+      <type></type>
+      <name>Base</name>
+      <anchorfile>classJerk_1_1Base.html</anchorfile>
+      <anchor>a626934eaadb98821638f7e372a4d3268</anchor>
+      <arglist>(Quadrotor *)</arglist>
+    </member>
+    <member kind="function" virtualness="pure">
+      <type>virtual void</type>
+      <name>step</name>
+      <anchorfile>classJerk_1_1Base.html</anchorfile>
+      <anchor>a57f0aa94fdb40643106661cb7d83d63e</anchor>
+      <arglist>(int, float)=0</arglist>
+    </member>
+    <member kind="function" virtualness="pure">
+      <type>virtual void</type>
+      <name>alloc</name>
+      <anchorfile>classJerk_1_1Base.html</anchorfile>
+      <anchor>aaa5aed35c31b51ef88dfcf82dc5c5f19</anchor>
+      <arglist>(int)=0</arglist>
+    </member>
+    <member kind="function" virtualness="virtual">
+      <type>virtual void</type>
+      <name>write</name>
+      <anchorfile>classJerk_1_1Base.html</anchorfile>
+      <anchor>ada482e98d0fe0542ce063a7413100f8f</anchor>
+      <arglist>(int)</arglist>
+    </member>
+    <member kind="variable">
+      <type>Array&lt; glm::vec3 &gt;</type>
+      <name>jerk_</name>
+      <anchorfile>classJerk_1_1Base.html</anchorfile>
+      <anchor>ad86c0f435c7cbf45b19598f1b7c40118</anchor>
+      <arglist></arglist>
+    </member>
+  </compound>
+  <compound kind="class">
+    <name>Jerk::X</name>
+    <filename>classJerk_1_1X.html</filename>
+    <base virtualness="virtual">Jerk::Base</base>
+    <member kind="function">
+      <type></type>
+      <name>X</name>
+      <anchorfile>classJerk_1_1X.html</anchorfile>
+      <anchor>a49b3ee051b79b0266fbb0666fc79fcd8</anchor>
+      <arglist>(Quadrotor *)</arglist>
+    </member>
+    <member kind="function">
+      <type>void</type>
+      <name>step</name>
+      <anchorfile>classJerk_1_1X.html</anchorfile>
+      <anchor>aad61865f7e0b0a798be132719683a3b4</anchor>
+      <arglist>(int, float)</arglist>
+    </member>
+    <member kind="function" virtualness="virtual">
+      <type>virtual bool</type>
+      <name>check</name>
+      <anchorfile>classJerk_1_1X.html</anchorfile>
+      <anchor>ad756cdb4eb525f69efa4cb0135305849</anchor>
+      <arglist>(int, glm::vec3)</arglist>
+    </member>
+    <member kind="function" virtualness="pure">
+      <type>virtual void</type>
+      <name>alloc</name>
+      <anchorfile>classJerk_1_1X.html</anchorfile>
+      <anchor>a4535a7664d3b8180395b8886b7514c92</anchor>
+      <arglist>(int)=0</arglist>
+    </member>
+    <member kind="function" virtualness="virtual">
+      <type>virtual void</type>
+      <name>write</name>
+      <anchorfile>classJerk_1_1X.html</anchorfile>
+      <anchor>af5bf90eacad593adefea4b552e88b8b0</anchor>
+      <arglist>(int)</arglist>
+    </member>
+  </compound>
+  <compound kind="namespace">
+    <name>Jounce</name>
+    <filename>namespaceJounce.html</filename>
+    <class kind="class">Jounce::Base</class>
+    <class kind="class">Jounce::X</class>
+    <class kind="class">Jounce::V</class>
+  </compound>
+  <compound kind="class">
+    <name>Jounce::Base</name>
+    <filename>classJounce_1_1Base.html</filename>
+    <member kind="function" virtualness="pure">
+      <type>virtual void</type>
+      <name>step</name>
+      <anchorfile>classJounce_1_1Base.html</anchorfile>
+      <anchor>af9d470e7227d40d9fedb3be45e88d04d</anchor>
+      <arglist>(int, float)=0</arglist>
+    </member>
+    <member kind="function" virtualness="pure">
+      <type>virtual bool</type>
+      <name>check</name>
+      <anchorfile>classJounce_1_1Base.html</anchorfile>
+      <anchor>a05a58e6596557fe3b882e7689fb1915c</anchor>
+      <arglist>(int, glm::vec3)=0</arglist>
+    </member>
+    <member kind="function" virtualness="virtual">
+      <type>virtual void</type>
+      <name>alloc</name>
+      <anchorfile>classJounce_1_1Base.html</anchorfile>
+      <anchor>a73344627f09812230ad035a0d5883727</anchor>
+      <arglist>(int)</arglist>
+    </member>
+    <member kind="function" virtualness="virtual">
+      <type>virtual void</type>
+      <name>write</name>
+      <anchorfile>classJounce_1_1Base.html</anchorfile>
+      <anchor>ab5b88a6e1bc1ed3a8644a392953a03bc</anchor>
+      <arglist>(int)</arglist>
+    </member>
+    <member kind="variable">
+      <type>Array&lt; glm::vec3 &gt;</type>
+      <name>jounce_</name>
+      <anchorfile>classJounce_1_1Base.html</anchorfile>
+      <anchor>ada7615edf63e78af65ce6cb3a0ffb0e3</anchor>
+      <arglist></arglist>
+    </member>
+  </compound>
+  <compound kind="class">
+    <name>Jounce::X</name>
+    <filename>classJounce_1_1X.html</filename>
+    <base virtualness="virtual">Jounce::Base</base>
+    <member kind="function">
+      <type>bool</type>
+      <name>check</name>
+      <anchorfile>classJounce_1_1X.html</anchorfile>
+      <anchor>a366cae3b2fb140ec5f9dfa8fe03facc3</anchor>
+      <arglist>(int, glm::vec3)</arglist>
+    </member>
+    <member kind="function" virtualness="virtual">
+      <type>virtual void</type>
+      <name>step</name>
+      <anchorfile>classJounce_1_1X.html</anchorfile>
+      <anchor>a24513a55df70a0354f6c74a6e8824ea0</anchor>
+      <arglist>(int, float)</arglist>
+    </member>
+    <member kind="function" virtualness="virtual">
+      <type>virtual void</type>
+      <name>alloc</name>
+      <anchorfile>classJounce_1_1X.html</anchorfile>
+      <anchor>af905ee5eb209666ff46bb834c4dabec3</anchor>
+      <arglist>(int)</arglist>
+    </member>
+    <member kind="function" virtualness="virtual">
+      <type>virtual void</type>
+      <name>write</name>
+      <anchorfile>classJounce_1_1X.html</anchorfile>
+      <anchor>aa9fbcf2f6f9faaf7370e6c8a776d79b2</anchor>
+      <arglist>(int)</arglist>
+    </member>
+  </compound>
+  <compound kind="class">
+    <name>Jounce::V</name>
+    <filename>classJounce_1_1V.html</filename>
+    <base virtualness="virtual">Jounce::Base</base>
+    <member kind="function" virtualness="virtual">
+      <type>virtual void</type>
+      <name>step</name>
+      <anchorfile>classJounce_1_1V.html</anchorfile>
+      <anchor>a30d35196d887cddbb318264a37a5da0f</anchor>
+      <arglist>(int, float)</arglist>
+    </member>
+    <member kind="function" virtualness="virtual">
+      <type>virtual bool</type>
+      <name>check</name>
+      <anchorfile>classJounce_1_1V.html</anchorfile>
+      <anchor>a5a0820b061ead285acd0ce2f81b75b4a</anchor>
+      <arglist>(int, glm::vec3)</arglist>
+    </member>
+    <member kind="function" virtualness="virtual">
+      <type>virtual void</type>
+      <name>alloc</name>
+      <anchorfile>classJounce_1_1V.html</anchorfile>
+      <anchor>a7164e8ba6315e7bddac53c6f63cd9404</anchor>
+      <arglist>(int)</arglist>
+    </member>
+    <member kind="function" virtualness="virtual">
+      <type>virtual void</type>
+      <name>write</name>
+      <anchorfile>classJounce_1_1V.html</anchorfile>
+      <anchor>ae28f7ce09190d6c4fecf95f51f41171b</anchor>
+      <arglist>(int)</arglist>
+    </member>
+  </compound>
+  <compound kind="namespace">
+    <name>math</name>
+    <filename>namespacemath.html</filename>
+    <class kind="class">math::Plane</class>
+    <member kind="function">
+      <type>bool</type>
+      <name>is_nan_or_inf</name>
+      <anchorfile>namespacemath.html</anchorfile>
+      <anchor>a605ab4e27905362acc0748b768a35177</anchor>
+      <arglist>(glm::vec3 const &amp;v)</arglist>
+    </member>
+    <member kind="function">
+      <type>bool</type>
+      <name>is_nan_or_inf</name>
+      <anchorfile>namespacemath.html</anchorfile>
+      <anchor>a8a5fe016afbee329f7af992cc90067cd</anchor>
+      <arglist>(glm::vec4 const &amp;v)</arglist>
+    </member>
+    <member kind="function">
+      <type>bool</type>
+      <name>is_nan_or_inf</name>
+      <anchorfile>namespacemath.html</anchorfile>
+      <anchor>a33e8431162facb683155090632d5b5a9</anchor>
+      <arglist>(glm::quat const &amp;v)</arglist>
+    </member>
+  </compound>
+  <compound kind="class">
+    <name>math::Plane</name>
+    <filename>classmath_1_1Plane.html</filename>
+    <member kind="function">
+      <type></type>
+      <name>Plane</name>
+      <anchorfile>classmath_1_1Plane.html</anchorfile>
+      <anchor>aa0f4ebfc4cbbae63e39f1806ac82149b</anchor>
+      <arglist>(glm::vec3 const &amp;, float const &amp;)</arglist>
+    </member>
+    <member kind="function">
+      <type>float</type>
+      <name>distance</name>
+      <anchorfile>classmath_1_1Plane.html</anchorfile>
+      <anchor>a974d3ffb4fabf0f887e8cbb419518cfc</anchor>
+      <arglist>(glm::vec3 const &amp;y)</arglist>
+    </member>
+    <member kind="variable" protection="private">
+      <type>glm::vec3</type>
+      <name>_M_n</name>
+      <anchorfile>classmath_1_1Plane.html</anchorfile>
+      <anchor>ab80c75f93e28551a4e9246f67d2fa74b</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable" protection="private">
+      <type>float</type>
+      <name>_M_d</name>
+      <anchorfile>classmath_1_1Plane.html</anchorfile>
+      <anchor>a7852b37ff53ce2bd16be8dc9a68d3518</anchor>
+      <arglist></arglist>
+    </member>
+  </compound>
+  <compound kind="dir">
+    <name>/home/chuck/home/git/quadrotor/c/drone/include/drone/cl</name>
+    <path>/home/chuck/home/git/quadrotor/c/drone/include/drone/cl/</path>
+    <filename>dir_239bbce0ffbb446749ceb8f83abfdc06.html</filename>
+    <file>Alpha.hpp</file>
+    <file>Jerk.hpp</file>
+    <file>Snap.hpp</file>
+  </compound>
+  <compound kind="dir">
+    <name>/home/chuck/home/git/quadrotor/c/drone/include/drone/command</name>
+    <path>/home/chuck/home/git/quadrotor/c/drone/include/drone/command/</path>
+    <filename>dir_ca780ec592852af600b72374b43618aa.html</filename>
+    <file>Input.hpp</file>
+    <file>Stop.hpp</file>
+  </compound>
+  <compound kind="dir">
+    <name>/home/chuck/home/git/quadrotor/c/drone/include/drone</name>
+    <path>/home/chuck/home/git/quadrotor/c/drone/include/drone/</path>
+    <filename>dir_95e88a877d6c6907b88e164b39b2f916.html</filename>
+    <dir>/home/chuck/home/git/quadrotor/c/drone/include/drone/cl</dir>
+    <dir>/home/chuck/home/git/quadrotor/c/drone/include/drone/command</dir>
+    <dir>/home/chuck/home/git/quadrotor/c/drone/include/drone/util</dir>
+    <file>Drone.hpp</file>
+    <file>Plant.hpp</file>
+    <file>Telem.hpp</file>
+  </compound>
+  <compound kind="dir">
+    <name>/home/chuck/home/git/quadrotor/c/drone</name>
+    <path>/home/chuck/home/git/quadrotor/c/drone/</path>
+    <filename>dir_7bd9526465d84553952ec3404cbc0d67.html</filename>
+    <dir>/home/chuck/home/git/quadrotor/c/drone/include</dir>
+  </compound>
+  <compound kind="dir">
+    <name>/home/chuck/home/git/quadrotor/c/math/include</name>
+    <path>/home/chuck/home/git/quadrotor/c/math/include/</path>
+    <filename>dir_e3b38db0ff39be6e2ec1794f37d47b50.html</filename>
+    <dir>/home/chuck/home/git/quadrotor/c/math/include/math</dir>
+  </compound>
+  <compound kind="dir">
+    <name>/home/chuck/home/git/quadrotor/c/drone/include</name>
+    <path>/home/chuck/home/git/quadrotor/c/drone/include/</path>
+    <filename>dir_eb213b5dd0e526cdca2f51a843e049f3.html</filename>
+    <dir>/home/chuck/home/git/quadrotor/c/drone/include/drone</dir>
+  </compound>
+  <compound kind="dir">
+    <name>/home/chuck/home/git/quadrotor/c/math/include/math</name>
+    <path>/home/chuck/home/git/quadrotor/c/math/include/math/</path>
+    <filename>dir_935dfea0fdfc618cbe59bac531d6ba61.html</filename>
+    <file>math.hpp</file>
+    <file>Plane.hpp</file>
+  </compound>
+  <compound kind="dir">
+    <name>/home/chuck/home/git/quadrotor/c/math</name>
+    <path>/home/chuck/home/git/quadrotor/c/math/</path>
+    <filename>dir_4bb64f72280a6db08bb638a04164a7ca.html</filename>
+    <dir>/home/chuck/home/git/quadrotor/c/math/include</dir>
+  </compound>
+  <compound kind="dir">
+    <name>/home/chuck/home/git/quadrotor/c/drone/include/drone/util</name>
+    <path>/home/chuck/home/git/quadrotor/c/drone/include/drone/util/</path>
+    <filename>dir_69e5ef1f6c54d358a05d9135cccfc21f.html</filename>
+    <file>decl.hpp</file>
+    <file>print.hpp</file>
+  </compound>
+</tagfile>
